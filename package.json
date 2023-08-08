@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "fake-backend": "json-server --watch fakedb.json --port 5000",
+    "dev": "concurrently --kill-others \"npm run fake-backend\" \"npm run serve\""
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -14,7 +16,8 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "concurrently": "^8.2.0"
   },
   "browserslist": [
     "> 1%",
