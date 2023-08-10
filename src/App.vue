@@ -71,3 +71,9 @@ nav a.router-link-exact-active {
 }
 
 </style>
+
+<!-- TODO
+
+  Multi-language
+
+-->

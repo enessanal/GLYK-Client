@@ -1,7 +1,5 @@
 <template>
     <h2>Invoices</h2>
-
-
     <div class="table-responsive">
     <table class="table table-hover table-striped">
     <thead>
@@ -22,7 +20,7 @@
         <td>{{ invoice.invoiceDetails.deliveryDate }}</td>
         <td>{{ invoice.invoiceDetails.staffFullName }}</td>
         <td class="text-center">
-          <router-link :to="{name:'InvoiceDetailsView', params:{id: invoice.id}}"><button class="btn btn-primary btn-sm mx-1"><i class="bi bi-box-arrow-in-right"></i></button></router-link>
+          <router-link :to="{name:'InvoiceDetailsView', params:{id: invoice.id}}"><button class="btn btn-primary btn-sm mx-1"><i class="bi bi-pencil-square"></i></button></router-link>
         </td>
       </tr>
     </tbody>
@@ -31,37 +29,27 @@
 
 </template>
 
-
-
-
-
 <script>
-
-export default
-{
-    data(){
-        return{
-            invoices:[]
+  export default
+  {
+    data()
+    {
+      return{
+          invoices:[]
         }
     },
     methods:
     {
-        async fetchInvoices()
-        {
-            const response  = await fetch("/api/invoices");
-            const data = await response.json();
-            return data;
-        }
+      async fetchInvoices()
+      {
+        const response  = await fetch("/api/invoices");
+        const data = await response.json();
+        return data;
+      }
     },
     async created()
     {
-        this.invoices = await this.fetchInvoices();
+      this.invoices = await this.fetchInvoices();
     }
-}
-
-
-
-
-
-
+  }
 </script>
