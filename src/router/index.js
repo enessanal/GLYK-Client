@@ -6,8 +6,10 @@ import UserListView from '@/views/User/UserListView.vue'
 import UserDetailsView from '@/views/User/UserDetailsView.vue'
 
 import ProductListView from '@/views/Product/ProductListView.vue'
-import CartView from '@/views/Product/CartView.vue'
 
+import CartView from '@/views/Sale/CartView.vue'
+import InvoiceListView from '@/views/Sale/InvoiceListView.vue'
+import InvoiceDetailsView from '@/views/Sale/InvoiceDetailsView.vue'
 
 
 const routes = [
@@ -52,7 +54,23 @@ const routes = [
     },
     component: CartView
   },
-
+  {
+    path: '/invoices',
+    name: 'InvoiceListView',
+    meta: {
+      title: "GLYK - Invoices",
+    },
+    component: InvoiceListView
+  },
+  {
+    path: '/invoices/:id',
+    name: "InvoiceDetailsView",
+    meta:
+    {
+      title: "GLYK - Invoice Details"
+    },
+    component: InvoiceDetailsView
+  },
   // redirect
   {
     path: '/all-users',
@@ -68,12 +86,12 @@ const routes = [
   {
     path:'/:catchAll(.*)',
     name: 'NotFound',
+    meta:
+    {
+      title: "GLYK - 404 Not Found"
+    },
     component: NotFoundView
   }
-
-
-
-
 ]
 
 

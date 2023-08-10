@@ -19,6 +19,9 @@
             <li class="nav-item">
               <b><router-link class="nav-link" :to="{ name: 'CartView' }">Cart</router-link></b>
             </li>
+            <li class="nav-item">
+              <b><router-link class="nav-link" :to="{ name: 'InvoiceListView' }">Invoices</router-link></b>
+            </li>
           </ul>
 
         </div>
