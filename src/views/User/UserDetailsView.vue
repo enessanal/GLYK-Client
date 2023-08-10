@@ -44,6 +44,11 @@ export default{
     const response = await fetch(`/api/users/${this.id}`);
     const data = await response.json();
     this.user = data;
+
+    if(response.status == 404)
+    {
+        this.$router.push({ path: '/users'});
+    }
   }
 
 }
