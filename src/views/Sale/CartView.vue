@@ -53,25 +53,26 @@
                     <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
                     <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.creditCard},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
                     <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.last},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
-                    <!-- <td class="text-center"><b contenteditable="true">{{totalPrice.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td> -->
-                    <!-- <td class="text-center"><b contenteditable="true" ref="editableCell" @input="updateTotalPrice">{{ totalPriceFormatted }}</b></td> -->
-                    <td class="text-center bg-warning"><b contenteditable="true" ref="editableCell" 
-                        @keydown="validateInput" 
-                        @paste="handlePaste"
-                        @blur="updateTotalPrice"
-                        >{{ totalPriceFormatted }}</b></td>
-                    
+                    <td class="text-center bg-warning"><b contenteditable="true" ref="editableCell" @keydown="validateInput" @paste="handlePaste" @blur="updateTotalPrice" @focus="prepareEdit">{{ totalPriceFormatted }}</b></td>
+                    <td class="text-center"><button class="btn btn-danger mx-1" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><i>(Diff: {{ difference.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }})</i></td>
+                    <td></td>
                 </tr>
             </tbody>
-
-
-
         </table>
-
-
     </div>
-
-
 </template>
 
 
@@ -83,7 +84,8 @@
         {
             return{
                 cart:{},
-                totalPrice:0
+                totalPrice:0,
+                difference:0
             }
         },
         methods:
@@ -91,21 +93,31 @@
             increaseAmount(product)
             {
                 product.amount ++;
+                this.generateTotalSalePrice();
             },
             decreaseAmount(product)
             {
-                if(product.amount==1)
+                product.amount --;
+                
+                if(product.amount == 0 && confirm(`Are you sure you want to remove ${product.name}`))
                 {
-                    var removeOk = confirm(`Are you sure you want to remove ${product.name}`);
-                    if(removeOk)
-                    {
-                        const index = this.cart.products.indexOf(product);
-                        this.cart.products.splice(index, 1);
-                    }
+                    const index = this.cart.products.indexOf(product);
+                    this.cart.products.splice(index, 1);
                 }
-                else
+                else if(product.amount == 0)
                 {
-                    product.amount --;
+                    product.amount=1;
+                }
+                this.generateTotalSalePrice();
+
+            },
+            empty()
+            {
+                var removeOk = confirm(`Are you sure you want to remove all?`);
+                if(removeOk)
+                {
+                    this.cart.products=[];
+                    this.generateTotalSalePrice();
                 }
             },
             handlePaste(event) 
@@ -122,7 +134,6 @@
                     event.preventDefault();
                     this.$refs.editableCell.blur();
                 }
-            
 
                 if(!allowedKeys.includes(input) || this.totalPriceFormatted.length >= 15)
                 {
@@ -132,15 +143,57 @@
             updateTotalPrice(event) 
             {
                 let newValue = parseFloat(event.target.innerText.replace(/[.]/g, '').replace(',', '.')) || 0;
-                this.totalPrice = newValue;
+                console.log(newValue);
+                this.totalPrice = this.customRound(newValue);
+                event.target.innerText=this.totalPriceFormatted;
+            },
+            generateTotalSalePrice()
+            {
+                let totalInAdvence = (this.cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0));
+                this.totalPrice = this.customRound(totalInAdvence*1.25);
             },
             calculateSalePrices()
             {
+                console.log("!!!");
                 let totalInAdvence = (this.cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0));
-                for(let product in this.cart.products)
+                
+                let reelSum=0.0;
+                let roundedSum=0.0;
+
+                for(const product in this.cart.products)
                 {
-                    this.cart.products[product].prices.sale = (this.cart.products[product].prices.inAdvance/totalInAdvence)*this.totalPrice;
+                    let salePriceBeforeRound = ( (this.cart.products[product].prices.inAdvance*this.cart.products[product].amount )/totalInAdvence)*this.totalPrice;
+                    let roundedPrice = this.customRound(salePriceBeforeRound);
+                    reelSum +=salePriceBeforeRound;
+                    roundedSum+=roundedPrice;
+                    this.cart.products[product].prices.sale = roundedPrice;
                 }
+                this.difference = reelSum-roundedSum;
+            },
+            customRound(number) 
+            {
+                if (number > 2000) 
+                {
+                    return Math.round(number / 100) * 100;
+                } else if (number > 100)
+                {
+                    return Math.round(number / 10) * 10;
+                }
+                else if (number > 0)
+                {
+                    return Math.round(number);
+                }
+                else
+                {
+                    return 0;
+                }
+            },
+            prepareEdit()
+            {
+                let cellValue = this.$refs.editableCell.textContent;
+                cellValue = cellValue.replace(/\./g, '').split(',')[0];
+                this.$refs.editableCell.textContent = cellValue; 
+
             }
         },
         computed:
@@ -148,13 +201,28 @@
             totalPriceFormatted() 
             { 
                 return this.totalPrice.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2});
-            } 
+            }
         },
         watch:
         {
             totalPrice:function()
             {
                 this.calculateSalePrices();
+            },
+            products: 
+            {
+                handler(newValue, oldValue) 
+                {
+                    for (let i = 0; i < newValue.length; i++) 
+                    {
+                        if (newValue[i].amount !== oldValue[i].amount) 
+                        {
+                            alert("amount changed!");
+                            break;
+                        }
+                    }
+                },
+                deep: true,
             }
         },
         async created()
@@ -163,10 +231,12 @@
             const data = await response.json();
             this.cart = data;
 
-            let totalInAdvence = (this.cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0));
-            this.totalPrice = totalInAdvence*1.25;
-            this.calculateSalePrices();
-
+            this.generateTotalSalePrice();
+        },
+        mounted()
+        {
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {return new bootstrap.Tooltip(tooltipTriggerEl)})
         }
     }
 </script>
