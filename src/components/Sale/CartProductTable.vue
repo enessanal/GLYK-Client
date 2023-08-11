@@ -32,8 +32,24 @@
                     <td class="text-center">{{ (product.amount*product.prices.last).toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }} </td>
                     <td class="text-center">{{ product.prices.sale.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }} </td>
                     <td class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1" @click="decreaseAmount(product)"><i class="bi bi-dash-circle-fill"></i></button>
-                        <button class="btn btn-success btn-sm mx-1" @click="increaseAmount(product)"><i class="bi bi-plus-circle-fill"></i></button>
+                       <!-- Eğer ürün miktarı 1 ise trash iconunu göster -->
+                        <i 
+                            v-if="product.amount === 1" 
+                            class="bi bi-trash-fill icon-action text-danger" 
+                            @click="decreaseAmount(product)" 
+                            title="Remove Product">
+                        </i>
+                        <i 
+                            v-else 
+                            class="bi bi-dash-circle-fill icon-action text-danger" 
+                            @click="decreaseAmount(product)" 
+                            title="Decrease Amount">
+                        </i>
+                        <i 
+                        class="bi bi-plus-circle-fill icon-action text-success mx-1" 
+                            @click="increaseAmount(product)" 
+                            title="Increase Amount">
+                        </i>
                     </td>
                 </tr>
 
@@ -49,7 +65,7 @@
                     <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.creditCard},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
                     <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.last},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
                     <td class="text-center bg-warning"><b contenteditable="true" ref="editableCell" @keydown="validateInput" @paste="handlePaste" @blur="updateTotalPrice" @focus="prepareEdit">{{ totalPriceFormatted }}</b></td>
-                    <td class="text-center"><button class="btn btn-danger mx-1" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
+                    <td class="text-center"><button id="clearBtn" class="btn btn-danger mx-1" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -220,3 +236,33 @@
     }
 
 </script>
+
+
+
+
+<style scoped>
+
+.icon-action 
+{
+    cursor: pointer;
+    transition: transform .2s;
+    display: inline-block;
+}
+
+.icon-action:hover 
+{
+    transform: scale(1.5);
+}
+
+#clearBtn
+{
+    transition: transform .1s;
+}
+
+#clearBtn:hover
+{
+    transform: scale(1.5);
+}
+
+
+</style>
