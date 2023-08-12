@@ -60,12 +60,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td class="text-center"><b>{{ cart.products?.reduce((accumulator, product) => {return accumulator + product.amount},0)}}</b></td>
-                    <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
-                    <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.creditCard},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
-                    <td class="text-center"><b>{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.last},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</b></td>
-                    <td class="text-center bg-warning"><b contenteditable="true" ref="editableCell" @keydown="validateInput" @paste="handlePaste" @blur="updateTotalPrice" @focus="prepareEdit">{{ totalPriceFormatted }}</b></td>
-                    <td class="text-center"><button id="clearBtn" class="btn btn-danger mx-1" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
+                    <td class="text-center fw-bold">{{ cart.products?.reduce((accumulator, product) => {return accumulator + product.amount},0)}}</td>
+                    <td class="text-center fw-bold">{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.inAdvance},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+                    <td class="text-center fw-bold">{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.creditCard},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+                    <td class="text-center fw-bold">{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.last},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
+                    <td class="text-center fw-bold" :contenteditable="cart?.products?.length>0"  ref="editableCell" @keydown="validateInput" @paste="handlePaste" @blur="updateTotalPrice" @focus="prepareEdit">{{ totalPriceFormatted }}</td>
+                    <td class="text-center fw-bold"><button id="clearBtn" class="btn btn-danger btn-sm" ref="clearButton" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -78,7 +78,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><i>(Diff: {{ difference.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }})</i></td>
+                    <td><small><i>({{ difference.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }})</i></small></td>
                     <td></td>
                 </tr>
             </tbody>
@@ -203,6 +203,12 @@
                 let cellValue = this.$refs.editableCell.textContent;
                 cellValue = cellValue.replace(/\./g, '').split(',')[0];
                 this.$refs.editableCell.textContent = cellValue; 
+
+                const range = document.createRange();
+                range.selectNodeContents(this.$refs.editableCell);
+                const selection = window.getSelection();
+                selection.removeAllRanges();
+                selection.addRange(range);
             }
         },
         computed:
@@ -264,5 +270,32 @@
     transform: scale(1.5);
 }
 
+tbody
+{
+    font-size: 1rem;
+}
+
+td 
+{
+    vertical-align: middle;
+}
+
+td[contenteditable="true"] 
+{
+    background-color: rgba(255, 253, 127, 0.293);
+}
+
+
+td[contenteditable="true"]:hover 
+{
+    cursor:cell;
+}
+
+td[contenteditable="true"]:focus 
+{
+    background-color: rgba(204, 255, 0, 0.422);
+    border-style: dotted;
+    cursor: text;
+}
 
 </style>
