@@ -1,6 +1,5 @@
 # GLYK-Client
-Vuejs Client for GLYK Product and Sales Management API.
-
+Vuejs Client for SME-Management API.
 
 #### Install Dependencies
 ```sh
