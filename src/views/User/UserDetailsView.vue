@@ -12,6 +12,7 @@
 
 <script>
 import BackButton from "@/components/BackButton.vue"
+import axios from "axios"
 
 export default{
     data(){
@@ -26,14 +27,18 @@ export default{
     },
     async created()
     {
-      const response = await fetch(`/api/users/${this.id}`);
-      const data = await response.json();
-      this.user = data;
-
-      if(response.status == 404)
+      axios.get(`/api/users/${this.id}`)
+      .then(response => 
       {
+        this.user = response.data;
+      })
+      .catch(response => 
+      {
+        if(response.response.status === 404)
+        {
           this.$router.push({ path: '/users'});
-      }
+        }
+      })
     }
 }
 </script>
