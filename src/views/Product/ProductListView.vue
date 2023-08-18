@@ -93,12 +93,11 @@ export default
         .then(response => 
         {
             this.products = response.data.data;
-            this.pagination = response.data.pagination;
-
+            // this.pagination = response.data.pagination;
         })
-        .catch(response => 
+        .catch(axiosError => 
         {
-            console.log(response);
+            alert(axiosError.message);
         })
     }
 }

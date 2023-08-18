@@ -33,6 +33,8 @@ export default{
     this.invoice = data;
     if(response.status == 404)
     {
+      
+      alert("Invoice not found!")
       this.$router.push({ path: '/invoices'});
     }
   }

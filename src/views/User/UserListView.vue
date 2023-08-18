@@ -14,23 +14,33 @@
 import axios from "axios";
 export default{
     props: ['id'],
-    data(){
-        return{
+    data()
+    {
+        return {
             users:[]
         }
     },
-    methods:{
-        
-        async fetchUsers()
+    methods:
+    {
+        async getUsers()
         {
-            const response = await axios.get("/api/users");
-            return response.data;
+            axios.get(`/api/users`)
+            .then(response => 
+            {
+                console.log(response.data)
+                this.users = response.data;
+            })
+            .catch(axiosError => 
+            {
+                alert(axiosError.message);
+                this.users = [];
+            })
         }
     },
     async created()
-        {
-            this.users= await this.fetchUsers();
-        }
+    {
+        await this.getUsers();
+    }
 }
 </script>
     
