@@ -45,6 +45,8 @@
 
 
 <style>
+@import '@/assets/css/bootstrap@5.0.2_dist_css_bootstrap.min.css';
+
 .prevent-select {
  -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
