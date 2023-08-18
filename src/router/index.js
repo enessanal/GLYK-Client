@@ -11,6 +11,9 @@ import CartView from '@/views/Sale/CartView.vue'
 import InvoiceListView from '@/views/Sale/InvoiceListView.vue'
 import InvoiceDetailsView from '@/views/Sale/InvoiceDetailsView.vue'
 
+import CustomerListView from '@/views/Customer/CustomerListView.vue'
+import CustomerDetailsView from '@/views/Customer/CustomerDetailsView.vue'
+
 
 const routes = [
   {
@@ -71,6 +74,24 @@ const routes = [
     },
     component: InvoiceDetailsView
   },
+  {
+    path: '/customers',
+    name: 'CustomerListView',
+    meta: {
+      title: "GLYK - Customers",
+    },
+    component: CustomerListView
+  },
+  {
+    path: '/customers/id/:id',
+    name: "CustomerDetailsView",
+    meta:
+    {
+      title: "GLYK - Customer Details"
+    },
+    component: CustomerDetailsView
+  },
+  
   // redirect
   {
     path: '/all-users',
