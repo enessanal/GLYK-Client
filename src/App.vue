@@ -35,7 +35,6 @@
       <router-view />
     </div>
 
-    
     <!-- <hr>
     Footer -->
   

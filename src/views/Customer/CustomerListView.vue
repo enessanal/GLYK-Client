@@ -2,20 +2,23 @@
     <h1 class="mb-3">Customers</h1>
     
     <div class="d-flex flex-row-reverse bd-highlight">
-        <div >
         <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
             <span class="me-3">Total Customers </span><span class="badge bg-primary rounded-pill">{{ count }}</span>
         </li>
     </div>
+
+    <div class="alert alert-dismissible alert-danger mt-2" v-if="error">
+        <strong>{{errorMessage}}</strong>
     </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" v-if="customers.length > 0">
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Code</th>
                     <th scope="col">Full Name</th>
+                    <th scope="col">TC</th>
                     <th scope="col">Email</th>
                     <th scope="col">Mobile Phone</th>
                     <th scope="col" class="text-center">Actions</th>
@@ -25,8 +28,9 @@
             <tbody>
                 <tr v-for="(customer, index) in customers" :key="customer?.id">
                     <th scope="row">{{index+1}}</th>
-                    <td>{{ customer?.accountCode }} </td>
+                    <td>{{ customer?.code }} </td>
                     <td>{{ customer?.fullName }} </td>
+                    <td>{{ customer?.identityNumber}} </td>
                     <td>{{ customer?.email }} </td>
                     <td>{{ customer?.mobilePhone }} </td>
                     <td class="text-center">
@@ -52,7 +56,9 @@ import axios from "axios"
             return{
                 
                 customers : [],
-                count:0
+                count:0,
+                error:false,
+                errorMessage:""
             }
         },
         methods:
@@ -68,8 +74,10 @@ import axios from "axios"
                 })
                 .catch(axiosError => 
                 {
-                    alert(axiosError.message);
+                    // alert(axiosError.message);
                     this.customers = [];
+                    this.error=true;
+                    this.errorMessage=axiosError.message;
                 })
             },
             

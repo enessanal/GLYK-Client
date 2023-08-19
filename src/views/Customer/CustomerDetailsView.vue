@@ -1,7 +1,7 @@
 <template>
     <BackButton/>
     <div class="container overflow-auto">
-        <h2 class="text-center"><b>{{ customer.fullName }} ({{ customer.accountCode }})</b></h2>
+        <h2 class="text-center"><b>{{ customer.fullName }} ({{ customer.code }})</b></h2>
         
         <div class="table-responsive">
             <table class="table table-hover">
@@ -14,7 +14,6 @@
                     <th>Email</th>
                     <td>{{ customer.email }}</td>
                 </tr>
-import CustomerListViewVue from "./CustomerListView.vue"
 
                 <tr>
                     <th>Created Time</th>
@@ -32,23 +31,21 @@ import CustomerListViewVue from "./CustomerListView.vue"
                 </tr>
             </table>
         </div>
-        <p class="lead">Müşteriler max 3 adrese sahip olabilecekler ve adres adları ve içerikleri burada sıralanacak. 
-            Ayrıca sözleşmedeki teslimat adresi de o sözleşmeye özgü olacak. Sonradan müşteri ve adresleri değiştirilse bile sözleşme değişmeyecek.
-        Ve benzer şekilde; sözleşme teslimat adresi müşteri adresleri içinden de getirilebilecek.
-    
-    
-        Adresler için Accordions kulanılabilir.
-        Home altında genel istatisliker konulacak. Customer count, product, user...
-    </p>
-        <!-- <p class="lead"></p> -->
-        <div class="mb-3">
-            <label for="address" class="form-label fw-bold">Müşteri Adresi</label>
-            <textarea class="form-control" id="address" disabled style="resize:none">{{ customer.address }}</textarea>
-        </div>
+       
 
-        <div class="mb-3">
-            <label for="deliveryAddress" class="form-label fw-bold">Teslim Adresi</label>
-            <textarea class="form-control" id="deliveryAddress" disabled>{{ customer.deliveryAddress }}</textarea>
+
+        <h2>Customer Adresses</h2>
+        <hr>
+
+        <div class="mb-3" v-for="(address, index) in customer.addresses">
+            
+            <h3>{{ index+1 }} - {{ address.name }}</h3>
+            <h4>{{ address.district }} / {{ address.city }}</h4>
+
+
+
+            <label for="address" class="form-label fw-bold">Details: </label>
+            <textarea class="form-control" id="addressDetails" disabled style="resize:none">{{ address.details + " "+address.district+"/"+address.city}}</textarea>
         </div>
 
     </div>

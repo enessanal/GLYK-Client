@@ -93,7 +93,6 @@ export default
         .then(response => 
         {
             this.products = response.data.data;
-            // this.pagination = response.data.pagination;
         })
         .catch(axiosError => 
         {
