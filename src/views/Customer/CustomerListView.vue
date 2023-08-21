@@ -65,12 +65,11 @@ import axios from "axios"
         {
             async getCustomers()
             {
-                
                 axios.get(`http://127.0.0.1:8080/api/v1/customers`)
                 .then(response => 
                 {
                     console.log(response.data)
-                    this.customers = response.data;
+                    this.customers = response.data.content;
                 })
                 .catch(axiosError => 
                 {
