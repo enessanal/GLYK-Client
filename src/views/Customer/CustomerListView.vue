@@ -16,10 +16,10 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Code</th>
-                    <th scope="col">Full Name</th>
-                    <th scope="col">TC</th>
-                    <th scope="col">Email</th>
+                    <th scope="col"><span class="clickable"  @click="sortTable('code')" :class="{ 'sort-asc': sortBy === 'code' && sortOrder === 'asc', 'sort-desc': sortBy === 'code' && sortOrder === 'desc' }">Code</span></th>
+                    <th scope="col"><span class="clickable"  @click="sortTable('fullName')" :class="{ 'sort-asc': sortBy === 'fullName' && sortOrder === 'asc', 'sort-desc': sortBy === 'fullName' && sortOrder === 'desc' }">Full Name </span></th>
+                    <th scope="col"><span class="clickable"  @click="sortTable('identityNumber')" :class="{ 'sort-asc': sortBy === 'identityNumber' && sortOrder === 'asc', 'sort-desc': sortBy === 'identityNumber' && sortOrder === 'desc' }">Tc</span></th>
+                    <th scope="col"><span class="clickable"  @click="sortTable('email')"  :class="{ 'sort-asc': sortBy === 'email' && sortOrder === 'asc', 'sort-desc': sortBy === 'email' && sortOrder === 'desc' }">Email</span></th>
                     <th scope="col">Mobile Phone</th>
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
@@ -48,11 +48,8 @@
     <div class="d-flex justify-content-between prevent-select">
         <div class="d-inline-flex">
             <select class="form-select" v-model="page.size" @change="getCustomers(1)">
-                <option disabled >Page Size</option>
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+                <option disabled value="">Page Size</option>
+                <option v-for="size in sizes" :value="size">{{size}}</option>
             </select>
         </div>
         <div class="d-inline-flex">
@@ -96,15 +93,27 @@ import axios from "axios"
                 error:false,
                 errorMessage:"",
                 customers : [],
-                page:
-                {
-                    // size:10,
-                    // number:1,
-                }
+                page:{},
+                sizes:[10,25,50,100],
+                sortOrder:"",
+                sortBy:""
             }
         },
         methods:
         {
+            async sortTable(sortBy)
+            {
+                if(this.sortBy === sortBy)
+                {
+                    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+                }
+                else
+                {
+                    this.sortBy = sortBy;
+                    this.sortOrder = 'asc';
+                }
+                this.getCustomers(this.page.number+1);
+            },
             async getCustomers(pageNumber)
             {
                 this.page.number = pageNumber;
@@ -116,6 +125,8 @@ import axios from "axios"
                 {
                     size: this.page.size,
                     page: this.page.number,
+                    sortBy: this.sortBy,
+                    direction: this.sortOrder
                 }
                 console.log("params:");
                 console.log(params);
@@ -125,8 +136,9 @@ import axios from "axios"
                 {
                     this.page=response.data;
                     this.customers = this.page.content;
- 
-                    console.log(this.page)
+                    
+                    this.error = false;
+
                 })
                 .catch(axiosError => 
                 {
@@ -183,6 +195,36 @@ import axios from "axios"
 
 
 <style scoped>
+
+
+.sort-asc, .sort-desc
+{
+    text-decoration: underline;
+}
+
+
+.sort-asc::after 
+{
+    content: "↑"; /* veya istediğiniz bir Unicode karakteri */
+}
+
+.sort-desc::after 
+{
+    content: "↓"; /* veya istediğiniz bir Unicode karakteri */
+}
+
+
+
+.clickable
+{
+    color: cornflowerblue;
+}
+.clickable:hover
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 
 .icon-action 
 {
