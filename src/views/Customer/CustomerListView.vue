@@ -30,7 +30,7 @@
                     <td v-for="column in columns">{{ customer[column.name] }}</td>
 
                     <td class="text-center">
-                        <i class="bi bi-trash-fill icon-action text-danger mx-1" @click="confirmDelete(customer)" title="Delete"></i>
+                        <IconTrashFill :object="customer" :title="'Delete'" @call="confirmDelete"></IconTrashFill>
                         <router-link :to="{name:'CustomerDetailsView', params:{id: customer.id}}"><i class="bi bi-info-square-fill icon-action" title="Details"></i></router-link>
                     </td>
                 </tr>
@@ -46,12 +46,14 @@
 <script>
 import axios from "axios"
 import Pagination from "@/components/Pagination.vue"
+import IconTrashFill from "@/components/IconTrashFill.vue"
 
 export default
 {
     components:
     {
-        Pagination
+        Pagination,
+        IconTrashFill
     },  
     data()
     {
@@ -85,10 +87,6 @@ export default
         {
             this.getCustomers(number);
         },
-
-
-
-
         async sortTable(sortBy)
         {
             if(this.sortBy === sortBy)
@@ -189,7 +187,6 @@ export default
     text-decoration: underline;
 }
 
-
 .sort-asc::after 
 {
     content: "↑"; /* veya istediğiniz bir Unicode karakteri */
@@ -208,19 +205,6 @@ export default
 {
     cursor: pointer;
     text-decoration: underline;
-}
-
-
-.icon-action 
-{
-    cursor: pointer;
-    transition: transform .2s;
-    display: inline-block;
-}
-
-.icon-action:hover
-{
-    transform: scale(1.5);
 }
 
 .disabled:hover {

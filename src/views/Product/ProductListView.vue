@@ -89,7 +89,7 @@ export default
     },
     async created()
     {
-        axios.get(`/api/products`)
+        axios.get(`http://localhost:5000/products`)
         .then(response => 
         {
             this.products = response.data.data;
