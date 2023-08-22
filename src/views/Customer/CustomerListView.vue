@@ -11,7 +11,7 @@
         <strong>{{errorMessage}}</strong>
     </div>
 
-    <div class="table-responsive" v-if="customers.length > 0">
+    <div class="table-responsive" v-if="customers?.length > 0">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -27,7 +27,7 @@
 
             <tbody>
                 <tr v-for="(customer, index) in customers" :key="customer?.id">
-                    <th scope="row">{{index+1}}</th>
+                    <th scope="row">{{page.pageable.offset + index+1}}</th>
                     <td>{{ customer?.code }} </td>
                     <td>{{ customer?.fullName }} </td>
                     <td>{{ customer?.identityNumber}} </td>
@@ -44,36 +44,92 @@
 
 
 
+    
+    <div class="d-flex justify-content-between prevent-select">
+        <div class="d-inline-flex">
+            <select class="form-select" v-model="page.size" @change="getCustomers(1)">
+                <option disabled >Page Size</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <div class="d-inline-flex">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" :class="{ 'disabled': this.page?.number === 0 }">
+                        <a class="page-link" href="#" @click="getCustomers(this.page?.number)">&laquo;</a>
+                    </li>
+
+                    <li class="page-item" :class="{ 'active': pageNumber === this.page?.number+1 }" v-for="pageNumber in this.page?.totalPages">
+                        <a class='page-link' href="#" @click="getCustomers(pageNumber)">{{ pageNumber }} </a>
+                    </li>
+                    
+                    <li class="page-item" :class="{ 'disabled': this.page?.number === this.page?.totalPages-1 }">
+                        <a class="page-link" href="#" @click="getCustomers(this.page?.number+2)">&raquo;</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+   
+
+
+
+
+
 </template>
 
 
 <script>
 import axios from "axios"
+
     export default
     {
         data()
         {
             return{
-                
-                customers : [],
                 count:0,
                 error:false,
-                errorMessage:""
+                errorMessage:"",
+                customers : [],
+                page:
+                {
+                    // size:10,
+                    // number:1,
+                }
             }
         },
         methods:
         {
-            async getCustomers()
+            async getCustomers(pageNumber)
             {
-                axios.get(`http://127.0.0.1:8080/api/v1/customers`)
+                this.page.number = pageNumber;
+
+                this.customers=[];
+                this.page.totalPages = 1;
+
+                const params = 
+                {
+                    size: this.page.size,
+                    page: this.page.number,
+                }
+                console.log("params:");
+                console.log(params);
+
+                axios.get(`customers`,{params})
                 .then(response => 
                 {
-                    console.log(response.data)
-                    this.customers = response.data.content;
+                    this.page=response.data;
+                    this.customers = this.page.content;
+ 
+                    console.log(this.page)
                 })
                 .catch(axiosError => 
                 {
-                    // alert(axiosError.message);
                     this.customers = [];
                     this.error=true;
                     this.errorMessage=axiosError.message;
@@ -82,7 +138,7 @@ import axios from "axios"
             
             async countCustomers()
             {
-                axios.get(`http://127.0.0.1:8080/api/v1/customers/count`)
+                axios.get(`customers/count`)
                 .then(response => 
                 {
                     this.count = response.data;
@@ -95,7 +151,7 @@ import axios from "axios"
             },
             async deleteCustomer(id)
             {
-                axios.delete(`http://127.0.0.1:8080/api/v1/customers/id/${id}`)
+                axios.delete(`customers/id/${id}`)
                 .then(response => 
                 {
                     if(response.status === 204)
@@ -139,5 +195,9 @@ import axios from "axios"
 {
     transform: scale(1.5);
 }
+
+.disabled:hover {
+    cursor:not-allowed
+ }
 
 </style>
