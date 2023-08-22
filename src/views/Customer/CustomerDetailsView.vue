@@ -34,7 +34,7 @@
        
 
 
-        <h2>Customer Adresses</h2>
+        <!-- <h2>Customer Adresses</h2>
         <hr>
 
         <div class="mb-3" v-for="(address, index) in customer.addresses">
@@ -46,9 +46,35 @@
 
             <label for="address" class="form-label fw-bold">Details: </label>
             <textarea class="form-control" id="addressDetails" disabled style="resize:none">{{ address.details + " "+address.district+"/"+address.city}}</textarea>
-        </div>
+        </div> -->
 
     </div>
+
+
+    <div class="accordion my-3" :id="'accordion'+index" v-for="(address, index) in customer.addresses">
+        <div class="accordion-item" >
+            <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" :data-bs-target="'#collapse'+ index" aria-expanded="false" aria-controls="collapseTwo">
+                <strong>{{ address.name }} <small>({{ address.district}} / {{ address.city  }})</small></strong> 
+            </button>
+            </h2>
+            <div :id="'collapse' + index" class="accordion-collapse collapse" aria-labelledby="headingTwo" :data-bs-parent="'#accordion'+index">
+                <div class="accordion-body">
+                    {{ address.details }}
+                    <br><br>
+                    <strong>{{ address.district}} / {{ address.city  }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
   </template>
 
 
