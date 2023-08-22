@@ -16,11 +16,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col"><span class="clickable"  @click="sortTable('code')" :class="{ 'sort-asc': sortBy === 'code' && sortOrder === 'asc', 'sort-desc': sortBy === 'code' && sortOrder === 'desc' }">Code</span></th>
-                    <th scope="col"><span class="clickable"  @click="sortTable('fullName')" :class="{ 'sort-asc': sortBy === 'fullName' && sortOrder === 'asc', 'sort-desc': sortBy === 'fullName' && sortOrder === 'desc' }">Full Name </span></th>
-                    <th scope="col"><span class="clickable"  @click="sortTable('identityNumber')" :class="{ 'sort-asc': sortBy === 'identityNumber' && sortOrder === 'asc', 'sort-desc': sortBy === 'identityNumber' && sortOrder === 'desc' }">Tc</span></th>
-                    <th scope="col"><span class="clickable"  @click="sortTable('email')"  :class="{ 'sort-asc': sortBy === 'email' && sortOrder === 'asc', 'sort-desc': sortBy === 'email' && sortOrder === 'desc' }">Email</span></th>
-                    <th scope="col">Mobile Phone</th>
+                
+                    <th scope="col" v-for="column in columns"><span class="clickable"  @click="sortTable(column.name)" :class="{ 'sort-asc': sortBy === column.name && sortOrder === 'asc', 'sort-desc': sortBy === column.name && sortOrder === 'desc' }">{{column.display}}</span></th>
+
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -89,6 +87,15 @@ import axios from "axios"
         data()
         {
             return{
+
+                columns:
+                [
+                    {name:"code", display:"Code"},
+                    {name:"fullName", display:"Full Name"},
+                    {name:"identityNumber", display:"Tc"},
+                    {name:"email", display:"Email"},
+                    {name:"mobilePhone", display:"Mobile Phone"}
+                ],
                 count:0,
                 error:false,
                 errorMessage:"",
