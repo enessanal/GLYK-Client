@@ -26,11 +26,9 @@
             <tbody>
                 <tr v-for="(customer, index) in customers" :key="customer?.id">
                     <th scope="row">{{page.pageable.offset + index+1}}</th>
-                    <td>{{ customer?.code }} </td>
-                    <td>{{ customer?.fullName }} </td>
-                    <td>{{ customer?.identityNumber}} </td>
-                    <td>{{ customer?.email }} </td>
-                    <td>{{ customer?.mobilePhone }} </td>
+                    
+                    <td v-for="column in columns">{{ customer[column.name] }}</td>
+
                     <td class="text-center">
                         <i class="bi bi-trash-fill icon-action text-danger mx-1" @click="confirmDelete(customer)" title="Delete"></i>
                         <router-link :to="{name:'CustomerDetailsView', params:{id: customer.id}}"><i class="bi bi-info-square-fill icon-action" title="Details"></i></router-link>
