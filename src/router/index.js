@@ -5,14 +5,16 @@ import NotFoundView from '@/views/Other/NotFoundView.vue'
 import UserListView from '@/views/User/UserListView.vue'
 import UserDetailsView from '@/views/User/UserDetailsView.vue'
 
-import ProductListView from '@/views/Product/ProductListView.vue'
-
 import CartView from '@/views/Sale/CartView.vue'
 import InvoiceListView from '@/views/Sale/InvoiceListView.vue'
 import InvoiceDetailsView from '@/views/Sale/InvoiceDetailsView.vue'
 
 import CustomerListView from '@/views/Customer/CustomerListView.vue'
 import CustomerDetailsView from '@/views/Customer/CustomerDetailsView.vue'
+
+import ProductListView from '@/views/Product/ProductListView.vue'
+import ProductDetailsView from '@/views/Product/ProductDetailsView.vue'
+
 
 
 const routes = [
@@ -39,6 +41,15 @@ const routes = [
       title: "GLYK - Products",
     },
     component: ProductListView
+  },
+  {
+    path: '/products/id/:id',
+    name: "ProductDetailsView",
+    meta:
+    {
+      title: "GLYK - Product Details"
+    },
+    component: ProductDetailsView
   },
   {
     path: "/users/:id",

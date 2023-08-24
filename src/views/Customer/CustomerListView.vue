@@ -17,7 +17,13 @@
                 <tr>
                     <th scope="col">#</th>
                 
-                    <th scope="col" v-for="column in columns"><span class="clickable"  @click="sortTable(column.name)" :class="{ 'sort-asc': sortBy === column.name && sortOrder === 'asc', 'sort-desc': sortBy === column.name && sortOrder === 'desc' }">{{column.display}}</span></th>
+                    <th scope="col" v-for="column in columns">
+                        <span class="clickable"  
+                        @click="sortTable(column.name)" 
+                        :class="{ 'sort-asc': sortBy === column.name && sortOrder === 'asc', 'sort-desc': sortBy === column.name && sortOrder === 'desc' }">
+                            {{column.display}}
+                        </span>
+                    </th>
 
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
@@ -114,8 +120,6 @@ export default
                 sortBy: this.sortBy,
                 direction: this.sortOrder
             }
-            console.log("params:");
-            console.log(params);
 
             axios.get(`customers`,{params})
             .then(response => 

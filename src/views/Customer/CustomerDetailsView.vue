@@ -86,7 +86,8 @@ import BackButton from "@/components/BackButton.vue"
 import axios from "axios"
 
 export default{
-    data(){
+    data()
+    {
         return {
             id: this.$route.params.id,
             customer: {}
@@ -98,7 +99,7 @@ export default{
     },
     async created()
     {
-      axios.get(`http://localhost:8080/api/v1/customers/id/${this.id}`)
+      axios.get(`customers/id/${this.id}`)
       .then(response => 
       {
         console.log(response)
