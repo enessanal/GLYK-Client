@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid container-md">
+  <div class="container-fluid">
     <Navbar/>
     <hr>
     <div class="bg-light py-3">
