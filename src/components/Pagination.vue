@@ -7,7 +7,7 @@
             </select>
         </div>
 
-        <div class="d-inline-flex">
+        <div class="d-inline-flex overflow-auto">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-end">
                     <li class="page-item" :class="{ 'disabled': page?.number === 0 }">
