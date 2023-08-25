@@ -32,9 +32,10 @@ export default
         {name:"HomeView", display:"Home"},
         {name:"CustomerListView", display:"Customers"},
         {name:"ProductListView", display:"Products"},
+        {name:"BrandView", display:"Brands"},
         {name:"UserListView", display:"Users"},
         {name:"CartView", display:"Cart"},
-        {name:"InvoiceListView", display:"Invoices"}
+        {name:"InvoiceListView", display:"Invoices"},
       ]
 
     }
