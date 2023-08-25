@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex justify-content-between prevent-select">
+    <div class="d-flex justify-content-between user-select-none">
         <div class="d-inline-flex">
             <select class="form-select" v-model="page.size" @change="onChangePageSize">
                 <option disabled value="">Page Size</option>
@@ -7,7 +7,7 @@
             </select>
         </div>
 
-        <div class="d-inline-flex overflow-auto">
+        <div class="d-inline-flex overflow-auto user-select-none">
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-end">
                     <li class="page-item" :class="{ 'disabled': page?.number === 0 }">
@@ -57,6 +57,4 @@ export default
         }
     }
 }
-
-
 </script>
