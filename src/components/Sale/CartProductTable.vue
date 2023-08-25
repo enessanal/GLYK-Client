@@ -65,7 +65,7 @@
                     <td class="text-center fw-bold">{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.creditCard},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
                     <td class="text-center fw-bold">{{ (cart.products?.reduce((accumulator, product) => {return accumulator + product.amount*product.prices.last},0))?.toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}</td>
                     <td class="text-center fw-bold" :contenteditable="cart?.products?.length>0"  ref="editableCell" @keydown="validateInput" @paste="handlePaste" @blur="updateTotalPrice" @focus="prepareEdit">{{ totalPriceFormatted }}</td>
-                    <td class="text-center fw-bold"><button id="clearBtn" class="btn btn-danger btn-sm" ref="clearButton" @click="empty()"   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
+                    <td class="text-center fw-bold"><button id="clearBtn" class="btn btn-danger btn-sm" ref="clearButton" @click="empty()"  :disabled="!cart?.products?.length" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Clear All"><i class="bi bi-trash3-fill"></i></button></td>
                 </tr>
                 <tr>
                     <td></td>

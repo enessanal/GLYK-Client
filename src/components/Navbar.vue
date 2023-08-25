@@ -6,30 +6,51 @@
         </button>
         <div class="collapse navbar-collapse my-1 text-center" id="navbarNav">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'HomeView' }">Home</router-link></b>
+
+            <li class="nav-item" v-for="view in views">
+              <b><router-link class="nav-link" :to="{ name: view.name }">{{ view.display }}</router-link></b>
             </li>
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'CustomerListView' }">Customers</router-link></b>
-            </li>
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'ProductListView' }">Products</router-link></b>
-            </li>
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'UserListView' }">Users</router-link></b>
-            </li>
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'CartView' }">Cart</router-link></b>
-            </li>
-            <li class="nav-item">
-              <b><router-link class="nav-link" :to="{ name: 'InvoiceListView' }">Invoices</router-link></b>
-            </li>
+            
           </ul>
         </div>
       </div>
     </nav>
     <hr>
+
+
 </template>
+
+<script>
+export default
+{
+  data()
+  { 
+    return{
+
+      views:
+      [
+        {name:"HomeView", display:"Home"},
+        {name:"CustomerListView", display:"Customers"},
+        {name:"ProductListView", display:"Products"},
+        {name:"UserListView", display:"Users"},
+        {name:"CartView", display:"Cart"},
+        {name:"InvoiceListView", display:"Invoices"}
+      ]
+
+    }
+
+  }
+}
+
+
+
+</script>
+
+
+
+
+
+
 
 <style scoped>
 nav a 
