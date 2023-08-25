@@ -1,26 +1,38 @@
 <template>
+
   <div class="container-fluid">
     <Navbar/>
-    <hr>
-    <div class="bg-light py-3">
-      <router-view />
-    </div>
+  </div>
 
-    <!-- <hr>
-    Footer -->
+  <div class="py-3" :class="containerClass">
+    <router-view />
+  </div>
   
+  <div class="container-fluid user-select-none my-0 bg-light">
+    <Footer/>
   </div>
 </template>
 
 
 <script>
 import Navbar from "@/components/Navbar.vue";
+import Footer from "@/components/Footer.vue";
 
 export default
 {
   components:
   {
-    Navbar
+    Navbar, Footer
+  },
+  computed: 
+  {
+    containerClass() 
+    {
+      if(this.$route.name === 'ProductListView')  return 'container-fluid px-5';
+      if(this.$route.name === 'HomeView') return 'container-fluid px-5';
+
+      return 'container';
+    }
   }
 }
 </script>
@@ -30,40 +42,13 @@ export default
 
 
 <style>
-@import '@/assets/css/bootstrap@5.0.2_dist_css_bootstrap.min.css';
 
-.prevent-select {
- -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-}
-
-
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  text-decoration: none;
-  /* padding: 10px; */
-}
-
-nav a.router-link-exact-active {
-  color: white !important;
-  background-color: #007242af;
-  border-radius: 4px;
-}
+  #app 
+  {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+  }
 
 </style>
-
-<!-- TODO
-
-  Multi-language
-
--->
