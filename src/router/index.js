@@ -112,6 +112,10 @@ const routes = [
     path: '/kullanicilar',
     redirect: '/users'
   },
+  {
+    path: '/index.html',
+    redirect: '/'
+  },
 
 
   // catch all 404

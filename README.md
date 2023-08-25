@@ -9,5 +9,11 @@ npm install
 #### Run Live Test Server
 
 ```sh
-npm run dev
+npm run serve
+```
+
+#### Build for Production
+
+```sh
+npm run build
 ```
