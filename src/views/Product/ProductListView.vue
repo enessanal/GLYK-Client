@@ -10,8 +10,8 @@
                 
                     <th scope="col" v-for="column in columns">
                         <span class="clickable"  
-                        @click="sortTable(column.name)" 
-                        :class="{ 'sort-asc': sortBy === column.name && sortOrder === 'asc', 'sort-desc': sortBy === column.name && sortOrder === 'desc' }">
+                        @click="sortTable(column.filter)" 
+                        :class="{ 'sort-asc': sortBy === column.filter && sortOrder === 'asc', 'sort-desc': sortBy === column.filter && sortOrder === 'desc' }">
                             {{column.display}}
                         </span>
                     </th>
@@ -63,18 +63,18 @@ export default
         return{
             columns:
             [
-                {name:"category", display:"Category"},
-                {name:"type", display:"Type"},
-                {name:"brand", display:"Brand"},
-                {name:"name", display:"Name"},
-                {name:"code", display:"Code"},
-                {name:"size", display:"Size"},
-                {name:"listPrice", display:"List Prc."},
-                {name:"purchasePrice", display:"Purchase Prc."},
-                {name:"cashPrice", display:"Cash Prc."},
-                {name:"ccPrice", display:"CC Prc."},
-                {name:"lastPrice", display:"Last Prc."},
-                {name:"limitPrice", display:"Limit Prc."},
+                {name:"category",       filter:"category.name",       display:"Category"},
+                {name:"type",           filter:"type.name",          display:"Type"},
+                {name:"brand",          filter:"brand.name",          display:"Brand"},
+                {name:"name",           filter:"name",          display:"Name"},
+                {name:"code",           filter:"code",         display:"Code"},
+                {name:"size",           filter:"size.name",        display:"Size"},
+                {name:"listPrice",       filter:"listPrice",      display:"List Prc."},
+                {name:"purchasePrice",   filter:"purchasePrice",   display:"Purchase Prc."},
+                {name:"cashPrice",      filter:"cashPrice",       display:"Cash Prc."},
+                {name:"ccPrice",        filter:"ccPrice",         display:"CC Prc."},
+                {name:"lastPrice",      filter:"lastPrice",       display:"Last Prc."},
+                {name:"limitPrice",     filter:"limitPrice",      display:"Limit Prc."},
             ],
             products:[],
             count:0,
