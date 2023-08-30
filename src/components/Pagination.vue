@@ -11,11 +11,11 @@
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-end">
                     <li class="page-item" :class="{ 'disabled': page?.number === 0 }">
-                        <a class="page-link" href="#" @click.prevent="onClickPageNumber(page?.number)">&laquo;</a>
+                        <a class="page-link" href="#" @click.prevent="onClickPageNumber(page?.number-1)">&laquo;</a>
                     </li>
 
                     <li class="page-item" :class="{ 'active': pageNumber === page?.number+1 }" v-for="pageNumber in page?.totalPages">
-                        <a class='page-link' href="#" @click.prevent="onClickPageNumber(pageNumber)">{{ pageNumber }} </a>
+                        <a class='page-link' href="#" @click.prevent="onClickPageNumber(pageNumber-1)">{{ pageNumber }} </a>
                     </li>
                     
                     <li class="page-item" :class="{ 'disabled': page?.number === page?.totalPages-1 }">

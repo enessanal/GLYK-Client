@@ -91,7 +91,7 @@ export default
     {
         handleChangePageSize()
         {
-            this.getProducts(1);
+            this.getProducts(0);
         },
         handleClickPageNumber(number) 
         {
@@ -99,6 +99,7 @@ export default
         },
         async sortTable(sortBy)
         {
+            console.log(sortBy)
             if(this.sortBy === sortBy)
             {
                 this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
@@ -108,7 +109,7 @@ export default
                 this.sortBy = sortBy;
                 this.sortOrder = 'asc';
             }
-            this.getProducts(this.page.number+1);
+            this.getProducts(this.page.number);
         },
         async getProducts(pageNumber)
         {
@@ -119,8 +120,8 @@ export default
 
             const params = 
             {
-                size: this.page.size,
-                page: this.page.number,
+                pageSize: this.page.size,
+                pageNumber: this.page.number,
                 sortBy: this.sortBy,
                 direction: this.sortOrder
             }

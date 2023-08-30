@@ -31,24 +31,9 @@
                 </tr>
             </table>
         </div>
-       
-
-
-        <!-- <h2>Customer Adresses</h2>
-        <hr>
-
-        <div class="mb-3" v-for="(address, index) in customer.addresses">
-            
-            <h3>{{ index+1 }} - {{ address.name }}</h3>
-            <h4>{{ address.district }} / {{ address.city }}</h4>
-
-
-
-            <label for="address" class="form-label fw-bold">Details: </label>
-            <textarea class="form-control" id="addressDetails" disabled style="resize:none">{{ address.details + " "+address.district+"/"+address.city}}</textarea>
-        </div> -->
-
     </div>
+    <hr>
+    <h3>Addresses</h3>
 
 
     <div class="accordion my-3" :id="'accordion'+index" v-for="(address, index) in customer.addresses">
@@ -64,6 +49,7 @@
                     <br><br>
                     <strong>{{ address.district}} / {{ address.city  }}</strong>
                 </div>
+                <button class="btn btn-danger mb-1">Delete</button>
             </div>
         </div>
     </div>
