@@ -14,10 +14,37 @@
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted disabled">Pricing</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted disabled">FAQs</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted disabled">About</a></li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ $i18n.locale }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item" href="#" @click="changeLanguage('en')">English</a></li>
+                    <li><a class="dropdown-item" href="#" @click="changeLanguage('tr')">Türkçe</a></li>
+                </ul>
+            </li>
+
+
+
+
         </ul>
     </footer>
 </template>
 
+
+
+
+<script>
+export default {
+    methods: {
+        changeLanguage(lang) 
+        {
+            this.$i18n.locale = lang;
+        }
+    }
+}
+</script>
 
 <style>
 

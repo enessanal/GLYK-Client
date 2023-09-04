@@ -26,8 +26,12 @@ export default
   data()
   { 
     return{
-
-      views:
+      views:[]
+    }
+  },
+  created()
+    {   
+      this.views=
       [
         {name:"HomeView",         display: this.$t('navbar.home')},
         {name:"CustomerListView", display: this.$t('navbar.customers')},
@@ -35,11 +39,9 @@ export default
         {name:"BrandView",        display: this.$t('navbar.brands')},
         {name:"UserListView",     display: this.$t('navbar.users')},
         {name:"CartView",         display: this.$t('navbar.cart')},
-        {name:"InvoiceListView",  display: this.$t('navbar.invoices')},
+        {name:"InvoiceListView",  display: this.$t('navbar.invoices')}
       ]
     }
-
-  }
 }
 
 

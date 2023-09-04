@@ -1,17 +1,40 @@
 {
+    "navbar":
+    {
+        "home":"Ana Sayfa",
+        "customers":"Müşteriler",
+        "products":"Ürünler",
+        "brands":"Markalar",
+        "users":"Çalışanlar",
+        "cart":"Sepet",
+        "invoices":"Sözleşmeler"
+    },
+
     "products":
     {
         "table":
         {
-            "caption":"Products",
+            "caption":"Ürünler",
             "headers":
             {
-                "actions": "Actions"
+                "actions": "İşlemler"
             },
             "columns":
             {
-                "category": "Category"
+                "category": "Kategori",
+                "type":"Tip",
+                "brand":"Marka",
+                "name":"Ürün Adı",
+                "code":"Ürün Kodu",
+                "size":"Ölçü",
+                "listPrice":"Liste Fiyatı",
+                "purchasePrice":"Alış Fiyatı",
+                "cashPrice":"Peşin",
+                "ccPrice":"KK",
+                "lastPrice":"Minimum Satış",
+                "limitPrice":"Maksimum Satış",
+                "stock":"Stok"
             }
         }
-    }  
+    }
 }

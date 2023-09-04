@@ -163,9 +163,8 @@ export default
 
 
         this.getProducts();
-        // this.countCustomers();
-
-        this.$i18n.locale = 'en';
+        
+        // this.$i18n.locale = 'en';
     }
 }
 
