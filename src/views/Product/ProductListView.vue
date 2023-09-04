@@ -175,7 +175,9 @@ export default
 
 <style scoped>
 
-
+table {
+ font-size: 70%;
+}
 
 .sort-asc, .sort-desc
 {
