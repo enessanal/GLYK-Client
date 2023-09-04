@@ -24,7 +24,7 @@ export default{
     {
         async getUsers()
         {
-            axios.get(`/api/users`)
+            axios.get(`/employees`)
             .then(response => 
             {
                 console.log(response.data)

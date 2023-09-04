@@ -27,7 +27,7 @@ export default{
     },
     async created()
     {
-      axios.get(`/api/users/${this.id}`)
+      axios.get(`/api/employees/${this.id}`)
       .then(response => 
       {
         this.user = response.data;
@@ -36,7 +36,7 @@ export default{
       {
         if(response.response.status === 404)
         {
-          this.$router.push({ path: '/users'});
+          this.$router.push({ path: '/employees'});
         }
       })
     }
