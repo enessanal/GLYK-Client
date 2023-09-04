@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-between user-select-none">
         <div class="d-inline-flex">
             <select class="form-select" v-model="page.size" @change="onChangePageSize">
-                <option disabled value="">Page Size</option>
+                <!-- <option disabled value="">{{ $t('pagination.size') }}</option> -->
                 <option v-for="size in sizes" :value="size">{{size}}</option>
             </select>
         </div>

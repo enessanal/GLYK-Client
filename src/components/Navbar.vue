@@ -29,15 +29,14 @@ export default
 
       views:
       [
-        {name:"HomeView", display:"Home"},
-        {name:"CustomerListView", display:"Customers"},
-        {name:"ProductListView", display:"Products"},
-        {name:"BrandView", display:"Brands"},
-        {name:"UserListView", display:"Users"},
-        {name:"CartView", display:"Cart"},
-        {name:"InvoiceListView", display:"Invoices"},
+        {name:"HomeView",         display: this.$t('navbar.home')},
+        {name:"CustomerListView", display: this.$t('navbar.customers')},
+        {name:"ProductListView",  display: this.$t('navbar.products')},
+        {name:"BrandView",        display: this.$t('navbar.brands')},
+        {name:"UserListView",     display: this.$t('navbar.users')},
+        {name:"CartView",         display: this.$t('navbar.cart')},
+        {name:"InvoiceListView",  display: this.$t('navbar.invoices')},
       ]
-
     }
 
   }
@@ -48,25 +47,20 @@ export default
 </script>
 
 
-
-
-
-
-
 <style scoped>
-nav a 
-{
-  font-weight: bold;
-  color: #2c3e50;
-  text-decoration: none;
-  /* padding: 10px; */
-}
+  nav a 
+  {
+    font-weight: bold;
+    color: #2c3e50;
+    text-decoration: none;
+    /* padding: 10px; */
+  }
 
-nav a.router-link-exact-active 
-{
-  color: white !important;
-  background-color: #007242af;
-  border-radius: 4px;
-}
+  nav a.router-link-exact-active 
+  {
+    color: white !important;
+    background-color: #007242af;
+    border-radius: 4px;
+  }
 
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <h1 class="mb-3">Customers</h1>
+    <h1 class="mb-3"> {{$t("customers.table.caption")}} </h1>
     
     <div class="d-flex flex-row-reverse bd-highlight">
         <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
-            <span class="me-3">Total Customers </span><span class="badge bg-primary rounded-pill">{{ count }}</span>
+            <span class="me-3">{{ $t("customers.total") }}</span><span class="badge bg-primary rounded-pill">{{ count }}</span>
         </li>
     </div>
 

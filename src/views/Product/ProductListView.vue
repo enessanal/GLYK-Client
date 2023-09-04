@@ -1,6 +1,6 @@
 <template>
    
-    <h2>Products</h2>
+    <h2>{{ $t('products.table.caption') }}</h2>
 
     <div class="table-responsive">
         <table class="table table-hover">
@@ -8,7 +8,7 @@
                 <tr>
                     <th scope="col">#</th>
                 
-                    <th scope="col" v-for="column in columns">
+                    <th scope="col" v-for="column in columns" :class="{'text-center': column.align==='center'}">
                         <span class="clickable"  
                         @click="sortTable(column.filter)" 
                         :class="{ 'sort-asc': sortBy === column.filter && sortOrder === 'asc', 'sort-desc': sortBy === column.filter && sortOrder === 'desc' }">
@@ -16,7 +16,7 @@
                         </span>
                     </th>
 
-                    <th scope="col" class="text-center">Actions</th>
+                    <th scope="col" class="text-center">{{ $t('products.table.headers.actions') }}</th>
                 </tr>
             </thead>
 
@@ -24,9 +24,15 @@
                 <tr v-for="(product, index) in products" :key="products?.id">
                     <th scope="row">{{page.pageable.offset + index+1}}</th>
                     
-                    <td v-for="column in columns">
+                    <td v-for="column in columns" :class="{'text-center': column.align==='center'}">
                         
-                        {{ product[column.name].toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                        {{ 
+                        column.type === "price" 
+                        ? 
+                        product[column.name].toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+                        :
+                        product[column.name] 
+                        }}
                     
                     </td>
 
@@ -61,21 +67,7 @@ export default
     data()
     {
         return{
-            columns:
-            [
-                {name:"category",       filter:"category.name",       display:"Category"},
-                {name:"type",           filter:"type.name",          display:"Type"},
-                {name:"brand",          filter:"brand.name",          display:"Brand"},
-                {name:"name",           filter:"name",          display:"Name"},
-                {name:"code",           filter:"code",         display:"Code"},
-                {name:"size",           filter:"size.name",        display:"Size"},
-                {name:"listPrice",       filter:"listPrice",      display:"List Prc."},
-                {name:"purchasePrice",   filter:"purchasePrice",   display:"Purchase Prc."},
-                {name:"cashPrice",      filter:"cashPrice",       display:"Cash Prc."},
-                {name:"ccPrice",        filter:"ccPrice",         display:"CC Prc."},
-                {name:"lastPrice",      filter:"lastPrice",       display:"Last Prc."},
-                {name:"limitPrice",     filter:"limitPrice",      display:"Limit Prc."},
-            ],
+            columns:[],
             products:[],
             count:0,
             error:false,
@@ -141,11 +133,39 @@ export default
                 this.errorMessage=axiosError.message;
             })
         },
+        confirmDelete(product)
+        {
+            if(confirm(`${this.$t("others.confirmDelete")} "${product.name} (${product.code})" ?`))
+            {
+                // this.del(product.id);
+            }
+        }
     },
     async created()
     {
+        this.columns=
+            [
+                {name:"category",           filter:"category.name",  type:"text",     align:"left",       show:true,    display: this.$t('products.table.columns.category')},
+                {name:"type",               filter:"type.name",      type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.type')},
+                {name:"brand",              filter:"brand.name",     type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.brand')},
+                {name:"name",               filter:"name",           type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.name')},
+                {name:"code",               filter:"code",           type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.code')},
+                {name:"size",               filter:"size.name",      type:"text",     align:"center",     show:true,    display:this.$t('products.table.columns.size')},
+                {name:"listPrice",          filter:"listPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.listPrice')},
+                {name:"purchasePrice",      filter:"purchasePrice",  type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.purchasePrice')},
+                {name:"cashPrice",          filter:"cashPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.cashPrice')},
+                {name:"ccPrice",            filter:"ccPrice",        type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.ccPrice')},
+                {name:"lastPrice",          filter:"lastPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.lastPrice')},
+                {name:"limitPrice",         filter:"limitPrice",     type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.limitPrice')},
+                {name:"stock",              filter:"stock",          type:"number",   align:"center",     show:true,    display:this.$t('products.table.columns.stock')},
+            ],
+
+
+
         this.getProducts();
         // this.countCustomers();
+
+        this.$i18n.locale = 'en';
     }
 }
 

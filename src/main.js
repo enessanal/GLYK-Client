@@ -4,8 +4,19 @@ import router from '@/router'
 import axios from "axios";
 import { createI18n } from 'vue-i18n'
 
+import en from './locales/en.json';
+import tr from './locales/tr.json';
+
+const messages = 
+{
+  en: en,
+  tr: tr
+};
+
 const i18n = createI18n({
-    // something vue-i18n options here ...
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
   })
 
 import 'bootstrap-icons/font/bootstrap-icons.css';

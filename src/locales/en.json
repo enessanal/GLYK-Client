@@ -1,0 +1,104 @@
+{
+    "navbar":
+    {
+        "home":"Home",
+        "customers":"Customers",
+        "products":"Products",
+        "brands":"Brands",
+        "users":"Users",
+        "cart":"Cart",
+        "invoices":"Invoices"
+    },
+
+    "titles":
+    {
+        "home":"Home",
+        "customers":"Customers",
+        "products":"Products",
+        "brands":"Brands",
+        "users":"Users",
+        "cart":"Cart",
+        "invoices":"Invoices"
+    },
+
+    "products":
+    {
+        "table":
+        {
+            "caption":"Products",
+            "headers":
+            {
+                "actions": "Actions"
+            },
+            "columns":
+            {
+                "category": "Category",
+                "type":"Type",
+                "brand":"Brand",
+                "name":"Name",
+                "code":"Code",
+                "size":"Size",
+                "listPrice":"List Prc.",
+                "purchasePrice":"Purchase Prc.",
+                "cashPrice":"Cash Prc.",
+                "ccPrice":"CC Prc.",
+                "lastPrice":"Last Prc.",
+                "limitPrice":"Limit Prc.",
+                "stock":"Stock"
+            }
+        }
+    },
+    
+    "customers":
+    {
+        "total": "Total Customers",
+
+        "table":
+        {
+            "caption":"Customers",
+            "headers":
+            {
+                "actions": "Actions"
+            },
+            "columns":
+            {
+                
+            }
+        }
+    },
+
+    "brands":
+    {
+        "table":
+        {
+            "caption":"Brands & Price Rates",
+            "headers":
+            {
+                "name":"Name",
+                "listDiscount":"List Discount",
+                "profitRate":"Profit Rate",
+                "profitMin":"Profit Min",
+                "profitMax":"Profit Max Rate",
+                "cc":"CC Rate"
+            }
+        }
+    },
+
+
+
+
+    
+    "pagination":
+    {
+        "size": "Page Size"    
+    },
+
+    "others":
+    {
+        "backButton": "Back",
+        "confirmDelete": "Are you sure you want to remove"
+    }
+}               
+
+
+

@@ -1,0 +1,17 @@
+{
+    "products":
+    {
+        "table":
+        {
+            "caption":"Products",
+            "headers":
+            {
+                "actions": "Actions"
+            },
+            "columns":
+            {
+                "category": "Category"
+            }
+        }
+    }  
+}

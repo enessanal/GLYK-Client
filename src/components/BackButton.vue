@@ -1,7 +1,7 @@
 <template>
     <div class="d-block">
         <div class="d-flex flex-column flex-sm-row justify-content-evenly mb-2">
-        <button class="btn btn-secondary" @click="back">&lt; Back</button>
+        <button class="btn btn-secondary" @click="back">&lt; {{ $t('others.backButton') }}</button>
         </div>
     </div>
 </template>

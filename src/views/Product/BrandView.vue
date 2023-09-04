@@ -1,18 +1,17 @@
 <template>
-   
-    <h2>Brands & Price Rates</h2>
+    <h2>{{ $t("brands.table.caption") }}</h2>
 
 
     <div class="container mt-4 table-responsive">
         <table class="table table-bordered table-hover custom-table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>List Discount</th>
-                <th>Profit Rate</th>
-                <th>Profit Min</th>
-                <th>Profit Max Rate</th>
-                <th>CC</th>
+                <th>{{ $t("brands.table.headers.name") }}</th>
+                <th>{{ $t("brands.table.headers.listDiscount") }}</th>
+                <th>{{ $t("brands.table.headers.profitRate") }}</th>
+                <th>{{ $t("brands.table.headers.profitMin") }}</th>
+                <th>{{ $t("brands.table.headers.profitMax") }}</th>
+                <th>{{ $t("brands.table.headers.cc") }}</th>
             </tr>
         </thead>
         <tbody>
