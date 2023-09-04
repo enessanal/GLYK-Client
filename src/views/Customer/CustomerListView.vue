@@ -87,7 +87,7 @@ export default
     {
         handleChangePageSize()
         {
-            this.getCustomers(1);
+            this.getCustomers(0);
         },
         handleClickPageNumber(number) 
         {
@@ -104,7 +104,7 @@ export default
                 this.sortBy = sortBy;
                 this.sortOrder = 'asc';
             }
-            this.getCustomers(this.page.number+1);
+            this.getCustomers(this.page.number);
         },
         async getCustomers(pageNumber)
         {
@@ -115,8 +115,8 @@ export default
 
             const params = 
             {
-                size: this.page.size,
-                page: this.page.number,
+                pageSize: this.page.size,
+                pageNumber: this.page.number,
                 sortBy: this.sortBy,
                 direction: this.sortOrder
             }

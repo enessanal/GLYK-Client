@@ -19,7 +19,7 @@
                     </li>
                     
                     <li class="page-item" :class="{ 'disabled': page?.number === page?.totalPages-1 }">
-                        <a class="page-link" href="#" @click.prevent="onClickPageNumber(page?.number+2)">&raquo;</a>
+                        <a class="page-link" href="#" @click.prevent="onClickPageNumber(page?.number+1)">&raquo;</a>
                     </li>
                 </ul>
             </nav>
