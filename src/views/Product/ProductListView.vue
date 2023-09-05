@@ -133,11 +133,27 @@ export default
                 this.errorMessage=axiosError.message;
             })
         },
+        async deleteProduct(id)
+        {
+            axios.delete(`products/id/${id}`)
+            .then(response => 
+            {
+                if(response.status === 204)
+                {
+                    this.getProducts();
+                    // this.countProducts();
+                }
+            })
+            .catch(axiosError => 
+            {
+                alert(axiosError.message);
+            })
+        },
         confirmDelete(product)
         {
             if(confirm(`${this.$t("others.confirmDelete")} "${product.name} (${product.code})" ?`))
             {
-                // this.del(product.id);
+                this.deleteProduct(product.id);
             }
         }
     },
