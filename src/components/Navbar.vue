@@ -47,6 +47,11 @@ export default
     /* padding: 10px; */
   }
 
+  nav a:hover
+  {
+    background-color: #00724252;
+  }
+
   nav a.router-link-exact-active 
   {
     color: white !important;
