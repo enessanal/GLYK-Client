@@ -52,6 +52,17 @@
     "customers":
     {
         "total": "Total Customers",
+        "addresses": "Adresses",
+    
+        "button":
+        {
+            "addAddress": "Add Address"
+        },
+
+        "messages":
+         {
+            "noAddress":"There is no address for this customer."
+         },
 
         "table":
         {
@@ -62,7 +73,14 @@
             },
             "columns":
             {
-                
+                "code": "Code",
+                "fullName": "Full Name",
+                "identityNumber": "TC Number",
+                "email": "Email",
+                "mobilePhone": "Mobile Phone",
+                "createdTime": "Created Time",
+                "updatedTime": "Last Updated Time",
+                "details": "Notes/Details"
             }
         }
     },
@@ -74,7 +92,7 @@
             "caption":"Brands & Price Rates",
             "headers":
             {
-                "name":"Name",
+                "name":"Brand Name",
                 "listDiscount":"List Discount",
                 "profitRate":"Profit Rate",
                 "profitMin":"Profit Min",

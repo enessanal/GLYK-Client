@@ -8,7 +8,7 @@
           <ul class="navbar-nav">
 
             <li class="nav-item" v-for="view in views">
-              <b><router-link class="nav-link" :to="{ name: view.name }">{{ view.display }}</router-link></b>
+              <b><router-link class="nav-link" :to="{ name: view.name }">{{ $t(view.displayKey) }}</router-link></b>
             </li>
             
           </ul>
@@ -33,13 +33,13 @@ export default
     {   
       this.views=
       [
-        {name:"HomeView",         display: this.$t('navbar.home')},
-        {name:"CustomerListView", display: this.$t('navbar.customers')},
-        {name:"ProductListView",  display: this.$t('navbar.products')},
-        {name:"BrandView",        display: this.$t('navbar.brands')},
-        {name:"UserListView",     display: this.$t('navbar.users')},
-        {name:"CartView",         display: this.$t('navbar.cart')},
-        {name:"InvoiceListView",  display: this.$t('navbar.invoices')}
+        {name:"HomeView",         displayKey: 'navbar.home'},
+        {name:"CustomerListView", displayKey: 'navbar.customers'},
+        {name:"ProductListView",  displayKey: 'navbar.products'},
+        {name:"BrandView",        displayKey: 'navbar.brands'},
+        {name:"UserListView",     displayKey: 'navbar.users'},
+        {name:"CartView",         displayKey: 'navbar.cart'},
+        {name:"InvoiceListView",  displayKey: 'navbar.invoices'}
       ]
     }
 }

@@ -6,34 +6,43 @@
         <div class="table-responsive">
             <table class="table table-hover">
                 <tr>
-                    <th>İdentitiy Number</th>
+                    <th>{{ $t("customers.table.columns.identityNumber") }}</th>
                     <td>{{ customer.identityNumber }}</td>
                 </tr>
 
                 <tr>
-                    <th>Email</th>
+                    <th>{{ $t("customers.table.columns.email") }}</th>
                     <td>{{ customer.email }}</td>
                 </tr>
 
                 <tr>
-                    <th>Created Time</th>
+                    <th>{{ $t("customers.table.columns.createdTime") }}</th>
                     <td>{{ customer.createdTime }}</td>
                 </tr>
                 
                 <tr>
-                    <th>Last Updated Time</th>
+                    <th>{{ $t("customers.table.columns.updatedTime") }}</th>
                     <td>{{ customer.updatedTime }}</td>
                 </tr>
                 
                 <tr>
-                    <th>Customer Details/Notes</th>
+                    <th>{{ $t("customers.table.columns.details") }}</th>
                     <td>{{ customer.details }}</td>
                 </tr>
             </table>
         </div>
     </div>
     <hr>
-    <h3>Addresses</h3>
+    <div class="text-center">
+        <h3>{{ $t('customers.addresses') }}</h3>
+        
+        <div v-if="customer.addresses?.length==0">
+            <p class="lead text-warning">{{ $t("customers.messages.noAddress") }}</p>
+            <button class="btn btn-success">{{ $t("customers.button.addAddress") }}</button>
+        </div>
+    </div>
+
+
 
 
     <div class="accordion my-3" :id="'accordion'+index" v-for="(address, index) in customer.addresses">

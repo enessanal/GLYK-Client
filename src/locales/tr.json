@@ -36,5 +36,69 @@
                 "stock":"Stok"
             }
         }
+    },
+
+    "customers":
+    {
+        "total": "Müşteri Sayısı",
+        "addresses": "Adresler",   
+
+        "button":
+        {
+            "addAddress": "Adres Ekle"
+        },
+
+        "messages":
+         {
+            "noAddress":"Müşteriye ait adres bulunmamaktadır."
+         },
+         
+        "table":
+        {
+            "caption":"Müşteriler",
+            "headers":
+            {
+                "actions": "İşlemler"
+            },
+            "columns":
+            {
+                "code": "Kod",
+                "fullName": "Ad Soyad",
+                "identityNumber": "TC Numarası",
+                "email": "Email",
+                "mobilePhone": "Cep Telefonu",
+                "createdTime": "Oluşturulma Zamanı",
+                "updatedTime": "Son Güncellenme Zamanı",
+                "details": "Notlar / Detaylar"
+            }
+        }
+    },
+
+    "brands":
+    {
+        "table":
+        {
+            "caption":"Markalar ve Oranlar",
+            "headers":
+            {
+                "name":"Marka Adı",
+                "listDiscount":"Alış İskontosu",
+                "profitRate":"Kar Oranı",
+                "profitMin":"Minimum Kar Oranı",
+                "profitMax":"Maksimum Kar Oranı",
+                "cc":"KK Oranı"
+            }
+        }
+    },
+
+    "pagination":
+    {
+        "size": "Page Size"    
+    },
+
+    "others":
+    {
+        "backButton": "Geri",
+        "confirmDelete": "Silmek istediğinize emin misiniz"
     }
 }

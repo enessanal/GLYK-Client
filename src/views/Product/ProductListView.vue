@@ -12,7 +12,7 @@
                         <span class="clickable"  
                         @click="sortTable(column.filter)" 
                         :class="{ 'sort-asc': sortBy === column.filter && sortOrder === 'asc', 'sort-desc': sortBy === column.filter && sortOrder === 'desc' }">
-                            {{column.display}}
+                            {{$t(column.displayKey)}}
                         </span>
                     </th>
 
@@ -145,19 +145,19 @@ export default
     {
         this.columns=
             [
-                {name:"category",           filter:"category.name",  type:"text",     align:"left",       show:true,    display: this.$t('products.table.columns.category')},
-                {name:"type",               filter:"type.name",      type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.type')},
-                {name:"brand",              filter:"brand.name",     type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.brand')},
-                {name:"name",               filter:"name",           type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.name')},
-                {name:"code",               filter:"code",           type:"text",     align:"left",       show:true,    display:this.$t('products.table.columns.code')},
-                {name:"size",               filter:"size.name",      type:"text",     align:"center",     show:true,    display:this.$t('products.table.columns.size')},
-                {name:"listPrice",          filter:"listPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.listPrice')},
-                {name:"purchasePrice",      filter:"purchasePrice",  type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.purchasePrice')},
-                {name:"cashPrice",          filter:"cashPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.cashPrice')},
-                {name:"ccPrice",            filter:"ccPrice",        type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.ccPrice')},
-                {name:"lastPrice",          filter:"lastPrice",      type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.lastPrice')},
-                {name:"limitPrice",         filter:"limitPrice",     type:"price",    align:"center",     show:true,    display:this.$t('products.table.columns.limitPrice')},
-                {name:"stock",              filter:"stock",          type:"number",   align:"center",     show:true,    display:this.$t('products.table.columns.stock')},
+                {name:"category",           filter:"category.name",  type:"text",     align:"left",       show:true,    displayKey: 'products.table.columns.category'},
+                {name:"type",               filter:"type.name",      type:"text",     align:"left",       show:true,    displayKey:'products.table.columns.type'},
+                {name:"brand",              filter:"brand.name",     type:"text",     align:"left",       show:true,    displayKey:'products.table.columns.brand'},
+                {name:"name",               filter:"name",           type:"text",     align:"left",       show:true,    displayKey:'products.table.columns.name'},
+                {name:"code",               filter:"code",           type:"text",     align:"left",       show:true,    displayKey:'products.table.columns.code'},
+                {name:"size",               filter:"size.name",      type:"text",     align:"center",     show:true,    displayKey:'products.table.columns.size'},
+                {name:"listPrice",          filter:"listPrice",      type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.listPrice'},
+                {name:"purchasePrice",      filter:"purchasePrice",  type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.purchasePrice'},
+                {name:"cashPrice",          filter:"cashPrice",      type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.cashPrice'},
+                {name:"ccPrice",            filter:"ccPrice",        type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.ccPrice'},
+                {name:"lastPrice",          filter:"lastPrice",      type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.lastPrice'},
+                {name:"limitPrice",         filter:"limitPrice",     type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.limitPrice'},
+                {name:"stock",              filter:"stock",          type:"number",   align:"center",     show:true,    displayKey:'products.table.columns.stock'},
             ],
 
 

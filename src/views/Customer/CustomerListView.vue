@@ -21,11 +21,11 @@
                         <span class="clickable"  
                         @click="sortTable(column.name)" 
                         :class="{ 'sort-asc': sortBy === column.name && sortOrder === 'asc', 'sort-desc': sortBy === column.name && sortOrder === 'desc' }">
-                            {{column.display}}
+                            {{$t(column.displayKey)}}
                         </span>
                     </th>
 
-                    <th scope="col" class="text-center">Actions</th>
+                    <th scope="col" class="text-center">{{ $t('customers.table.headers.actions') }}</th>
                 </tr>
             </thead>
 
@@ -67,11 +67,11 @@ export default
 
             columns:
             [
-                {name:"code", display:"Code"},
-                {name:"fullName", display:"Full Name"},
-                {name:"identityNumber", display:"Tc"},
-                {name:"email", display:"Email"},
-                {name:"mobilePhone", display:"Mobile Phone"}
+                {name:"code",               displayKey:"customers.table.columns.code"},
+                {name:"fullName",           displayKey:"customers.table.columns.fullName"},
+                {name:"identityNumber",     displayKey:"customers.table.columns.identityNumber"},
+                {name:"email",              displayKey:"customers.table.columns.email"},
+                {name:"mobilePhone",        displayKey:"customers.table.columns.mobilePhone"}
             ],
             count:0,
             error:false,
@@ -168,7 +168,7 @@ export default
         },
         confirmDelete(customer)
         {
-            if(confirm(`Are you sure you want to remove "${customer.fullName} (${customer.identityNumber})" ?`))
+            if(confirm(`${this.$t("others.confirmDelete")} "${customer.fullName} (${customer.identityNumber})" ?`))
             {
                 this.deleteCustomer(customer.id);
             }
