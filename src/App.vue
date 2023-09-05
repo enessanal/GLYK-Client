@@ -1,7 +1,8 @@
 <template>
 
   <div class="container-fluid">
-    <Navbar/>
+    <Navbar :views="views"/>
+
   </div>
 
   <div class="py-3" :class="containerClass">
@@ -20,6 +21,31 @@ import Footer from "@/components/Footer.vue";
 
 export default
 {
+  data ()
+  {
+    return {
+      views:
+      [
+        {name:"HomeView",            dropdown:false,   displayKey: 'navbar.home'},
+        {name:"CustomerListView",    dropdown:false,   displayKey: 'navbar.customers'},
+        
+        {name:"Products",            dropdown:true,    displayKey: 'navbar.products', 
+          subViews: 
+          [
+            {name:"ProductListView", displayKey: 'navbar.products'}, 
+            {name:"BrandView", displayKey: 'navbar.brands'}
+          ]
+        },
+
+        {name:"UserListView",        dropdown:false,   displayKey: 'navbar.users'},
+        {name:"CartView",            dropdown:false,   displayKey: 'navbar.cart'},
+        {name:"InvoiceListView",     dropdown:false,   displayKey: 'navbar.invoices'},
+
+      ]
+    }
+  },
+
+
   components:
   {
     Navbar, Footer

@@ -6,20 +6,13 @@
         </button>
         <div class="collapse navbar-collapse my-1 text-center" id="navbarNav">
           <ul class="navbar-nav">
-
             <li class="nav-item" v-for="view in views" :class="{'dropdown':view.dropdown}">
               <b v-if="!view.dropdown"><router-link class="nav-link" :to="{ name: view.name }">{{ $t(view.displayKey) }}</router-link></b>
-
               <a v-if="view.dropdown" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >{{ $t(view.displayKey) }}</a>
               <div v-if="view.dropdown" class="dropdown-menu">
                 <router-link v-for="subView in view.subViews" class="nav-link" :to="{ name: subView.name }">{{ $t(subView.displayKey) }}</router-link>
               </div>
-
             </li>
-            
-
-
-
           </ul>
         </div>
       </div>
@@ -31,36 +24,16 @@
 <script>
 export default
 {
-  data()
-  { 
-    return{
-      views:[]
-    }
-  },
-  created()
-    {   
-      this.views=
-      [
-        {name:"HomeView",            dropdown:false,   displayKey: 'navbar.home'},
-        {name:"CustomerListView",    dropdown:false,   displayKey: 'navbar.customers'},
-        
-        {name:"Products",            dropdown:true,    displayKey: 'navbar.products', 
-          subViews: 
-          [
-            {name:"ProductListView", displayKey: 'navbar.products'}, 
-            {name:"BrandView", displayKey: 'navbar.brands'}
-          ]
-        },
-
-        {name:"UserListView",        dropdown:false,   displayKey: 'navbar.users'},
-        {name:"CartView",            dropdown:false,   displayKey: 'navbar.cart'},
-        {name:"InvoiceListView",     dropdown:false,   displayKey: 'navbar.invoices'},
-
-      ]
-    }
+  name: "NavBar",
+  props:
+  {
+    views:
+      {
+          type: Array,
+          required: true
+      }
+  }
 }
-
-
 
 </script>
 
