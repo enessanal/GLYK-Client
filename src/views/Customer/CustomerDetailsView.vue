@@ -42,9 +42,6 @@
         </div>
     </div>
 
-
-
-
     <div class="accordion my-3" :id="'accordion'+index" v-for="(address, index) in customer.addresses">
         <div class="accordion-item" >
             <h2 class="accordion-header" id="headingTwo">
