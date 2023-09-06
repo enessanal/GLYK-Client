@@ -36,13 +36,24 @@
                     <td v-for="column in columns">{{ customer[column.name] }}</td>
 
                     <td class="text-center">
-                        <IconTrashFill :object="customer" :title="'Delete'" @call="confirmDelete"></IconTrashFill>
+                        <IconTrashFill :object="customer" :title="'Delete'" @call="promptDelete(customer)"></IconTrashFill>
                         <router-link :to="{name:'CustomerDetailsView', params:{id: customer.id}}"><i class="bi bi-info-square-fill icon-action" title="Details"></i></router-link>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <ModalConfirmation
+    ref="confirmModal"
+    :title="modalTitle"
+    :contents="modalContents"
+    :onConfirm="deleteCustomer"
+    :param="selectedCustomer"
+    :buttonClass="'danger'"
+  />
+
+
     
     <Pagination :page="page" :sizes="sizes" @changePageSize="handleChangePageSize" @clickPageNumber="handleClickPageNumber"/>
 
@@ -54,16 +65,24 @@ import axios from "axios"
 import Pagination from "@/components/Pagination.vue"
 import IconTrashFill from "@/components/IconTrashFill.vue"
 
+import ModalConfirmation from '@/components/ModalConfirmation.vue';
+
 export default
 {
     components:
     {
         Pagination,
-        IconTrashFill
+        IconTrashFill,
+        ModalConfirmation
     },  
     data()
     {
         return{
+
+            modalTitle: '',
+            modalContents:[],
+            selectedCustomer: null,
+
 
             columns:
             [
@@ -85,6 +104,17 @@ export default
     },
     methods:
     {
+        promptDelete(customer) 
+        {   
+            this.selectedCustomer = customer;
+            
+            this.modalContents = [];
+            this.modalTitle = this.$t("customers.messages.deleteTitle")
+            this.modalContents.push(`(${customer.fullName} - ${customer.identityNumber})`);
+            this.modalContents.push(this.$t("others.confirmDelete"));
+            this.$refs.confirmModal.show();
+        },
+
         handleChangePageSize()
         {
             this.getCustomers(0);
@@ -150,9 +180,9 @@ export default
                 this.count = 0;
             })
         },
-        async deleteCustomer(id)
+        async deleteCustomer(customer)
         {
-            axios.delete(`customers/id/${id}`)
+            axios.delete(`customers/id/${customer.id}`)
             .then(response => 
             {
                 if(response.status === 204)
@@ -165,13 +195,6 @@ export default
             {
                 alert(axiosError.message);
             })
-        },
-        confirmDelete(customer)
-        {
-            if(confirm(`${this.$t("others.confirmDelete")} "${customer.fullName} (${customer.identityNumber})" ?`))
-            {
-                this.deleteCustomer(customer.id);
-            }
         }
     },
     async created()

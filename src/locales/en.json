@@ -61,7 +61,8 @@
 
         "messages":
          {
-            "noAddress":"There is no address for this customer."
+            "noAddress":"There is no address for this customer.",
+            "deleteTitle": "Delete Customer Confirmation"
          },
 
         "table":
@@ -102,10 +103,6 @@
         }
     },
 
-
-
-
-    
     "pagination":
     {
         "size": "Page Size"    
@@ -114,7 +111,7 @@
     "others":
     {
         "backButton": "Back",
-        "confirmDelete": "Are you sure you want to remove"
+        "confirmDelete": "Are you sure you want to delete?"
     }
 }               
 
