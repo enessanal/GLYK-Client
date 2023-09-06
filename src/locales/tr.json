@@ -35,6 +35,10 @@
                 "limitPrice":"Maksimum Satış",
                 "stock":"Stok"
             }
+        },
+        "messages":
+        {
+            "deleteTitle": "Ürün Silme Onayı"
         }
     },
 

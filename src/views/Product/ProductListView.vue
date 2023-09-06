@@ -37,7 +37,7 @@
                     </td>
 
                     <td class="text-center">
-                        <IconTrashFill :object="product" :title="'Delete'" @call="confirmDelete"></IconTrashFill>
+                        <IconTrashFill :object="product" :title="'Delete'" @call="promptDelete(product)"></IconTrashFill>
                         <router-link :to="{name:'ProductDetailsView', params:{id: product.id}}"><i class="bi bi-info-square-fill icon-action" title="Details"></i></router-link>
                     </td>
                 </tr>
@@ -46,6 +46,14 @@
         </table>
     </div>
     
+    <ModalConfirmation
+    ref="confirmModal"
+    :title="modalTitle"
+    :contents="modalContents"
+    :onConfirm="deleteProduct"
+    :param="selectedProduct"
+    :buttonClass="'danger'"
+  />
     <Pagination :page="page" :sizes="sizes" @changePageSize="handleChangePageSize" @clickPageNumber="handleClickPageNumber"/>
 
 </template>
@@ -55,13 +63,15 @@
 import axios from "axios";
 import Pagination from "@/components/Pagination.vue";
 import IconTrashFill from "@/components/IconTrashFill.vue";
+import ModalConfirmation from '@/components/ModalConfirmation.vue';
 
 export default
 {
     components:
     {
         Pagination,
-        IconTrashFill
+        IconTrashFill,
+        ModalConfirmation
     },
 
     data()
@@ -76,11 +86,26 @@ export default
             page:{},
             sizes:[10,25,50,100],
             sortOrder:"",
-            sortBy:""
+            sortBy:"",
+
+            modalTitle: '',
+            modalContents:[],
+            selectedProduct: null,
         }
     },
     methods:
-    {
+    {       
+        promptDelete(product) 
+        {   
+            this.selectedProduct = product;
+            
+            this.modalContents = [];
+            this.modalTitle = this.$t("products.messages.deleteTitle")
+            this.modalContents.push(`(${product.name} - ${product.code})`);
+            this.modalContents.push(this.$t("others.confirmDelete"));
+            this.$refs.confirmModal.show();
+        },
+
         handleChangePageSize()
         {
             this.getProducts(0);
@@ -133,9 +158,9 @@ export default
                 this.errorMessage=axiosError.message;
             })
         },
-        async deleteProduct(id)
+        async deleteProduct(product)
         {
-            axios.delete(`products/id/${id}`)
+            axios.delete(`products/id/${product.id}`)
             .then(response => 
             {
                 if(response.status === 204)

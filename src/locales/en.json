@@ -46,6 +46,10 @@
                 "limitPrice":"Limit Prc.",
                 "stock":"Stock"
             }
+        },
+        "messages":
+        {
+            "deleteTitle": "Delete Product Confirmation"
         }
     },
     

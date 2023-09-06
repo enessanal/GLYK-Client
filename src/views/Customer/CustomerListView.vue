@@ -1,11 +1,7 @@
 <template>
     <h1 class="mb-3"> {{$t("customers.table.caption")}} </h1>
     
-    <div class="d-flex flex-row-reverse bd-highlight">
-        <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center">
-            <span class="me-3">{{ $t("customers.total") }}</span><span class="badge bg-primary rounded-pill">{{ count }}</span>
-        </li>
-    </div>
+    <CustomerCountPill ref="countPill"/>
 
     <div class="alert alert-dismissible alert-danger mt-2" v-if="error">
         <strong>{{errorMessage}}</strong>
@@ -64,8 +60,9 @@
 import axios from "axios"
 import Pagination from "@/components/Pagination.vue"
 import IconTrashFill from "@/components/IconTrashFill.vue"
-
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import CustomerCountPill from '@/components/CustomerCountPill.vue';
+
 
 export default
 {
@@ -73,12 +70,12 @@ export default
     {
         Pagination,
         IconTrashFill,
-        ModalConfirmation
+        ModalConfirmation,
+        CustomerCountPill,
     },  
     data()
     {
         return{
-
             modalTitle: '',
             modalContents:[],
             selectedCustomer: null,
@@ -166,20 +163,6 @@ export default
                 this.errorMessage=axiosError.message;
             })
         },
-        
-        async countCustomers()
-        {
-            axios.get(`customers/count`)
-            .then(response => 
-            {
-                this.count = response.data;
-            })
-            .catch(axiosError => 
-            {
-                alert(axiosError.message);
-                this.count = 0;
-            })
-        },
         async deleteCustomer(customer)
         {
             axios.delete(`customers/id/${customer.id}`)
@@ -188,7 +171,7 @@ export default
                 if(response.status === 204)
                 {
                     this.getCustomers();
-                    this.countCustomers();
+                    this.$refs.countPill.countAll();
                 }
             })
             .catch(axiosError => 
@@ -200,14 +183,12 @@ export default
     async created()
     {
         this.getCustomers();
-        this.countCustomers();
     }
 }
 </script>
 
 
 <style scoped>
-
 
 .sort-asc, .sort-desc
 {
@@ -216,12 +197,12 @@ export default
 
 .sort-asc::after 
 {
-    content: "↑"; /* veya istediğiniz bir Unicode karakteri */
+    content: "↑";
 }
 
 .sort-desc::after 
 {
-    content: "↓"; /* veya istediğiniz bir Unicode karakteri */
+    content: "↓";
 }
 
 .clickable
@@ -234,7 +215,8 @@ export default
     text-decoration: underline;
 }
 
-.disabled:hover {
+.disabled:hover 
+{
     cursor:not-allowed
  }
 
