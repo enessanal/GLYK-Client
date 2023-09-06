@@ -61,7 +61,7 @@ import axios from "axios"
 import Pagination from "@/components/Pagination.vue"
 import IconTrashFill from "@/components/IconTrashFill.vue"
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
-import CustomerCountPill from '@/components/CustomerCountPill.vue';
+import CustomerCountPill from '@/components/Customer/CustomerCountPill.vue';
 
 
 export default

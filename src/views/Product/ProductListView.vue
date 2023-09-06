@@ -2,6 +2,11 @@
    
     <h2>{{ $t('products.table.caption') }}</h2>
 
+    
+    <ProductCountPill ref="countPill"/>
+
+
+
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -64,6 +69,8 @@ import axios from "axios";
 import Pagination from "@/components/Pagination.vue";
 import IconTrashFill from "@/components/IconTrashFill.vue";
 import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import ProductCountPill from '@/components/Product/ProductCountPill.vue'
+
 
 export default
 {
@@ -71,7 +78,8 @@ export default
     {
         Pagination,
         IconTrashFill,
-        ModalConfirmation
+        ModalConfirmation,
+        ProductCountPill
     },
 
     data()
@@ -166,7 +174,7 @@ export default
                 if(response.status === 204)
                 {
                     this.getProducts();
-                    // this.countProducts();
+                    this.$refs.countPill.countAll();
                 }
             })
             .catch(axiosError => 
@@ -200,12 +208,7 @@ export default
                 {name:"limitPrice",         filter:"limitPrice",     type:"price",    align:"center",     show:true,    displayKey:'products.table.columns.limitPrice'},
                 {name:"stock",              filter:"stock",          type:"number",   align:"center",     show:true,    displayKey:'products.table.columns.stock'},
             ],
-
-
-
         this.getProducts();
-        
-        // this.$i18n.locale = 'en';
     }
 }
 
@@ -217,7 +220,7 @@ export default
 <style scoped>
 
 table {
- font-size: 70%;
+ font-size: 75%;
 }
 
 .sort-asc, .sort-desc

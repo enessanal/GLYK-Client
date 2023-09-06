@@ -12,6 +12,7 @@
 
     "products":
     {
+        "total": "Ürün Sayısı",
         "table":
         {
             "caption":"Ürünler",
