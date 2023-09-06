@@ -37,7 +37,7 @@
         <h3>{{ $t('customers.addresses') }}</h3>
         
         <div v-if="customer.addresses?.length==0">
-            <p class="lead text-warning">{{ $t("customers.messages.noAddress") }}</p>
+            <p class="lead text-secondary">{{ $t("customers.messages.noAddress") }}</p>
             <button class="btn btn-success">{{ $t("customers.button.addAddress") }}</button>
         </div>
     </div>
@@ -51,18 +51,27 @@
             </h2>
             <div :id="'collapse' + index" class="accordion-collapse collapse" aria-labelledby="headingTwo" :data-bs-parent="'#accordion'+index">
                 <div class="accordion-body">
-                    {{ address.details }}
-                    <br><br>
-                    <strong>{{ address.district}} / {{ address.city  }}</strong>
+                    <p class="lead wrap-text">{{ address.details }}</p>
+                    <p class="lead wrap-text">{{ address.district}} / {{ address.city }}</p>
                 </div>
-                <button class="btn btn-danger mb-1">Delete</button>
+                <div class="d-flex justify-content-around justify-content-sm-end flex-wrap bd-highlight m-1">
+                    <button class="btn btn-primary">Update</button> 
+                    <button class="btn btn-danger mx-1" @click="promptDelete(address)">Delete</button>
+                </div>
             </div>
         </div>
     </div>
 
 
 
-
+    <ModalConfirmation
+    ref="confirmModal"
+    :title="modalTitle"
+    :contents="modalContents"
+    :onConfirm="deleteCustomerAddress"
+    :param="selectedAddress"
+    :buttonClass="'danger'"
+  />
 
 
 
@@ -71,23 +80,74 @@
 
 
 
-
-
 <script>
 import BackButton from "@/components/BackButton.vue"
 import axios from "axios"
+import ModalConfirmation from '@/components/ModalConfirmation.vue';
+
 
 export default{
     data()
     {
         return {
             id: this.$route.params.id,
-            customer: {}
+            customer: {},
+
+
+            modalTitle:"",
+            modalContents:[],
+            selectedAddress:null,
+
         }
     },
     components:
     {
-      BackButton
+      BackButton,
+      ModalConfirmation
+    },
+    methods:
+    {
+        promptDelete(address) 
+        {   
+            this.selectedAddress = address;
+            
+            this.modalContents = [];
+            this.modalTitle = this.$t("customers.messages.addressDeleteTitle")
+            this.modalContents.push(`(${address.name})`);
+            this.modalContents.push(this.$t("others.confirmDelete"));
+            this.$refs.confirmModal.show();
+        },
+
+
+        async getCustomerAddresses()
+        {
+            axios.get(`customers/id/${this.customer.id}/addresses`)
+            .then(response => 
+            {
+                this.customer.addresses=response.data;
+            })
+            .catch(axiosError => 
+            {
+                alert(axiosError.message);
+            })
+        },
+
+
+        async deleteCustomerAddress(address)
+        {
+            axios.delete(`customers/id/${this.customer.id}/addresses/${address.id}`)
+            .then(response => 
+            {
+                if(response.status === 204)
+                {
+                    this.getCustomerAddresses();
+                }
+            })
+            .catch(axiosError => 
+            {
+                alert(axiosError.message);
+            })
+        } 
     },
     async created()
     {
