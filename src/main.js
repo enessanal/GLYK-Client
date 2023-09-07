@@ -3,6 +3,7 @@ import App from '@/App.vue'
 import router from '@/router'
 import axios from "axios";
 import { createI18n } from 'vue-i18n'
+import store from "@/store";
 
 import en from './locales/en.json';
 import tr from './locales/tr.json';
@@ -27,4 +28,5 @@ axios.defaults.baseURL = "http://localhost:8080/api/v1/";
 createApp(App)
 .use(router)
 .use(i18n)
+.use(store)
 .mount('#app')
