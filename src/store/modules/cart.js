@@ -1,34 +1,52 @@
+function convertToCartItem(item)
+{
+    const { id } = item
+    const cartItem = { id };
+    cartItem.amount=1;
+    cartItem.salePrice=0;
+    
+    return cartItem; 
+};
+
 const state = 
 {
     items: JSON.parse(localStorage.getItem('cartItems')) || []
 };
 
+
 const mutations = 
 {
     addItem(state, item) 
     {
-        const { id } = item
-        const cartItem = { id };
-        cartItem.amount=1;
-        cartItem.salePrice=0;
+       const cartItem = convertToCartItem(item);
         
         const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
         if (itemIndex !== -1)
-        {
-            // if item exists
-            
+        {            
             state.items[itemIndex].amount++;
-
-            // state.items.splice(itemIndex, 1);
         } 
         else
         {
-          // Ürün yoksa, listeye ekle
           state.items.push(cartItem);
         }
 
         localStorage.setItem('cartItems', JSON.stringify(state.items));
-      },
+    },
+    decreaseItem(state, item)
+    {
+        const cartItem = convertToCartItem(item);   
+        const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
+        
+        if (itemIndex !== -1)
+        {            
+            state.items[itemIndex].amount--;
+            if(state.items[itemIndex].amount===0) state.items.splice(itemIndex, 1);
+
+
+            localStorage.setItem('cartItems', JSON.stringify(state.items));
+        }
+
+    },
     removeItem(state, itemId)
     {
         state.items = state.items.filter(item => item.id !== itemId);
@@ -40,13 +58,26 @@ const actions =
     addItem({commit}, item)
     {
         commit('addItem', item);
+    },
+    decreaseItem({commit}, item)
+    {
+        commit('decreaseItem', item);
     }
 };
 
 const getters = 
 {
     cartItems: state => state.items,
-    cartItemCount: state => state.items.length
+    cartItemCount: state => state.items.length,
+    getItemAmount: (state) => (item) => 
+    {
+        const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
+        if (itemIndex !== -1) 
+        {
+          return state.items[itemIndex].amount;
+        }
+        return 0;
+      }
 }
 
 export default 

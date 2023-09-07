@@ -13,8 +13,6 @@
 import BackButton from "@/components/BackButton.vue"
 import axios from "axios"
 
-import { mapActions } from 'vuex'
-
 
 export default{
     data(){
@@ -26,14 +24,6 @@ export default{
     components:
     {
       BackButton
-    },
-    computed:
-    {
-
-    },
-    methods:
-    {
-      ...mapActions('cart', ['addItem'])
     },
     async created()
     {

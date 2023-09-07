@@ -14,6 +14,7 @@ import CustomerDetailsView from '@/views/Customer/CustomerDetailsView.vue'
 
 import ProductListView from '@/views/Product/ProductListView.vue'
 import ProductDetailsView from '@/views/Product/ProductDetailsView.vue'
+import ProductSearchView from '@/views/Product/ProductSearchView.vue'
 
 import BrandView from '@/views/Product/BrandView.vue'
 
@@ -41,6 +42,14 @@ const routes = [
       title: "GLYK - Products",
     },
     component: ProductListView
+  },
+  {
+    path: '/product-search',
+    name: 'ProductSearchView',
+    meta: {
+      title: "GLYK - Product Search",
+    },
+    component: ProductSearchView
   },
   {
     path: '/brands',

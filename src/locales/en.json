@@ -18,7 +18,8 @@
         "brands":"Brands",
         "users":"Users",
         "cart":"Cart",
-        "invoices":"Invoices"
+        "invoices":"Invoices",
+        "product_search":"Search"
     },
 
     "products":

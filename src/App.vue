@@ -32,6 +32,7 @@ export default
         {name:"Products",            dropdown:true,    displayKey: 'navbar.products', 
           subViews: 
           [
+            {name:"ProductSearchView", displayKey: 'navbar.product_search'},
             {name:"ProductListView", displayKey: 'navbar.products'}, 
             {name:"BrandView", displayKey: 'navbar.brands'}
           ]

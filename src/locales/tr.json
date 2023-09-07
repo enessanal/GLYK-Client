@@ -7,7 +7,8 @@
         "brands":"Markalar",
         "users":"Çalışanlar",
         "cart":"Sepet",
-        "invoices":"Sözleşmeler"
+        "invoices":"Sözleşmeler",
+        "product_search":"Ürün Ara"
     },
 
     "products":
