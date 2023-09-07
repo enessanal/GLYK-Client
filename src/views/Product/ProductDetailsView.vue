@@ -13,6 +13,9 @@
 import BackButton from "@/components/BackButton.vue"
 import axios from "axios"
 
+import { mapState, mapGetters, mapActions } from 'vuex'
+
+
 export default{
     data(){
         return {
@@ -24,12 +27,23 @@ export default{
     {
       BackButton
     },
+    computed:
+    {
+      ...mapState(['testCount']),
+      ...mapGetters(['messageForTest'])
+    },
+    methods:
+    {
+      ...mapActions('cart', ['addItem'])
+    },
     async created()
     {
       axios.get(`products/id/${this.id}`)
       .then(response => 
       {
         this.product = response.data;
+        
+        this.addItem( this.product);
       })
       .catch(response => 
       {
