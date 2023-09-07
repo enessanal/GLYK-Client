@@ -13,7 +13,7 @@
 import BackButton from "@/components/BackButton.vue"
 import axios from "axios"
 
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 
 export default{
@@ -29,8 +29,7 @@ export default{
     },
     computed:
     {
-      ...mapState(['testCount']),
-      ...mapGetters(['messageForTest'])
+
     },
     methods:
     {
