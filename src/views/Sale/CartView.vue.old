@@ -1,8 +1,8 @@
 <template>
    <div class="text-center">
-       <h2>{{ $t("titles.cart") }}</h2>
+       <h2>Cart</h2>
    </div>
-   <BackButton/>
+   
    <CartProductTable/>
 
    <!-- <hr> -->
@@ -49,8 +49,6 @@
 
 <script>
 import CartProductTable from "@/components/Sale/CartProductTable.vue";
-import BackButton from "@/components/BackButton.vue";
-
 
 export default
 {
@@ -91,7 +89,7 @@ export default
     },
     components:
     {
-        CartProductTable, BackButton
+        CartProductTable
     }
 }
 </script>
