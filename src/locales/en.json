@@ -7,7 +7,8 @@
         "brands":"Brands",
         "users":"Users",
         "cart":"Cart",
-        "invoices":"Invoices"
+        "invoices":"Invoices",
+        "product_search":"Product Search"
     },
 
     "titles":
@@ -46,7 +47,10 @@
                 "ccPrice":"CC Prc.",
                 "lastPrice":"Last Prc.",
                 "limitPrice":"Limit Prc.",
-                "stock":"Stock"
+                "stock":"Stock",
+
+                "amount":"Amount",
+                "deliveryDate":"Delivery"
             }
         },
         "messages":

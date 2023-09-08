@@ -11,6 +11,20 @@
         "product_search":"Ürün Ara"
     },
 
+    "titles":
+    {
+        "home":"Ana Sayfa",
+        "customers":"Müşteriler",
+        "products":"Ürünler",
+        "brands":"Markalar",
+        "users":"Çalışanlar",
+        "cart":"Sepet",
+        "invoices":"Sözleşmeler",
+        "product_search":"Ürün Ara"
+    },
+
+
+
     "products":
     {
         "total": "Ürün Sayısı",
@@ -35,7 +49,10 @@
                 "ccPrice":"KK",
                 "lastPrice":"Minimum Satış",
                 "limitPrice":"Maksimum Satış",
-                "stock":"Stok"
+                "stock":"Stok",
+
+                "amount":"Adet",
+                "deliveryDate":"Termin"
             }
         },
         "messages":

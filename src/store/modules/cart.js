@@ -3,7 +3,8 @@ function convertToCartItem(item)
     const { id } = item
     const cartItem = { id };
     cartItem.amount=1;
-    cartItem.salePrice=0;
+    cartItem.salePrice=item.ccPrice;
+    cartItem.deliveryDate = new Date();
     
     return cartItem; 
 };
@@ -47,9 +48,11 @@ const mutations =
         }
 
     },
-    removeItem(state, itemId)
+    removeItem(state, item)
     {
+        const itemId = item.id;
         state.items = state.items.filter(item => item.id !== itemId);
+        localStorage.setItem('cartItems', JSON.stringify(state.items));
     }
 };
 
@@ -62,6 +65,10 @@ const actions =
     decreaseItem({commit}, item)
     {
         commit('decreaseItem', item);
+    },
+    removeItem({commit}, item)
+    {
+        commit('removeItem', item);
     }
 };
 
