@@ -1,3 +1,29 @@
+import axios from "axios";
+
+
+
+function uniqueProducts(cartItems) 
+{
+    const seenIds = new Set();
+    return cartItems.filter(cartItem =>
+    {
+      if (seenIds.has(cartItem.product.id)) 
+      {
+        return false;
+      } 
+      else 
+      {
+        seenIds.add(cartItem.product.id);
+        return true;
+      }
+    });
+  }
+
+
+
+
+
+
 const state = 
 {
     cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
@@ -47,9 +73,51 @@ const mutations =
         localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
 
-    checkCartFromServer()
+    async checkCartFromServer(state)
     {
+        const params = 
+        {
+            ids: state.cartItems.map(cartItem => cartItem.product.id).join(",")
+        }
+        
+        axios.get('products/ids', {params})
+        .then(response => 
+        {   
+            const products = response.data;
 
+            const itemsToRemove = [];
+
+            state.cartItems.forEach(cartItem => 
+            {
+                const matchedProduct = products.find(product => product.id === cartItem.product.id);
+                if (matchedProduct) 
+                {
+                    cartItem.product = matchedProduct;
+                }
+                else
+                {
+                    itemsToRemove.push(cartItem.product.id);
+                }
+            });
+            state.cartItems = state.cartItems.filter(cartItem => !itemsToRemove.includes(cartItem.product.id));
+            state.cartItems = uniqueProducts(state.cartItems);
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+        })
+        .catch(error => 
+        {
+            if (error.response) 
+            {
+                alert(`Error ${error.response.status}: ${error.response.data}`);
+            } 
+            else if (error.request) 
+            {
+                alert('No response from server.');
+            } 
+            else 
+            {
+                alert(`Error: ${error.message}`);
+            }
+        });
     }
 };
 
@@ -66,6 +134,10 @@ const actions =
     removeProductFromCart({commit}, product)
     {
         commit('removeItem', product);
+    },
+    checkCartFromServer({commit})
+    {
+        commit('checkCartFromServer');
     }
 };
 
