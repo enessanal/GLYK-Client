@@ -7,11 +7,20 @@
           <button type="button" class="btn-close" @click="closeModal"></button>
         </div>
         <div class="modal-body">
-            <p v-for="content in contents">{{ content }}</p>
+          <p v-for="(content, index) in contents" :key="index">{{ content }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="closeModal">Hayır</button>
-          <button type="button" class="btn" :class="'btn-' + buttonClass" @click="confirm">Evet</button>
+          <button type="button" class="btn btn-secondary" @click="closeModal">
+            Hayır
+          </button>
+          <button
+            type="button"
+            class="btn"
+            :class="'btn-' + buttonClass"
+            @click="confirm"
+          >
+            Evet
+          </button>
         </div>
       </div>
     </div>
@@ -20,48 +29,38 @@
 
 <script>
 export default {
-  props: 
-  {
-    title: 
-    {
+  props: {
+    title: {
       type: String,
       required: true,
     },
-    contents: 
-    {
+    contents: {
       type: Array,
       required: true,
     },
-    onConfirm: 
-    {
+    onConfirm: {
       type: Function,
       required: true,
     },
-    param: 
-    {
+    param: {
       type: Object,
       default: null,
     },
-    buttonClass:
-    {
-        type: String,
-        default: "success"
-    }
+    buttonClass: {
+      type: String,
+      default: "success",
+    },
   },
-  methods: 
-  {
-    show() 
-    {
+  methods: {
+    show() {
       const modal = new bootstrap.Modal(this.$refs.confirmationModal);
       modal.show();
     },
-    closeModal() 
-    {
-      const modal = bootstrap.Modal.getInstance(this.$refs.confirmationModal)
+    closeModal() {
+      const modal = bootstrap.Modal.getInstance(this.$refs.confirmationModal);
       modal.hide();
     },
-    confirm() 
-    {
+    confirm() {
       this.closeModal();
       this.onConfirm(this.param);
     },
