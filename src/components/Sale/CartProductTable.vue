@@ -14,7 +14,7 @@
                 <tr v-for="(item, index) in cartItems">
                     <th scope="row">{{index+1}}</th>
                     
-                    <td v-for="column in columns" :class="{'text-center': column.align=='center'}" v-show="column?.show">
+                    <td v-for="column in columns" :class="{'text-center': column.align=='center', 'fw-bold':column?.bold }" v-show="column?.show">
 
                         {{ getCellValue(item, column) }}
                     
@@ -81,13 +81,13 @@ export default
                 {name:"brand",            type:"text",     align:"left",       show:true,  isProductKey:true,  displayKey:'products.table.columns.brand'},
                 {name:"name",             type:"text",     align:"left",       show:true,  isProductKey:true,  displayKey:'products.table.columns.name'},
                 {name:"code",             type:"text",     align:"left",       show:true,  isProductKey:true,  displayKey:'products.table.columns.code'},
-                {name:"amount",           type:"number",   align:"center",     show:true,  isProductKey:false,  displayKey:'products.table.columns.amount' }, 
-                {name:"deliveryDate",     type:"date",     align:"center",     show:true,  isProductKey:false,  displayKey:'products.table.columns.deliveryDate' }, 
                 {name:"size",             type:"text",     align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.size'},
+                {name:"amount",           type:"number",   align:"center",     show:true,  isProductKey:false, bold:true, displayKey:'products.table.columns.amount' }, 
                 {name:"cashPrice",        type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.cashPrice'},
                 {name:"ccPrice",          type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.ccPrice'},
                 {name:"lastPrice",        type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.lastPrice'},
                 {name:"limitPrice",       type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.limitPrice'},
+                {name:"deliveryDate",     type:"date",     align:"center",     show:true,  isProductKey:false,  displayKey:'products.table.columns.deliveryDate'}, 
             ]
         }
     },
@@ -101,7 +101,7 @@ export default
     },
     methods:
     {
-        ...mapActions('cart',["addProductToCart", "removeProductFromCart", "decreaseProductFromCart"]),
+        ...mapActions('cart',["addProductToCart", "removeProductFromCart", "decreaseProductFromCart", "checkCartFromServer"]),
 
 
         promptDelete(product) 
@@ -129,7 +129,7 @@ export default
 
             if (type === "price") 
             {
-                return value.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                return (value*item.amount).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
             if (type === "date")
@@ -138,56 +138,11 @@ export default
             }
 
             return value;
-        },
-
-
-
-        async fetchCartProducts()
-        { 
-            // this.items=[];
-            // const params = 
-            // {
-            //     ids: this.cartItems.map(item => item.id).join(','),
-            // }
-
-            // axios.get('products/ids', {params})
-            // .then(response => 
-            // {   
-            //     const products = response.data;
-
-            //     this.cartItems.forEach(item => 
-            //     {
-            //         const matchedProduct = products.find(product => product.id === item.id);
-            //         if (matchedProduct) 
-            //         {
-            //             this.items.push({product:matchedProduct, amount:item.amount, salePrice: item.salePrice, deliveryDate: item.deliveryDate } )
-            //         }
-            //         else
-            //         {
-            //             this.removeItem(item);
-            //         }
-            //     });
-            // })
-            // .catch(error => 
-            // {
-            //     if (error.response) 
-            //     {
-            //         alert(`Error ${error.response.status}: ${error.response.data}`);
-            //     } 
-            //     else if (error.request) 
-            //     {
-            //         alert('No response from server.');
-            //     } 
-            //     else 
-            //     {
-            //         alert(`Error: ${error.message}`);
-            //     }
-            // });
         }
     },
     async created()
     {
-
+        this.checkCartFromServer();
     },
     mounted()
     {
