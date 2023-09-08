@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in items">
+                <tr v-for="(item, index) in cartItems">
                     <th scope="row">{{index+1}}</th>
                     
                     <td v-for="column in columns" :class="{'text-center': column.align=='center'}" v-show="column?.show">
@@ -22,33 +22,57 @@
 
                     <td class="text-center">
                         
-                        <!-- <button type="button" class="btn btn-danger" v-if="getItemAmount(product)!==0" @click="decreaseItem(product)">
-                            <i class="bi bi-dash-circle-fill icon-action" ></i>
-                        </button>
-
-                        <button type="button" class="btn btn-success" v-if="getItemAmount(product)===0" @click="addItem(product)">
-                            <i class="bi bi-bag-plus-fill icon-action"></i>
-                        </button> -->
+                        <i 
+                            v-if="item.amount === 1" 
+                            class="bi bi-trash-fill icon-action text-danger" 
+                            @click="promptDelete(item.product)" >
+                        </i>
+                        <i 
+                            v-else 
+                            class="bi bi-dash-circle-fill icon-action text-danger" 
+                            @click="decreaseProductFromCart(item.product)" >
+                        </i>
+                        <i 
+                        class="bi bi-plus-circle-fill icon-action text-success mx-1" 
+                            @click="addProductToCart(item.product)">
+                        </i>
 
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <ModalConfirmation
+    ref="confirmModal"
+    :title="modalTitle"
+    :contents="modalContents"
+    :onConfirm="removeFromCart"
+    :param="selectedProduct"
+    :buttonClass="'danger'"
+  />
+
 </template>
 
 
 
 <script>
-import axios from "axios";
 import { mapGetters, mapActions } from 'vuex'
+import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import dayjs from "dayjs";
+
 
 export default
 {
+    components:
+    {
+        ModalConfirmation
+    },
     data()
     {
         return{
             cart:{},
+            selectedProduct:{},
 
             columns:
             [
@@ -64,11 +88,6 @@ export default
                 {name:"ccPrice",          type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.ccPrice'},
                 {name:"lastPrice",        type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.lastPrice'},
                 {name:"limitPrice",       type:"price",    align:"center",     show:true,  isProductKey:true,  displayKey:'products.table.columns.limitPrice'},
-            ],
-
-            items:
-            [
-                {product:{}, amount:0, salePrice:0, deliveryDate:""}
             ]
         }
     },
@@ -82,8 +101,26 @@ export default
     },
     methods:
     {
-        ...mapActions('cart', ["removeItem"]),
+        ...mapActions('cart',["addProductToCart", "removeProductFromCart", "decreaseProductFromCart"]),
 
+
+        promptDelete(product) 
+        {   
+            this.selectedProduct = product;
+            
+            this.modalContents = [];
+            this.modalTitle = this.$t("cart.messages.removeItem")
+            this.modalContents.push(`(${product.name} - ${product.code})`);
+            this.modalContents.push(this.$t("cart.messages.removeConfirmText"));
+            this.$refs.confirmModal.show();
+        },
+
+
+        removeFromCart()
+        {
+            this.removeProductFromCart(this.selectedProduct);
+        },
+        
         getCellValue(item, column)
         {
             const { type, isProductKey, name } = column;
@@ -95,9 +132,9 @@ export default
                 return value.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
-            if (type === "date") 
+            if (type === "date")
             {
-                return value;
+                return dayjs(this.dateStr).format("DD.MM.YYYY");
             }
 
             return value;
@@ -107,60 +144,50 @@ export default
 
         async fetchCartProducts()
         { 
-            this.items=[];
-            const params = 
-            {
-                ids: this.cartItems.map(item => item.id).join(','),
-            }
+            // this.items=[];
+            // const params = 
+            // {
+            //     ids: this.cartItems.map(item => item.id).join(','),
+            // }
 
-            axios.get('products/ids', {params})
-            .then(response => 
-            {   
-                const products = response.data;
+            // axios.get('products/ids', {params})
+            // .then(response => 
+            // {   
+            //     const products = response.data;
 
-                this.cartItems.forEach(item => 
-                {
-                    const matchedProduct = products.find(product => product.id === item.id);
-                    if (matchedProduct) 
-                    {
-                        this.items.push({product:matchedProduct, amount:item.amount, salePrice: item.salePrice, deliveryDate: item.deliveryDate } )
-                    }
-                    else
-                    {
-                        this.removeItem(item);
-                    }
-                });
-                
-
-
-
-
-
-
-
-
-                
-            })
-            .catch(error => 
-            {
-                if (error.response) 
-                {
-                    alert(`Error ${error.response.status}: ${error.response.data}`);
-                } 
-                else if (error.request) 
-                {
-                    alert('No response from server.');
-                } 
-                else 
-                {
-                    alert(`Error: ${error.message}`);
-                }
-            });
+            //     this.cartItems.forEach(item => 
+            //     {
+            //         const matchedProduct = products.find(product => product.id === item.id);
+            //         if (matchedProduct) 
+            //         {
+            //             this.items.push({product:matchedProduct, amount:item.amount, salePrice: item.salePrice, deliveryDate: item.deliveryDate } )
+            //         }
+            //         else
+            //         {
+            //             this.removeItem(item);
+            //         }
+            //     });
+            // })
+            // .catch(error => 
+            // {
+            //     if (error.response) 
+            //     {
+            //         alert(`Error ${error.response.status}: ${error.response.data}`);
+            //     } 
+            //     else if (error.request) 
+            //     {
+            //         alert('No response from server.');
+            //     } 
+            //     else 
+            //     {
+            //         alert(`Error: ${error.message}`);
+            //     }
+            // });
         }
     },
     async created()
     {
-        this.fetchCartProducts();
+
     },
     mounted()
     {
@@ -181,7 +208,7 @@ export default
 
 
 
-/* 
+
 .icon-action 
 {
     cursor: pointer;
@@ -193,7 +220,7 @@ export default
 {
     transform: scale(1.5);
 }
-
+/* 
 #clearBtn
 {
     transition: transform .1s;

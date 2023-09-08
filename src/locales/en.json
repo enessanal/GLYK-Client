@@ -23,6 +23,17 @@
         "product_search":"Search"
     },
 
+
+    "cart":
+    {
+        "messages":
+        {
+            "removeItem": "Remove Product Confirmation",
+            "removeConfirmText": "Are you sure you want to remove?"
+        }
+    },
+
+
     "products":
     {
         "total": "Total Products",
