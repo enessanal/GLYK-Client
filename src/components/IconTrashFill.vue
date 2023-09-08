@@ -1,5 +1,5 @@
 <template>
-    <i class="bi bi-trash-fill icon-action text-danger mx-1" @click="call(object)" :title="title"></i>
+    <i class="bi bi-trash-fill icon-action text-danger mx-1" @click="call(parameter)" :title="title"></i>
 </template>
 
 <script>
@@ -8,9 +8,9 @@ export default
     name: "IconTrashFill",
     methods:
     {
-        call(customer) 
+        call(parameter) 
         {
-            this.$emit('call', customer);
+            this.$emit('call', parameter);
         },
     },
     props:
