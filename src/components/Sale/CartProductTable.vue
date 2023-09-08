@@ -58,7 +58,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import ModalConfirmation from '@/components/other/ModalConfirmation.vue';
 import dayjs from "dayjs";
 
 

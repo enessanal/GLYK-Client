@@ -10,7 +10,7 @@
 
 <script>
 import axios from "axios"
-import CountPill from "@/components/CountPill.vue";
+import CountPill from "@/components/other/CountPill.vue";
 
 
 export default

@@ -81,9 +81,9 @@
 
 
 <script>
-import BackButton from "@/components/BackButton.vue"
+import BackButton from "@/components/other/BackButton.vue"
 import axios from "axios"
-import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import ModalConfirmation from '@/components/other/ModalConfirmation.vue';
 
 
 export default{

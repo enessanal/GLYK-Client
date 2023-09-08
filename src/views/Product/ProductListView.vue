@@ -66,9 +66,9 @@
 
 <script>
 import axios from "axios";
-import Pagination from "@/components/Pagination.vue";
-import IconTrashFill from "@/components/IconTrashFill.vue";
-import ModalConfirmation from '@/components/ModalConfirmation.vue';
+import Pagination from "@/components/other/Pagination.vue";
+import IconTrashFill from "@/components/other/IconTrashFill.vue";
+import ModalConfirmation from '@/components/other/ModalConfirmation.vue';
 import ProductCountPill from '@/components/Product/ProductCountPill.vue'
 
 

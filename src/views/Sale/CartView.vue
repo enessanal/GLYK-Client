@@ -49,7 +49,7 @@
 
 <script>
 import CartProductTable from "@/components/Sale/CartProductTable.vue";
-import BackButton from "@/components/BackButton.vue";
+import BackButton from "@/components/other/BackButton.vue";
 
 
 export default
