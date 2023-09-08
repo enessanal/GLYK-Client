@@ -15,25 +15,8 @@
                     <th scope="row">{{index+1}}</th>
                     
                     <td v-for="column in columns" :class="{'text-center': column.align=='center'}" v-show="column?.show">
-                        {{
-                            column.type === "price" 
-                        ? 
-                            (
-                                column.isProductKey
-                                ?  
-                                item.product[column.name].toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
-                                :
-                                item[column.name].toLocaleString('tr-TR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
-                            )
-                        :
-                        (
-                            column.isProductKey
-                            ?  
-                            item.product[column.name]
-                            :
-                            item[column.name]
-                        )
-                        }}
+
+                        {{ getCellValue(item, column) }}
                     
                     </td>
 
@@ -100,6 +83,27 @@ export default
     methods:
     {
         ...mapActions('cart', ["removeItem"]),
+
+        getCellValue(item, column)
+        {
+            const { type, isProductKey, name } = column;
+            const value = isProductKey ? item.product[name] : item[name];
+
+
+            if (type === "price") 
+            {
+                return value.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+
+            if (type === "date") 
+            {
+                return value;
+            }
+
+            return value;
+        },
+
+
 
         async fetchCartProducts()
         { 
