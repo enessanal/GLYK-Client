@@ -23,7 +23,14 @@
         "product_search":"Ürün Ara"
     },
 
-
+    "cart":
+    {
+        "messages":
+        {
+            "removeItem": "Sepetten Ürün Silme Onayı",
+            "removeConfirmText": "Ürünü sepetten kaldırmak istediğinize emin misiniz?"
+        }
+    },
 
     "products":
     {

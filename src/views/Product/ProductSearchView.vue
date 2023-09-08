@@ -49,11 +49,11 @@
 
                     <td class="text-center">
                         
-                        <button type="button" class="btn btn-danger" v-if="getItemAmount(product)!==0" @click="decreaseItem(product)">
-                            <i class="bi bi-dash-circle-fill icon-action" ></i>
+                        <button type="button" class="btn btn-danger" v-if="getItemAmount(product)!==0" @click="removeProductFromCart(product)">
+                            <i class="bi bi-x-circle-fill icon-action" ></i>
                         </button>
 
-                        <button type="button" class="btn btn-success" v-if="getItemAmount(product)===0" @click="addItem(product)">
+                        <button type="button" class="btn btn-success" v-if="getItemAmount(product)===0" @click="addProductToCart(product)">
                             <i class="bi bi-bag-plus-fill icon-action"></i>
                         </button>
 
@@ -109,7 +109,7 @@ export default
     },
     methods:
     {   
-        ...mapActions('cart', ['addItem','decreaseItem']),
+        ...mapActions('cart', ['addProductToCart','decreaseProductFromCart','removeProductFromCart']),
     
         handleChangePageSize()
         {

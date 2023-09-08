@@ -1,87 +1,84 @@
-function convertToCartItem(item)
-{
-    const { id } = item
-    const cartItem = { id };
-    cartItem.amount=1;
-    cartItem.salePrice=item.ccPrice;
-    cartItem.deliveryDate = new Date();
-    
-    return cartItem; 
-};
-
 const state = 
 {
-    items: JSON.parse(localStorage.getItem('cartItems')) || []
+    cartItems: JSON.parse(localStorage.getItem('cartItems')) || []
 };
 
 
 const mutations = 
 {
-    addItem(state, item) 
-    {
-       const cartItem = convertToCartItem(item);
-        
-        const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
+    addItem(state, product) 
+    {        
+        const itemIndex = state.cartItems.findIndex(cartItem => cartItem?.product?.id === product.id);
+
         if (itemIndex !== -1)
         {            
-            state.items[itemIndex].amount++;
+            state.cartItems[itemIndex].amount++;
         } 
         else
         {
-          state.items.push(cartItem);
+
+            const cartItem = {};
+            cartItem.product = product;
+            cartItem.amount = 1;
+            cartItem.deliveryDate= Date.now();
+
+
+            state.cartItems.push(cartItem);
         }
 
-        localStorage.setItem('cartItems', JSON.stringify(state.items));
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
     },
-    decreaseItem(state, item)
-    {
-        const cartItem = convertToCartItem(item);   
-        const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
+    decreaseItem(state, product)
+    {   
+        const itemIndex = state.cartItems.findIndex(cartItem => cartItem?.product?.id === product.id);
         
         if (itemIndex !== -1)
         {            
-            state.items[itemIndex].amount--;
-            if(state.items[itemIndex].amount===0) state.items.splice(itemIndex, 1);
+            state.cartItems[itemIndex].amount--;
+            if(state.cartItems[itemIndex].amount===0) state.cartItems.splice(itemIndex, 1);
 
-
-            localStorage.setItem('cartItems', JSON.stringify(state.items));
+            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
         }
 
     },
-    removeItem(state, item)
+    removeItem(state, product)
     {
-        const itemId = item.id;
-        state.items = state.items.filter(item => item.id !== itemId);
-        localStorage.setItem('cartItems', JSON.stringify(state.items));
+        state.cartItems = state.cartItems.filter(cartItem => cartItem?.product?.id !== product.id);
+        localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+    },
+
+    checkCartFromServer()
+    {
+
     }
 };
 
 const actions = 
 {
-    addItem({commit}, item)
+    addProductToCart({commit}, product)
     {
-        commit('addItem', item);
+        commit('addItem', product);
     },
-    decreaseItem({commit}, item)
+    decreaseProductFromCart({commit}, product)
     {
-        commit('decreaseItem', item);
+        commit('decreaseItem', product);
     },
-    removeItem({commit}, item)
+    removeProductFromCart({commit}, product)
     {
-        commit('removeItem', item);
+        commit('removeItem', product);
     }
 };
 
 const getters = 
 {
-    cartItems: state => state.items,
-    cartItemCount: state => state.items.length,
-    getItemAmount: (state) => (item) => 
+    cartItems: state => state.cartItems,
+    cartItemCount: state => state.cartItems.length,
+    getItemAmount: (state) => (product) => 
     {
-        const itemIndex = state.items.findIndex(existingItem => existingItem.id === item.id);
+        const itemIndex = state.cartItems.findIndex(item => item.product.id === product.id);
         if (itemIndex !== -1) 
         {
-          return state.items[itemIndex].amount;
+          return state.cartItems[itemIndex].amount;
         }
         return 0;
       }
