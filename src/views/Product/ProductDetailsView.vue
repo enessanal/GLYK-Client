@@ -31,15 +31,21 @@ export default{
       .then(response => 
       {
         this.product = response.data;
-        
-        this.addItem( this.product);
       })
-      .catch(response => 
+      .catch(error =>
       {
-        if(response.response.status === 404)
+        if(error.response)
         {
-            alert("Product not found!")
+            alert(`Error ${error.response.status}: ${error.response.data}`);
             this.$router.push({ path: '/products'});
+        }
+        else if (error.request)
+        {
+          alert('No response from server.');
+        }
+        else
+        {
+          alert(`Error: ${error.message}`);
         }
       })
     }
