@@ -81,7 +81,7 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
-import ToastComponent from "@/ToastComponent.vue";
+import ToastComponent from "@/components/other/ToastComponent.vue";
 
 export default {
   components: {
