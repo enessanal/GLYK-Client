@@ -56,6 +56,13 @@
     </table>
   </div>
 
+  <TablePagination
+    :page="page"
+    :sizes="sizes"
+    @changePageSize="handleChangePageSize"
+    @clickPageNumber="handleClickPageNumber"
+  />
+
   <ModalConfirmation
     ref="confirmModal"
     :title="modalTitle"
@@ -65,12 +72,7 @@
     :buttonClass="'danger'"
   />
 
-  <TablePagination
-    :page="page"
-    :sizes="sizes"
-    @changePageSize="handleChangePageSize"
-    @clickPageNumber="handleClickPageNumber"
-  />
+  <ToastComponent ref="toaster" />
 </template>
 
 <script>
@@ -79,6 +81,7 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
+import ToastComponent from "@/ToastComponent.vue";
 
 export default {
   components: {
@@ -86,6 +89,7 @@ export default {
     IconTrashFill,
     ModalConfirmation,
     CustomerCountPill,
+    ToastComponent,
   },
   data() {
     return {
@@ -176,12 +180,27 @@ export default {
         .delete(`customers/id/${customer.id}`)
         .then((response) => {
           if (response.status === 204) {
+            this.$refs.toaster.show(
+              this.$t("others.successfullOperationTitle"),
+              `${this.$t("customers.messages.successDeleteContent")} (${
+                customer.fullName
+              })`,
+              "success",
+              2000
+            );
             this.getCustomers();
             this.$refs.countPill.countAll();
           }
         })
         .catch((axiosError) => {
-          alert(axiosError.message);
+          this.$refs.toaster.show(
+            this.$t("others.successfullOperationTitle"),
+            `${this.$t(
+              "customers.messages.failedDeleteContent"
+            )} => ${axiosError}`,
+            "danger",
+            5000
+          );
         });
     },
   },

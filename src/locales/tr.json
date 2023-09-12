@@ -81,7 +81,9 @@
         "messages":
          {
             "noAddress":"Müşteriye ait adres bulunmamaktadır.",
-            "deleteTitle": "Müşteri Silme Onayı"
+            "deleteTitle": "Müşteri Silme Onayı",
+             "failedDeleteContent": "Müşteri silinemedi",
+             "successDeleteContent": "Müşteri silindi"
          },
          
         "table":
@@ -130,6 +132,8 @@
     "others":
     {
         "backButton": "Geri",
-        "confirmDelete": "Silmek istediğinize emin misiniz?"
+        "confirmDelete": "Silmek istediğinize emin misiniz?",
+        "successfullOperationTitle": "İşlem Başarılı",
+        "failedOperationTitle": "İşlem Başarısız"
     }
 }

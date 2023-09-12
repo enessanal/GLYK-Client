@@ -10,7 +10,6 @@
         "invoices":"Invoices",
         "product_search":"Product Search"
     },
-
     "titles":
     {
         "home":"Home",
@@ -22,8 +21,6 @@
         "invoices":"Invoices",
         "product_search":"Search"
     },
-
-
     "cart":
     {
         "messages":
@@ -32,8 +29,6 @@
             "removeConfirmText": "Are you sure you want to remove?"
         }
     },
-
-
     "products":
     {
         "total": "Total Products",
@@ -83,7 +78,9 @@
         "messages":
          {
             "noAddress":"There is no address for this customer.",
-            "deleteTitle": "Delete Customer Confirmation"
+            "deleteTitle": "Delete Customer Confirmation",
+             "failedDeleteContent": "Customer not deleted",
+             "successDeleteContent": "Customer deleted successfully"
          },
 
         "table":
@@ -132,7 +129,9 @@
     "others":
     {
         "backButton": "Back",
-        "confirmDelete": "Are you sure you want to delete?"
+        "confirmDelete": "Are you sure you want to delete?",
+        "successfullOperationTitle": "Operation Successfull",
+        "failedOperationTitle": "Operaiton Failed"
     }
 }               
 
