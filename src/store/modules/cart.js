@@ -1,5 +1,5 @@
 import axios from "axios";
-import {toast} from "vue3-toastify";
+import { toast } from "vue3-toastify";
 
 function uniqueProducts(cartItems) {
   const seenIds = new Set();
@@ -57,8 +57,7 @@ const mutations = {
     );
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
   },
-  emptyItems(state)
-  {
+  emptyItems(state) {
     state.cartItems = [];
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
   },
@@ -93,14 +92,19 @@ const mutations = {
       })
       .catch((error) => {
         if (error.response) {
-          toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
+          toast.warn(error.response.data, {
+            autoClose: 3000,
+            theme: "colored",
+          });
         } else if (error.request) {
-          toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
+          toast.error("No response from server", {
+            autoClose: 5000,
+            theme: "colored",
+          });
         } else {
-          toast.error(error.message, {autoClose: 3000, theme: "colored",});
+          toast.error(error.message, { autoClose: 3000, theme: "colored" });
         }
       });
-
   },
 };
 

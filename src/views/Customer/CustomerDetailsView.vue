@@ -86,10 +86,20 @@
           class="d-flex justify-content-around justify-content-sm-end flex-wrap bd-highlight m-1"
         >
           <button class="btn btn-primary">Update</button>
-          <button class="btn btn-danger mx-1" @click=" this.$refs.confirmModal.show({title:this.$t('customers.messages.addressDeleteTitle'),
-      contents:[`(${address.name})`,this.$t('others.confirmDelete') ],
-          param:address,
-          onConfirm: this.deleteCustomerAddress})">
+          <button
+            class="btn btn-danger mx-1"
+            @click="
+              this.$refs.confirmModal.show({
+                title: this.$t('customers.messages.addressDeleteTitle'),
+                contents: [
+                  `(${address.name})`,
+                  this.$t('others.confirmDelete'),
+                ],
+                param: address,
+                onConfirm: this.deleteCustomerAddress,
+              })
+            "
+          >
             Delete
           </button>
         </div>
@@ -97,9 +107,7 @@
     </div>
   </div>
 
-  <ModalConfirmation
-    ref="confirmModal"
-  />
+  <ModalConfirmation ref="confirmModal" />
 </template>
 
 <script>
@@ -111,7 +119,6 @@ export default {
     return {
       id: this.$route.params.id,
       customer: {},
-
     };
   },
   components: {
@@ -119,32 +126,30 @@ export default {
     ModalConfirmation,
   },
   methods: {
-
     async getCustomerAddresses() {
-
-
       this.$axios
         .get(`customers/id/${this.customer.id}/addresses`)
         .then((response) => {
           this.customer.addresses = response.data;
         })
-          .catch((error) =>
-          {
-            if (error.response)
-            {
-              this.$toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
-            }
-            else if (error.request)
-            {
-              this.$toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
-            }
-            else
-            {
-              this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
-            }
-          });
-
-
+        .catch((error) => {
+          if (error.response) {
+            this.$toast.warn(error.response.data, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else if (error.request) {
+            this.$toast.error("No response from server", {
+              autoClose: 5000,
+              theme: "colored",
+            });
+          } else {
+            this.$toast.error(error.message, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        });
     },
 
     async deleteCustomerAddress(address) {
@@ -153,30 +158,33 @@ export default {
         .then((response) => {
           if (response.status === 204) {
             this.$toast.success(
-                `${this.$t("customers.messages.addressDeletedToast")} (${
-                    address.name
-                })`,
-                { autoClose: 3000, theme: "colored" }
+              `${this.$t("customers.messages.addressDeletedToast")} (${
+                address.name
+              })`,
+              { autoClose: 3000, theme: "colored" }
             );
             this.getCustomerAddresses();
           }
         })
-          .catch((error) =>
-          {
-            if (error.response)
-            {
-              console.log(error)
-              this.$toast.warn(error.response.data.message, {autoClose: 3000, theme: "colored",});
-            }
-            else if (error.request)
-            {
-              this.$toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
-            }
-            else
-            {
-              this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
-            }
-          });
+        .catch((error) => {
+          if (error.response) {
+            console.log(error);
+            this.$toast.warn(error.response.data.message, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else if (error.request) {
+            this.$toast.error("No response from server", {
+              autoClose: 5000,
+              theme: "colored",
+            });
+          } else {
+            this.$toast.error(error.message, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        });
     },
   },
   async created() {

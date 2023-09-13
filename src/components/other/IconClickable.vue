@@ -1,6 +1,7 @@
 <template>
   <i
-    class="bi" :class="'bi-'+icon, 'text-'+color"
+    class="bi"
+    :class="('bi-' + icon, 'text-' + color)"
     @click="call(param)"
     :title="title"
   ></i>
@@ -35,7 +36,7 @@ export default {
 </script>
 
 <style scoped>
-i{
+i {
   cursor: pointer;
   transition: transform 0.2s;
   display: inline-block;

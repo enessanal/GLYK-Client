@@ -35,55 +35,74 @@
           </td>
 
           <td class="text-center">
-
             <IconClickable
-                v-if="item.amount === 1"
-                :icon="'trash-fill'"
-                :color="'danger'"
-                :param="item.product"
-                :title="'Delete'"
-                @call="this.$refs.confirmModal.show({title:$t('cart.messages.removeItem'), contents:[`(${item.product.name} - ${item.product.code})`, $t('cart.messages.removeConfirmText')], param:item.product, onConfirm: this.removeProductFromCart})"
+              v-if="item.amount === 1"
+              :icon="'trash-fill'"
+              :color="'danger'"
+              :param="item.product"
+              :title="'Delete'"
+              @call="
+                this.$refs.confirmModal.show({
+                  title: $t('cart.messages.removeItem'),
+                  contents: [
+                    `(${item.product.name} - ${item.product.code})`,
+                    $t('cart.messages.removeConfirmText'),
+                  ],
+                  param: item.product,
+                  onConfirm: this.removeProductFromCart,
+                })
+              "
             />
 
             <IconClickable
-                v-else
-                :icon="'dash-circle-fill'"
-                :color="'danger'"
-                :param="item.product"
-                :title="'Decrease'"
-                @call="decreaseProductFromCart"
+              v-else
+              :icon="'dash-circle-fill'"
+              :color="'danger'"
+              :param="item.product"
+              :title="'Decrease'"
+              @call="decreaseProductFromCart"
             />
 
             <IconClickable
-                :icon="'plus-circle-fill'"
-                :color="'success'"
-                :param="item.product"
-                :title="'Increase'"
-                @call="addProductToCart"
-                class="mx-1"
+              :icon="'plus-circle-fill'"
+              :color="'success'"
+              :param="item.product"
+              :title="'Increase'"
+              @call="addProductToCart"
+              class="mx-1"
             />
-
           </td>
         </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td class="text-center fw-bold">
-          <button id="clearBtn"
-                  class="btn btn-danger btn-sm"
-                  :disabled="!cartItems.length" data-bs-toggle="tooltip" data-bs-placement="bottom" :title="$t('others.clearAll')"
-                  @click="this.$refs.confirmModal.show({title:$t('cart.messages.emptyTitle'), contents:[$t('cart.messages.emptyCartConfirmTest')], onConfirm: this.emptyItems});"><i class="bi bi-trash3-fill"></i></button></td>
-      </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-center fw-bold">
+            <button
+              id="clearBtn"
+              class="btn btn-danger btn-sm"
+              :disabled="!cartItems.length"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              :title="$t('others.clearAll')"
+              @click="
+                this.$refs.confirmModal.show({
+                  title: $t('cart.messages.emptyTitle'),
+                  contents: [$t('cart.messages.emptyCartConfirmTest')],
+                  onConfirm: this.emptyItems,
+                })
+              "
+            >
+              <i class="bi bi-trash3-fill"></i>
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
 
-  <ModalConfirmation
-    ref="confirmModal"
-  />
-
+  <ModalConfirmation ref="confirmModal" />
 </template>
 
 <script>
@@ -172,7 +191,8 @@ export default {
           type: "price",
           align: "center",
           show: true,
-          isProductKey: true, displayKey: "products.table.columns.ccPrice",
+          isProductKey: true,
+          displayKey: "products.table.columns.ccPrice",
         },
         {
           name: "lastPrice",
@@ -213,7 +233,7 @@ export default {
           show: true,
           isProductKey: false,
           displayKey: "products.table.columns.salePrice",
-        }
+        },
       ],
     };
   },
@@ -226,7 +246,7 @@ export default {
       "removeProductFromCart",
       "decreaseProductFromCart",
       "checkCartFromServer",
-      "emptyItems"
+      "emptyItems",
     ]),
     getCellValue(item, column) {
       const { type, isProductKey, name } = column;
@@ -261,15 +281,12 @@ export default {
 </script>
 
 <style scoped>
-
-#clearBtn
-{
-    transition: transform .1s;
+#clearBtn {
+  transition: transform 0.1s;
 }
 
-#clearBtn:hover
-{
-    transform: scale(1.5);
+#clearBtn:hover {
+  transform: scale(1.5);
 }
 /*
 tbody

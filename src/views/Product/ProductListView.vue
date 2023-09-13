@@ -56,7 +56,17 @@
             <IconTrashFill
               :object="product"
               :title="'Delete'"
-              @call=" this.$refs.confirmModal.show({title:this.$t('products.messages.deleteTitle'),contents:[`(${product.name} - ${product.code})`,this.$t('others.confirmDelete') ],param:product, onConfirm: this.deleteProduct})"
+              @call="
+                this.$refs.confirmModal.show({
+                  title: this.$t('products.messages.deleteTitle'),
+                  contents: [
+                    `(${product.name} - ${product.code})`,
+                    this.$t('others.confirmDelete'),
+                  ],
+                  param: product,
+                  onConfirm: this.deleteProduct,
+                })
+              "
             ></IconTrashFill>
             <router-link
               :to="{ name: 'ProductDetailsView', params: { id: product.id } }"
@@ -68,9 +78,7 @@
     </table>
   </div>
 
-  <ModalConfirmation
-    ref="confirmModal"
-  />
+  <ModalConfirmation ref="confirmModal" />
   <TablePagination
     :page="page"
     :sizes="sizes"
@@ -85,7 +93,6 @@ import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import ProductCountPill from "@/components/Product/ProductCountPill.vue";
 import { toast } from "vue3-toastify";
-
 
 export default {
   components: {
@@ -110,7 +117,6 @@ export default {
     };
   },
   methods: {
-
     handleChangePageSize() {
       this.getProducts(0);
     },
@@ -149,22 +155,22 @@ export default {
           this.error = false;
         })
 
-          .catch((error) =>
-          {
-            this.products = [];
-            if (error.response)
-            {
-              toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
-            }
-            else if (error.request)
-            {
-              toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
-            }
-            else
-            {
-              toast.error(error.message, {autoClose: 3000, theme: "colored",});
-            }
-          });
+        .catch((error) => {
+          this.products = [];
+          if (error.response) {
+            toast.warn(error.response.data, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else if (error.request) {
+            toast.error("No response from server", {
+              autoClose: 5000,
+              theme: "colored",
+            });
+          } else {
+            toast.error(error.message, { autoClose: 3000, theme: "colored" });
+          }
+        });
     },
     async deleteProduct(product) {
       this.$axios

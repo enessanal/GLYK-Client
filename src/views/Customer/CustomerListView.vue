@@ -40,12 +40,17 @@
             <IconTrashFill
               :object="customer"
               :title="'Delete'"
-              @call=" this.$refs.confirmModal.show({title:this.$t('customers.messages.deleteTitle'),
-              contents:[`(${customer.fullName} - ${customer.identityNumber})`,this.$t('others.confirmDelete') ],
-              param:customer,
-              onConfirm: this.deleteCustomer})"
-
-
+              @call="
+                this.$refs.confirmModal.show({
+                  title: this.$t('customers.messages.deleteTitle'),
+                  contents: [
+                    `(${customer.fullName} - ${customer.identityNumber})`,
+                    this.$t('others.confirmDelete'),
+                  ],
+                  param: customer,
+                  onConfirm: this.deleteCustomer,
+                })
+              "
             ></IconTrashFill>
             <router-link
               :to="{ name: 'CustomerDetailsView', params: { id: customer.id } }"
@@ -64,14 +69,7 @@
     @clickPageNumber="handleClickPageNumber"
   />
 
-
-
-
-
-
-  <ModalConfirmation
-    ref="confirmModal"
-  />
+  <ModalConfirmation ref="confirmModal" />
 </template>
 
 <script>
@@ -117,7 +115,6 @@ export default {
     };
   },
   methods: {
-
     handleChangePageSize() {
       this.getCustomers(0);
     },
@@ -154,23 +151,25 @@ export default {
 
           this.error = false;
         })
-    .catch((error) =>
-      {
-        this.customers = [];
-        if (error.response)
-        {
-          this.$toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
-        }
-        else if (error.request)
-        {
-          this.$toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
-        }
-        else
-        {
-          this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
-        }
-      });
-
+        .catch((error) => {
+          this.customers = [];
+          if (error.response) {
+            this.$toast.warn(error.response.data, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else if (error.request) {
+            this.$toast.error("No response from server", {
+              autoClose: 5000,
+              theme: "colored",
+            });
+          } else {
+            this.$toast.error(error.message, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        });
     },
     async deleteCustomer(customer) {
       this.$axios
@@ -225,5 +224,4 @@ export default {
   cursor: pointer;
   text-decoration: underline;
 }
-
 </style>

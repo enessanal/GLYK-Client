@@ -11,15 +11,15 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="closeModal">
-            {{$t("others.no")}}
+            {{ $t("others.no") }}
           </button>
           <button
-              type="button"
-              class="btn"
-              :class="'btn-' + buttonClass"
-              @click="confirm"
+            type="button"
+            class="btn"
+            :class="'btn-' + buttonClass"
+            @click="confirm"
           >
-            {{$t("others.yes")}}
+            {{ $t("others.yes") }}
           </button>
         </div>
       </div>
@@ -29,19 +29,17 @@
 
 <script>
 export default {
-
-  data(){
-    return{
-      title:"",
-      contents:[],
-      param:{},
+  data() {
+    return {
+      title: "",
+      contents: [],
+      param: {},
       buttonClass: "danger",
-      onConfirm: ""
-    }
+      onConfirm: "",
+    };
   },
   methods: {
     show(options) {
-
       this.title = options.title || "Confirmation";
       this.contents = options.contents || "Are you sure?";
       this.param = options.param || {};
@@ -56,7 +54,6 @@ export default {
       modal.hide();
     },
     confirm() {
-
       this.closeModal();
       this.onConfirm(this.param);
     },

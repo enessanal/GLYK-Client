@@ -28,23 +28,26 @@ export default {
         .then((response) => {
           this.count = response.data;
         })
-          .catch((error) =>
-          {
-            this.count = 0;
-            this.customers = [];
-            if (error.response)
-            {
-              this.$toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
-            }
-            else if (error.request)
-            {
-              this.$toast.error("No response from server",{autoClose: 5000, theme: "colored",});
-            }
-            else
-            {
-              this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
-            }
-          });
+        .catch((error) => {
+          this.count = 0;
+          this.customers = [];
+          if (error.response) {
+            this.$toast.warn(error.response.data, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          } else if (error.request) {
+            this.$toast.error("No response from server", {
+              autoClose: 5000,
+              theme: "colored",
+            });
+          } else {
+            this.$toast.error(error.message, {
+              autoClose: 3000,
+              theme: "colored",
+            });
+          }
+        });
     },
   },
   async created() {

@@ -132,7 +132,7 @@ export default {
       "addProductToCart",
       "decreaseProductFromCart",
       "removeProductFromCart",
-        "checkCartFromServer"
+      "checkCartFromServer",
     ]),
 
     handleChangePageSize() {
@@ -287,7 +287,7 @@ export default {
       },
     ]),
       this.getProducts();
-      this.checkCartFromServer();
+    this.checkCartFromServer();
   },
 };
 </script>
