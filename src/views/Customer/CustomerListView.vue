@@ -75,7 +75,6 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
-import { toast } from "vue3-toastify";
 
 export default {
   components: {
@@ -167,15 +166,15 @@ export default {
         this.customers = [];
         if (error.response)
         {
-          toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
+          this.$toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
         }
         else if (error.request)
         {
-          toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
+          this.$toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
         }
         else
         {
-          toast.error(error.message, {autoClose: 3000, theme: "colored",});
+          this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
         }
       });
 
@@ -196,7 +195,7 @@ export default {
         .delete(`customers/id/${customer.id}`)
         .then((response) => {
           if (response.status === 204) {
-            toast.success(
+            this.$toast.success(
               `${this.$t("customers.messages.successDeleteContent")} (${
                 customer.fullName
               })`,
@@ -208,7 +207,7 @@ export default {
           }
         })
         .catch((axiosError) => {
-          toast.error(
+          this.$toast.error(
             `${this.$t(
               "customers.messages.failedDeleteContent"
             )} => ${axiosError}`,

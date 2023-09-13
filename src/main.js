@@ -4,6 +4,8 @@ import router from "@/router";
 import axios from "axios";
 import { createI18n } from "vue-i18n";
 import store from "@/store";
+import { toast } from 'vue3-toastify';
+
 
 import en from "./locales/en.json";
 import tr from "./locales/tr.json";
@@ -24,5 +26,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "vue3-toastify/dist/index.css";
 
 axios.defaults.baseURL = "http://localhost:8080/api/v1/";
+const app = createApp(App);
 
-createApp(App).use(router).use(i18n).use(store).mount("#app");
+app.config.globalProperties.$toast = toast;
+app.use(router).use(i18n).use(store).mount("#app");
+
+
+

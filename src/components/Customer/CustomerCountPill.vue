@@ -11,7 +11,6 @@
 <script>
 import axios from "axios";
 import CountPill from "@/components/other/CountPill.vue";
-import {toast} from "vue3-toastify";
 
 export default {
   components: {
@@ -36,15 +35,15 @@ export default {
             this.customers = [];
             if (error.response)
             {
-              toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
+              this.$toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
             }
             else if (error.request)
             {
-              toast.error("No response from server",{autoClose: 5000, theme: "colored",});
+              this.$toast.error("No response from server",{autoClose: 5000, theme: "colored",});
             }
             else
             {
-              toast.error(error.message, {autoClose: 3000, theme: "colored",});
+              this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
             }
           });
     },
