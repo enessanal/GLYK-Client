@@ -106,7 +106,6 @@
 
 <script>
 import BackButton from "@/components/other/BackButton.vue";
-import axios from "axios";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 
 export default {
@@ -136,7 +135,7 @@ export default {
     },
 
     async getCustomerAddresses() {
-      axios
+      this.$axios
         .get(`customers/id/${this.customer.id}/addresses`)
         .then((response) => {
           this.customer.addresses = response.data;
@@ -147,7 +146,7 @@ export default {
     },
 
     async deleteCustomerAddress(address) {
-      axios
+      this.$axios
         .delete(`customers/id/${this.customer.id}/addresses/${address.id}`)
         .then((response) => {
           if (response.status === 204) {
@@ -160,7 +159,7 @@ export default {
     },
   },
   async created() {
-    axios
+    this.$axios
       .get(`customers/id/${this.id}`)
       .then((response) => {
         console.log(response);

@@ -6,6 +6,9 @@ import { createI18n } from "vue-i18n";
 import store from "@/store";
 import { toast } from 'vue3-toastify';
 
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "vue3-toastify/dist/index.css";
 
 import en from "./locales/en.json";
 import tr from "./locales/tr.json";
@@ -21,14 +24,14 @@ const i18n = createI18n({
   messages,
 });
 
-import "bootstrap-icons/font/bootstrap-icons.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "vue3-toastify/dist/index.css";
 
-axios.defaults.baseURL = "http://localhost:8080/api/v1/";
 const app = createApp(App);
 
+app.config.globalProperties.$axios = axios;
 app.config.globalProperties.$toast = toast;
+
+axios.defaults.baseURL = "http://localhost:8080/api/v1/";
+
 app.use(router).use(i18n).use(store).mount("#app");
 
 

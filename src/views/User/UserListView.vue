@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   props: ["id"],
   data() {
@@ -21,7 +20,7 @@ export default {
   },
   methods: {
     async getUsers() {
-      axios
+      this.$axios
         .get(`/employees`)
         .then((response) => {
           console.log(response.data);

@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   data() {
@@ -38,7 +37,7 @@ export default {
   },
   methods: {
     async getBrands() {
-      axios
+      this.$axios
         .get(`brands`)
         .then((response) => {
           this.brands = response.data;

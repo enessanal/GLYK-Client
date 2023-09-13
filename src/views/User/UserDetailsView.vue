@@ -13,7 +13,6 @@
 
 <script>
 import BackButton from "@/components/other/BackButton.vue";
-import axios from "axios";
 
 export default {
   data() {
@@ -26,7 +25,7 @@ export default {
     BackButton,
   },
   async created() {
-    axios
+    this.$axios
       .get(`/api/employees/${this.id}`)
       .then((response) => {
         this.user = response.data;

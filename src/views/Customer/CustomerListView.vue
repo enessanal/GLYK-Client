@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
@@ -153,7 +152,7 @@ export default {
         direction: this.sortOrder,
       };
 
-      axios
+      this.$axios
         .get(`customers`, { params })
         .then((response) => {
           this.page = response.data;
@@ -191,7 +190,7 @@ export default {
 
     },
     async deleteCustomer(customer) {
-      axios
+      this.$axios
         .delete(`customers/id/${customer.id}`)
         .then((response) => {
           if (response.status === 204) {

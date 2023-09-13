@@ -186,7 +186,6 @@ export default {
   computed: {
     ...mapGetters("cart", ["cartItems"]),
   },
-  watch: {},
   methods: {
     ...mapActions("cart", [
       "addProductToCart",

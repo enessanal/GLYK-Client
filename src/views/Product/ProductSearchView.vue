@@ -101,7 +101,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import TablePagination from "@/components/other/Pagination.vue";
 
 import { mapGetters, mapActions } from "vuex";
@@ -133,6 +132,7 @@ export default {
       "addProductToCart",
       "decreaseProductFromCart",
       "removeProductFromCart",
+        "checkCartFromServer"
     ]),
 
     handleChangePageSize() {
@@ -164,7 +164,7 @@ export default {
         direction: this.sortOrder,
       };
 
-      axios
+      this.$axios
         .get(`products`, { params })
         .then((response) => {
           this.page = response.data;
@@ -287,6 +287,7 @@ export default {
       },
     ]),
       this.getProducts();
+      this.checkCartFromServer();
   },
 };
 </script>

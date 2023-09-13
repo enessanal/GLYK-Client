@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import CountPill from "@/components/other/CountPill.vue";
 
 export default {
@@ -24,7 +23,7 @@ export default {
   },
   methods: {
     async countAll() {
-      axios
+      this.$axios
         .get(`customers/count`)
         .then((response) => {
           this.count = response.data;
