@@ -35,23 +35,34 @@
           </td>
 
           <td class="text-center">
-            <i
-              v-if="item.amount === 1"
-              class="bi bi-trash-fill icon-action text-danger"
-              @click="this.$refs.confirmModal.show({title:$t('cart.messages.removeItem'), contents:[`(${item.product.name} - ${item.product.code})`, $t('cart.messages.removeConfirmText')], param:item.product, onConfirm: this.removeProductFromCart})"
-            >
-            </i>
-            <i
-              v-else
-              class="bi bi-dash-circle-fill icon-action text-danger"
-              @click="decreaseProductFromCart(item.product)"
-            >
-            </i>
-            <i
-              class="bi bi-plus-circle-fill icon-action text-success mx-1"
-              @click="addProductToCart(item.product)"
-            >
-            </i>
+
+            <IconClickable
+                v-if="item.amount === 1"
+                :icon="'trash-fill'"
+                :color="'danger'"
+                :param="item.product"
+                :title="'Delete'"
+                @call="this.$refs.confirmModal.show({title:$t('cart.messages.removeItem'), contents:[`(${item.product.name} - ${item.product.code})`, $t('cart.messages.removeConfirmText')], param:item.product, onConfirm: this.removeProductFromCart})"
+            />
+
+            <IconClickable
+                v-else
+                :icon="'dash-circle-fill'"
+                :color="'danger'"
+                :param="item.product"
+                :title="'Decrease'"
+                @call="decreaseProductFromCart"
+            />
+
+            <IconClickable
+                :icon="'plus-circle-fill'"
+                :color="'success'"
+                :param="item.product"
+                :title="'Increase'"
+                @call="addProductToCart"
+                class="mx-1"
+            />
+
           </td>
         </tr>
       <tr>
@@ -79,9 +90,11 @@
 import { mapGetters, mapActions } from "vuex";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import dayjs from "dayjs";
+import IconClickable from "@/components/other/IconClickable.vue";
 
 export default {
   components: {
+    IconClickable,
     ModalConfirmation,
   },
   data() {
@@ -215,10 +228,6 @@ export default {
       "checkCartFromServer",
       "emptyItems"
     ]),
-
-    promptDelete(product) {
-      this.$refs.confirmModal.show({title:this.$t('cart.messages.removeItem'), contents:[`(${product.name} - ${product.code})`, this.$t('cart.messages.removeConfirmText')], param:product, onConfirm: this.removeProductFromCart});
-    },
     getCellValue(item, column) {
       const { type, isProductKey, name } = column;
       const value = isProductKey ? item.product[name] : item[name];
@@ -252,15 +261,6 @@ export default {
 </script>
 
 <style scoped>
-.icon-action {
-  cursor: pointer;
-  transition: transform 0.2s;
-  display: inline-block;
-}
-
-.icon-action:hover {
-  transform: scale(1.5);
-}
 
 #clearBtn
 {

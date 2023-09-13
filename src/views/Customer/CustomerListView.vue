@@ -226,7 +226,4 @@ export default {
   text-decoration: underline;
 }
 
-.disabled:hover {
-  cursor: not-allowed;
-}
 </style>
