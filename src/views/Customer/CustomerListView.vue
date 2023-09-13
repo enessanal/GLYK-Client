@@ -71,7 +71,6 @@
     :param="selectedCustomer"
     :buttonClass="'danger'"
   />
-
 </template>
 
 <script>
@@ -80,14 +79,14 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
-import { toast } from 'vue3-toastify';
+import { toast } from "vue3-toastify";
 
 export default {
   components: {
     TablePagination,
     IconTrashFill,
     ModalConfirmation,
-    CustomerCountPill
+    CustomerCountPill,
   },
   data() {
     return {
@@ -169,7 +168,10 @@ export default {
         })
         .catch((axiosError) => {
           this.customers = [];
-          toast.error(axiosError.message, {autoClose: 3000, theme: 'colored'});
+          toast.error(axiosError.message, {
+            autoClose: 3000,
+            theme: "colored",
+          });
           this.error = true;
           this.errorMessage = axiosError.message;
         });
@@ -179,15 +181,24 @@ export default {
         .delete(`customers/id/${customer.id}`)
         .then((response) => {
           if (response.status === 204) {
-
-            toast.success(`${this.$t("customers.messages.successDeleteContent")} (${customer.fullName})`, {autoClose: 3000, theme: 'colored'});
+            toast.success(
+              `${this.$t("customers.messages.successDeleteContent")} (${
+                customer.fullName
+              })`,
+              { autoClose: 3000, theme: "colored" }
+            );
 
             this.getCustomers();
             this.$refs.countPill.countAll();
           }
         })
         .catch((axiosError) => {
-          toast.error( `${this.$t("customers.messages.failedDeleteContent")} => ${axiosError}`, {autoClose: 3000, theme: 'colored'});
+          toast.error(
+            `${this.$t(
+              "customers.messages.failedDeleteContent"
+            )} => ${axiosError}`,
+            { autoClose: 3000, theme: "colored" }
+          );
         });
     },
   },

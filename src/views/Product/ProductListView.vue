@@ -91,8 +91,7 @@ import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import ProductCountPill from "@/components/Product/ProductCountPill.vue";
 
-import { toast } from 'vue3-toastify';
-
+import { toast } from "vue3-toastify";
 
 export default {
   components: {
@@ -179,13 +178,16 @@ export default {
         .delete(`products/id/${product.id}`)
         .then((response) => {
           if (response.status === 204) {
-            toast.success("OK", {autoClose: 3000, theme: 'colored'});
+            toast.success("OK", { autoClose: 3000, theme: "colored" });
             this.getProducts();
             this.$refs.countPill.countAll();
           }
         })
         .catch((axiosError) => {
-          toast.error(axiosError.message, {autoClose: 3000, theme: 'colored'});
+          toast.error(axiosError.message, {
+            autoClose: 3000,
+            theme: "colored",
+          });
         });
     },
     confirmDelete(product) {
