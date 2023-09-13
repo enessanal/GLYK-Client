@@ -3,10 +3,6 @@
 
   <CustomerCountPill ref="countPill" />
 
-  <div class="alert alert-dismissible alert-danger mt-2" v-if="error">
-    <strong>{{ errorMessage }}</strong>
-  </div>
-
   <div class="table-responsive" v-if="customers?.length > 0">
     <table class="table table-hover">
       <thead>
@@ -166,15 +162,34 @@ export default {
 
           this.error = false;
         })
-        .catch((axiosError) => {
-          this.customers = [];
-          toast.error(axiosError.message, {
-            autoClose: 3000,
-            theme: "colored",
-          });
-          this.error = true;
-          this.errorMessage = axiosError.message;
-        });
+    .catch((error) =>
+      {
+        this.customers = [];
+        if (error.response)
+        {
+          toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
+        }
+        else if (error.request)
+        {
+          toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
+        }
+        else
+        {
+          toast.error(error.message, {autoClose: 3000, theme: "colored",});
+        }
+      });
+
+
+
+
+
+
+
+
+
+
+
+
     },
     async deleteCustomer(customer) {
       axios

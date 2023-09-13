@@ -1,4 +1,5 @@
 import axios from "axios";
+import {toast} from "vue3-toastify";
 
 function uniqueProducts(cartItems) {
   const seenIds = new Set();
@@ -85,13 +86,14 @@ const mutations = {
       })
       .catch((error) => {
         if (error.response) {
-          alert(`Error ${error.response.status}: ${error.response.data}`);
+          toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
         } else if (error.request) {
-          alert("No response from server.");
+          toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
         } else {
-          alert(`Error: ${error.message}`);
+          toast.error(error.message, {autoClose: 3000, theme: "colored",});
         }
       });
+
   },
 };
 

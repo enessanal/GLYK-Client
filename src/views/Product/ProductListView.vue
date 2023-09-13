@@ -90,8 +90,8 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import ProductCountPill from "@/components/Product/ProductCountPill.vue";
-
 import { toast } from "vue3-toastify";
+
 
 export default {
   components: {
@@ -167,11 +167,23 @@ export default {
 
           this.error = false;
         })
-        .catch((axiosError) => {
-          this.products = [];
-          this.error = true;
-          this.errorMessage = axiosError.message;
-        });
+
+          .catch((error) =>
+          {
+            this.products = [];
+            if (error.response)
+            {
+              toast.warn(error.response.data, {autoClose: 3000, theme: "colored",});
+            }
+            else if (error.request)
+            {
+              toast.error("No response from server",{autoClose: 5000  , theme: "colored",});
+            }
+            else
+            {
+              toast.error(error.message, {autoClose: 3000, theme: "colored",});
+            }
+          });
     },
     async deleteProduct(product) {
       axios
