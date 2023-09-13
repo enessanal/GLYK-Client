@@ -21,6 +21,7 @@ const i18n = createI18n({
 
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'vue3-toastify/dist/index.css';
 
 axios.defaults.baseURL = "http://localhost:8080/api/v1/";
 

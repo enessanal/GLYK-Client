@@ -72,7 +72,6 @@
     :buttonClass="'danger'"
   />
 
-  <ToastComponent ref="toaster" />
 </template>
 
 <script>
@@ -81,15 +80,14 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
-import ToastComponent from "@/components/other/ToastComponent.vue";
+import { toast } from 'vue3-toastify';
 
 export default {
   components: {
     TablePagination,
     IconTrashFill,
     ModalConfirmation,
-    CustomerCountPill,
-    ToastComponent,
+    CustomerCountPill
   },
   data() {
     return {
@@ -171,6 +169,7 @@ export default {
         })
         .catch((axiosError) => {
           this.customers = [];
+          toast.error(axiosError.message, {autoClose: 3000, theme: 'colored'});
           this.error = true;
           this.errorMessage = axiosError.message;
         });
@@ -180,27 +179,15 @@ export default {
         .delete(`customers/id/${customer.id}`)
         .then((response) => {
           if (response.status === 204) {
-            this.$refs.toaster.show(
-              this.$t("others.successfullOperationTitle"),
-              `${this.$t("customers.messages.successDeleteContent")} (${
-                customer.fullName
-              })`,
-              "success",
-              2000
-            );
+
+            toast.success(`${this.$t("customers.messages.successDeleteContent")} (${customer.fullName})`, {autoClose: 3000, theme: 'colored'});
+
             this.getCustomers();
             this.$refs.countPill.countAll();
           }
         })
         .catch((axiosError) => {
-          this.$refs.toaster.show(
-            this.$t("others.successfullOperationTitle"),
-            `${this.$t(
-              "customers.messages.failedDeleteContent"
-            )} => ${axiosError}`,
-            "danger",
-            5000
-          );
+          toast.error( `${this.$t("customers.messages.failedDeleteContent")} => ${axiosError}`, {autoClose: 3000, theme: 'colored'});
         });
     },
   },
