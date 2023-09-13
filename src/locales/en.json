@@ -56,7 +56,9 @@
                 "stock":"Stock",
 
                 "amount":"Amount",
-                "deliveryDate":"Delivery"
+                "deliveryDate":"Delivery",
+                "warehouse": "Warehouse",
+                "salePrice": "Sale Price"
             }
         },
         "messages":
@@ -131,7 +133,8 @@
         "backButton": "Back",
         "confirmDelete": "Are you sure you want to delete?",
         "successfullOperationTitle": "Operation Successfull",
-        "failedOperationTitle": "Operaiton Failed"
+        "failedOperationTitle": "Operaiton Failed",
+        "clearAll": "Clear All Items"
     }
 }               
 

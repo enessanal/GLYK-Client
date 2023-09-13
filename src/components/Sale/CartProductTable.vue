@@ -54,6 +54,13 @@
             </i>
           </td>
         </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="text-center fw-bold"><button id="clearBtn" class="btn btn-danger btn-sm" ref="clearButton"  :disabled="!cartItems.length" data-bs-toggle="tooltip" data-bs-placement="bottom" :title="$t('others.clearAll')"><i class="bi bi-trash3-fill"></i></button></td>
+      </tr>
       </tbody>
     </table>
   </div>
@@ -180,6 +187,22 @@ export default {
           isProductKey: false,
           displayKey: "products.table.columns.deliveryDate",
         },
+        {
+          name: "warehouse",
+          type: "text",
+          align: "left",
+          show: true,
+          isProductKey: false,
+          displayKey: "products.table.columns.warehouse",
+        },
+        {
+          name: "salePrice",
+          type: "price",
+          align: "center",
+          show: true,
+          isProductKey: false,
+          displayKey: "products.table.columns.salePrice",
+        }
       ],
     };
   },

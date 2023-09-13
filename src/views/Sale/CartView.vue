@@ -3,6 +3,7 @@
     <h2>{{ $t("titles.cart") }}</h2>
   </div>
   <BackButton />
+
   <CartProductTable />
 
   <!-- <hr> -->

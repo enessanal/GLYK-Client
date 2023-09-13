@@ -59,7 +59,9 @@
                 "stock":"Stok",
 
                 "amount":"Adet",
-                "deliveryDate":"Termin"
+                "deliveryDate":"Termin",
+                "warehouse": "Depo",
+                "salePrice": "Satış Fiyatı"
             }
         },
         "messages":
@@ -134,6 +136,7 @@
         "backButton": "Geri",
         "confirmDelete": "Silmek istediğinize emin misiniz?",
         "successfullOperationTitle": "İşlem Başarılı",
-        "failedOperationTitle": "İşlem Başarısız"
+        "failedOperationTitle": "İşlem Başarısız",
+        "clearAll": "Tüm Ürünleri Kaldır"
     }
 }

@@ -30,6 +30,8 @@ const mutations = {
       cartItem.product = product;
       cartItem.amount = 1;
       cartItem.deliveryDate = Date.now();
+      cartItem.warehouse = "MERKEZ";
+      cartItem.salePrice = product.ccPrice;
 
       state.cartItems.push(cartItem);
     }
