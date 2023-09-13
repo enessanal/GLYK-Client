@@ -26,7 +26,9 @@
         "messages":
         {
             "removeItem": "Remove Product Confirmation",
-            "removeConfirmText": "Are you sure you want to remove?"
+            "removeConfirmText": "Are you sure you want to remove?",
+            "emptyTitle": "Clear Cart Confirmation",
+            "emptyCartConfirmTest": "Are you sure you want to clear all?"
         }
     },
     "products":
@@ -82,7 +84,8 @@
             "noAddress":"There is no address for this customer.",
             "deleteTitle": "Delete Customer Confirmation",
              "failedDeleteContent": "Customer not deleted",
-             "successDeleteContent": "Customer deleted successfully"
+             "successDeleteContent": "Customer deleted successfully",
+             "addressDeletedToast": "Adress deleted"
          },
 
         "table":
@@ -134,7 +137,9 @@
         "confirmDelete": "Are you sure you want to delete?",
         "successfullOperationTitle": "Operation Successfull",
         "failedOperationTitle": "Operaiton Failed",
-        "clearAll": "Clear All Items"
+        "clearAll": "Clear All Items",
+        "yes":"Yes",
+        "no":"No"
     }
 }               
 

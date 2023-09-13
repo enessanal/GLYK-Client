@@ -57,6 +57,11 @@ const mutations = {
     );
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
   },
+  emptyItems(state)
+  {
+    state.cartItems = [];
+    localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+  },
 
   async checkCartFromServer(state) {
     const params = {
@@ -111,6 +116,9 @@ const actions = {
   },
   checkCartFromServer({ commit }) {
     commit("checkCartFromServer");
+  },
+  emptyItems({ commit }) {
+    commit("emptyItems");
   },
 };
 

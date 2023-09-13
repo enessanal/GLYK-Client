@@ -40,7 +40,12 @@
             <IconTrashFill
               :object="customer"
               :title="'Delete'"
-              @call="promptDelete(customer)"
+              @call=" this.$refs.confirmModal.show({title:this.$t('customers.messages.deleteTitle'),
+              contents:[`(${customer.fullName} - ${customer.identityNumber})`,this.$t('others.confirmDelete') ],
+              param:customer,
+              onConfirm: this.deleteCustomer})"
+
+
             ></IconTrashFill>
             <router-link
               :to="{ name: 'CustomerDetailsView', params: { id: customer.id } }"
@@ -59,13 +64,13 @@
     @clickPageNumber="handleClickPageNumber"
   />
 
+
+
+
+
+
   <ModalConfirmation
     ref="confirmModal"
-    :title="modalTitle"
-    :contents="modalContents"
-    :onConfirm="deleteCustomer"
-    :param="selectedCustomer"
-    :buttonClass="'danger'"
   />
 </template>
 
@@ -112,17 +117,6 @@ export default {
     };
   },
   methods: {
-    promptDelete(customer) {
-      this.selectedCustomer = customer;
-
-      this.modalContents = [];
-      this.modalTitle = this.$t("customers.messages.deleteTitle");
-      this.modalContents.push(
-        `(${customer.fullName} - ${customer.identityNumber})`
-      );
-      this.modalContents.push(this.$t("others.confirmDelete"));
-      this.$refs.confirmModal.show();
-    },
 
     handleChangePageSize() {
       this.getCustomers(0);
@@ -137,7 +131,7 @@ export default {
         this.sortBy = sortBy;
         this.sortOrder = "asc";
       }
-      this.getCustomers(this.page.number);
+      await this.getCustomers(this.page.number);
     },
     async getCustomers(pageNumber) {
       this.page.number = pageNumber;
@@ -176,17 +170,6 @@ export default {
           this.$toast.error(error.message, {autoClose: 3000, theme: "colored",});
         }
       });
-
-
-
-
-
-
-
-
-
-
-
 
     },
     async deleteCustomer(customer) {

@@ -38,7 +38,7 @@
             <i
               v-if="item.amount === 1"
               class="bi bi-trash-fill icon-action text-danger"
-              @click="promptDelete(item.product)"
+              @click="this.$refs.confirmModal.show({title:$t('cart.messages.removeItem'), contents:[`(${item.product.name} - ${item.product.code})`, $t('cart.messages.removeConfirmText')], param:item.product, onConfirm: this.removeProductFromCart})"
             >
             </i>
             <i
@@ -59,7 +59,11 @@
         <td></td>
         <td></td>
         <td></td>
-        <td class="text-center fw-bold"><button id="clearBtn" class="btn btn-danger btn-sm" ref="clearButton"  :disabled="!cartItems.length" data-bs-toggle="tooltip" data-bs-placement="bottom" :title="$t('others.clearAll')"><i class="bi bi-trash3-fill"></i></button></td>
+        <td class="text-center fw-bold">
+          <button id="clearBtn"
+                  class="btn btn-danger btn-sm"
+                  :disabled="!cartItems.length" data-bs-toggle="tooltip" data-bs-placement="bottom" :title="$t('others.clearAll')"
+                  @click="this.$refs.confirmModal.show({title:$t('cart.messages.emptyTitle'), contents:[$t('cart.messages.emptyCartConfirmTest')], onConfirm: this.emptyItems});"><i class="bi bi-trash3-fill"></i></button></td>
       </tr>
       </tbody>
     </table>
@@ -67,12 +71,8 @@
 
   <ModalConfirmation
     ref="confirmModal"
-    :title="modalTitle"
-    :contents="modalContents"
-    :onConfirm="removeFromCart"
-    :param="selectedProduct"
-    :buttonClass="'danger'"
   />
+
 </template>
 
 <script>
@@ -87,7 +87,6 @@ export default {
   data() {
     return {
       cart: {},
-      selectedProduct: {},
 
       columns: [
         {
@@ -160,8 +159,7 @@ export default {
           type: "price",
           align: "center",
           show: true,
-          isProductKey: true,
-          displayKey: "products.table.columns.ccPrice",
+          isProductKey: true, displayKey: "products.table.columns.ccPrice",
         },
         {
           name: "lastPrice",
@@ -215,22 +213,12 @@ export default {
       "removeProductFromCart",
       "decreaseProductFromCart",
       "checkCartFromServer",
+      "emptyItems"
     ]),
 
     promptDelete(product) {
-      this.selectedProduct = product;
-
-      this.modalContents = [];
-      this.modalTitle = this.$t("cart.messages.removeItem");
-      this.modalContents.push(`(${product.name} - ${product.code})`);
-      this.modalContents.push(this.$t("cart.messages.removeConfirmText"));
-      this.$refs.confirmModal.show();
+      this.$refs.confirmModal.show({title:this.$t('cart.messages.removeItem'), contents:[`(${product.name} - ${product.code})`, this.$t('cart.messages.removeConfirmText')], param:product, onConfirm: this.removeProductFromCart});
     },
-
-    removeFromCart() {
-      this.removeProductFromCart(this.selectedProduct);
-    },
-
     getCellValue(item, column) {
       const { type, isProductKey, name } = column;
       const value = isProductKey ? item.product[name] : item[name];
@@ -273,7 +261,7 @@ export default {
 .icon-action:hover {
   transform: scale(1.5);
 }
-/* 
+
 #clearBtn
 {
     transition: transform .1s;
@@ -283,7 +271,7 @@ export default {
 {
     transform: scale(1.5);
 }
-
+/*
 tbody
 {
     font-size: 1rem;

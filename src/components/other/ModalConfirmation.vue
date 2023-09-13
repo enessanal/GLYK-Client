@@ -11,15 +11,15 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="closeModal">
-            Hayır
+            {{$t("others.no")}}
           </button>
           <button
-            type="button"
-            class="btn"
-            :class="'btn-' + buttonClass"
-            @click="confirm"
+              type="button"
+              class="btn"
+              :class="'btn-' + buttonClass"
+              @click="confirm"
           >
-            Evet
+            {{$t("others.yes")}}
           </button>
         </div>
       </div>
@@ -29,30 +29,25 @@
 
 <script>
 export default {
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    contents: {
-      type: Array,
-      required: true,
-    },
-    onConfirm: {
-      type: Function,
-      required: true,
-    },
-    param: {
-      type: Object,
-      default: null,
-    },
-    buttonClass: {
-      type: String,
-      default: "success",
-    },
+
+  data(){
+    return{
+      title:"",
+      contents:[],
+      param:{},
+      buttonClass: "danger",
+      onConfirm: ""
+    }
   },
   methods: {
-    show() {
+    show(options) {
+
+      this.title = options.title || "Confirmation";
+      this.contents = options.contents || "Are you sure?";
+      this.param = options.param || {};
+      this.buttonClass = options.buttonClass || "danger";
+      this.onConfirm = options.onConfirm;
+
       const modal = new bootstrap.Modal(this.$refs.confirmationModal);
       modal.show();
     },
@@ -61,6 +56,7 @@ export default {
       modal.hide();
     },
     confirm() {
+
       this.closeModal();
       this.onConfirm(this.param);
     },

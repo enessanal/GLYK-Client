@@ -56,7 +56,7 @@
             <IconTrashFill
               :object="product"
               :title="'Delete'"
-              @call="promptDelete(product)"
+              @call=" this.$refs.confirmModal.show({title:this.$t('products.messages.deleteTitle'),contents:[`(${product.name} - ${product.code})`,this.$t('others.confirmDelete') ],param:product, onConfirm: this.deleteProduct})"
             ></IconTrashFill>
             <router-link
               :to="{ name: 'ProductDetailsView', params: { id: product.id } }"
@@ -70,11 +70,6 @@
 
   <ModalConfirmation
     ref="confirmModal"
-    :title="modalTitle"
-    :contents="modalContents"
-    :onConfirm="deleteProduct"
-    :param="selectedProduct"
-    :buttonClass="'danger'"
   />
   <TablePagination
     :page="page"
@@ -112,22 +107,9 @@ export default {
       sizes: [10, 25, 50, 100],
       sortOrder: "",
       sortBy: "",
-
-      modalTitle: "",
-      modalContents: [],
-      selectedProduct: null,
     };
   },
   methods: {
-    promptDelete(product) {
-      this.selectedProduct = product;
-
-      this.modalContents = [];
-      this.modalTitle = this.$t("products.messages.deleteTitle");
-      this.modalContents.push(`(${product.name} - ${product.code})`);
-      this.modalContents.push(this.$t("others.confirmDelete"));
-      this.$refs.confirmModal.show();
-    },
 
     handleChangePageSize() {
       this.getProducts(0);
@@ -143,7 +125,7 @@ export default {
         this.sortBy = sortBy;
         this.sortOrder = "asc";
       }
-      this.getProducts(this.page.number);
+      await this.getProducts(this.page.number);
     },
     async getProducts(pageNumber) {
       this.page.number = pageNumber;

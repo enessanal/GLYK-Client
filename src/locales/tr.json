@@ -28,7 +28,9 @@
         "messages":
         {
             "removeItem": "Sepetten Ürün Silme Onayı",
-            "removeConfirmText": "Ürünü sepetten kaldırmak istediğinize emin misiniz?"
+            "removeConfirmText": "Ürünü sepetten kaldırmak istediğinize emin misiniz?",
+            "emptyTitle": "Sepeti Boşaltma Onayı",
+            "emptyCartConfirmTest": "Sepetteki tüm ürünleri kaldırmak istediğinize emin misiniz?"
         }
     },
 
@@ -85,7 +87,8 @@
             "noAddress":"Müşteriye ait adres bulunmamaktadır.",
             "deleteTitle": "Müşteri Silme Onayı",
              "failedDeleteContent": "Müşteri silinemedi",
-             "successDeleteContent": "Müşteri silindi"
+             "successDeleteContent": "Müşteri silindi",
+             "addressDeletedToast": "Adres silindi"
          },
          
         "table":
@@ -137,6 +140,8 @@
         "confirmDelete": "Silmek istediğinize emin misiniz?",
         "successfullOperationTitle": "İşlem Başarılı",
         "failedOperationTitle": "İşlem Başarısız",
-        "clearAll": "Tüm Ürünleri Kaldır"
+        "clearAll": "Tüm Ürünleri Kaldır",
+        "yes":"Evet",
+        "no":"Hayır"
     }
 }
