@@ -1,7 +1,7 @@
 <template>
   <i
     class="bi"
-    :class="('bi-' + icon), ('text-' + color)"
+    :class="['bi-' + icon, 'text-' + color]"
     @click="call(param)"
     :title="title"
   ></i>

@@ -69,25 +69,31 @@
           </td>
 
           <td class="text-center">
-
-            <button class="btn btn-danger" v-if="getItemAmount(product) !== 0" @click="removeProductFromCart(product)">
+            <button
+              class="btn btn-danger"
+              v-if="getItemAmount(product) !== 0"
+              @click="removeProductFromCart(product)"
+            >
               <IconClickable
-                  :icon="'x-circle-fill'"
-                  :color="'white'"
-                  :param="product"
-                  :title="'Remove'"
+                :icon="'x-circle-fill'"
+                :color="'white'"
+                :param="product"
+                :title="'Remove'"
               />
             </button>
 
-            <button class="btn btn-success" v-if="getItemAmount(product) === 0" @click="addProductToCart(product)">
+            <button
+              class="btn btn-success"
+              v-if="getItemAmount(product) === 0"
+              @click="addProductToCart(product)"
+            >
               <IconClickable
-                  :icon="'bag-plus-fill'"
-                  :color="'white'"
-                  :param="product"
-                  :title="'Remove'"
+                :icon="'bag-plus-fill'"
+                :color="'white'"
+                :param="product"
+                :title="'Remove'"
               />
             </button>
-
           </td>
         </tr>
       </tbody>
@@ -290,7 +296,7 @@ export default {
         displayKey: "products.table.columns.stock",
       },
     ]),
-        await this.getProducts();
+      await this.getProducts();
     this.checkCartFromServer();
   },
 };

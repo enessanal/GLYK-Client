@@ -53,13 +53,12 @@
           </td>
 
           <td class="text-center">
-
             <IconClickable
-                :icon="'trash-fill'"
-                :color="'danger'"
-                :param="product"
-                :title="'Delete'"
-                @call="
+              :icon="'trash-fill'"
+              :color="'danger'"
+              :param="product"
+              :title="'Delete'"
+              @call="
                 this.$refs.confirmModal.show({
                   title: this.$t('products.messages.deleteTitle'),
                   contents: [
@@ -70,18 +69,19 @@
                   onConfirm: this.deleteProduct,
                 })
               "
-                class="me-1"
+              class="me-1"
             />
 
-            <router-link :to="{ name: 'ProductDetailsView', params: { id: product.id } }">
+            <router-link
+              :to="{ name: 'ProductDetailsView', params: { id: product.id } }"
+            >
               <IconClickable
-                  :icon="'info-square-fill'"
-                  :color="'primary'"
-                  :param="product"
-                  :title="'Details'"
+                :icon="'info-square-fill'"
+                :color="'primary'"
+                :param="product"
+                :title="'Details'"
               />
             </router-link>
-
           </td>
         </tr>
       </tbody>
@@ -318,7 +318,7 @@ export default {
         displayKey: "products.table.columns.stock",
       },
     ]),
-     await this.getProducts();
+      await this.getProducts();
   },
 };
 </script>
