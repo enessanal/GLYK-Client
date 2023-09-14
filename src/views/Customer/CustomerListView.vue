@@ -3,6 +3,15 @@
 
   <CustomerCountPill ref="countPill" />
 
+  <div class="d-flex justify-content-center" v-if="spinner">
+    <half-circle-spinner
+        :animation-duration="800"
+        :size="100"
+        :color="'#007242af'"
+    />
+  </div>
+
+
   <div class="table-responsive" v-if="customers?.length > 0">
     <table class="table table-hover">
       <thead>
@@ -77,19 +86,21 @@ import TablePagination from "@/components/other/Pagination.vue";
 import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
-
+import {HalfCircleSpinner,} from 'epic-spinners'
 export default {
   components: {
     TablePagination,
     IconTrashFill,
     ModalConfirmation,
     CustomerCountPill,
+    HalfCircleSpinner
   },
   data() {
     return {
       modalTitle: "",
       modalContents: [],
       selectedCustomer: null,
+      spinner:true,
 
       columns: [
         { name: "code", displayKey: "customers.table.columns.code" },
@@ -146,12 +157,15 @@ export default {
       this.$axios
         .get(`customers`, { params })
         .then((response) => {
+
+          this.spinner=false;
           this.page = response.data;
           this.customers = this.page.content;
 
           this.error = false;
         })
         .catch((error) => {
+          this.spinner=false;
           this.customers = [];
           if (error.response) {
             this.$toast.warn(error.response.data, {
