@@ -30,7 +30,9 @@
             "removeItem": "Sepetten Ürün Silme Onayı",
             "removeConfirmText": "Ürünü sepetten kaldırmak istediğinize emin misiniz?",
             "emptyTitle": "Sepeti Boşaltma Onayı",
-            "emptyCartConfirmTest": "Sepetteki tüm ürünleri kaldırmak istediğinize emin misiniz?"
+            "emptyCartConfirmTest": "Sepetteki tüm ürünleri kaldırmak istediğinize emin misiniz?",
+            "removeFromCart": "Sepetten Kaldır",
+            "addToCart": "Sepete Ekle"
         }
     },
 
@@ -142,6 +144,10 @@
         "failedOperationTitle": "İşlem Başarısız",
         "clearAll": "Tüm Ürünleri Kaldır",
         "yes":"Evet",
-        "no":"Hayır"
+        "no":"Hayır",
+
+        "increase": "Ekle",
+        "remove": "Kaldır",
+        "decrease": "Azalt"
     }
 }

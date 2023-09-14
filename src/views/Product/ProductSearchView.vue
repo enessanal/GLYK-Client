@@ -78,7 +78,7 @@
                 :icon="'x-circle-fill'"
                 :color="'white'"
                 :param="product"
-                :title="'Remove'"
+                :title="$t('cart.messages.removeFromCart')"
               />
             </button>
 
@@ -91,7 +91,7 @@
                 :icon="'bag-plus-fill'"
                 :color="'white'"
                 :param="product"
-                :title="'Remove'"
+                :title="$t('cart.messages.addToCart')"
               />
             </button>
           </td>

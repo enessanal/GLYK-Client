@@ -28,7 +28,9 @@
             "removeItem": "Remove Product Confirmation",
             "removeConfirmText": "Are you sure you want to remove?",
             "emptyTitle": "Clear Cart Confirmation",
-            "emptyCartConfirmTest": "Are you sure you want to clear all?"
+            "emptyCartConfirmTest": "Are you sure you want to clear all?",
+            "removeFromCart": "Remove from cart",
+            "addToCart": "Add to cart"
         }
     },
     "products":
@@ -135,11 +137,17 @@
     {
         "backButton": "Back",
         "confirmDelete": "Are you sure you want to delete?",
-        "successfullOperationTitle": "Operation Successfull",
-        "failedOperationTitle": "Operaiton Failed",
+        "successfullOperationTitle": "Operation Successful",
+        "failedOperationTitle": "Operation Failed",
         "clearAll": "Clear All Items",
         "yes":"Yes",
-        "no":"No"
+        "no":"No",
+
+        "increase": "Increase",
+        "remove": "Remove",
+        "decrease": "Decrease"
+
+
     }
 }               
 

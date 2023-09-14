@@ -27,7 +27,7 @@
             :key="column.name"
             :class="{
               'text-center': column.align == 'center',
-              'fw-bold': column?.bold,
+              'fw-bold': column.bold,
             }"
             v-show="column?.show"
           >
@@ -40,7 +40,7 @@
               :icon="'trash-fill'"
               :color="'danger'"
               :param="item.product"
-              :title="'Delete'"
+              :title="$t('others.remove')"
               @call="
                 this.$refs.confirmModal.show({
                   title: $t('cart.messages.removeItem'),
@@ -59,7 +59,7 @@
               :icon="'dash-circle-fill'"
               :color="'danger'"
               :param="item.product"
-              :title="'Decrease'"
+              :title="$t('others.decrease')"
               @call="decreaseProductFromCart"
             />
 
@@ -67,18 +67,15 @@
               :icon="'plus-circle-fill'"
               :color="'success'"
               :param="item.product"
-              :title="'Increase'"
+              :title="$t('others.increase')"
               @call="addProductToCart"
               class="mx-1"
             />
           </td>
         </tr>
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="text-center fw-bold">
+          <td colspan="14"></td>
+          <td class="text-center">
             <button
               id="clearBtn"
               class="btn btn-danger btn-sm"
@@ -270,6 +267,7 @@ export default {
     this.checkCartFromServer();
   },
   mounted() {
+
     let tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
@@ -284,7 +282,6 @@ export default {
 #clearBtn {
   transition: transform 0.1s;
 }
-
 #clearBtn:hover {
   transform: scale(1.5);
 }
