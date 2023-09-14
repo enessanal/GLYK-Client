@@ -69,23 +69,25 @@
           </td>
 
           <td class="text-center">
-            <button
-              type="button"
-              class="btn btn-danger"
-              v-if="getItemAmount(product) !== 0"
-              @click="removeProductFromCart(product)"
-            >
-              <i class="bi bi-x-circle-fill icon-action"></i>
+
+            <button class="btn btn-danger" v-if="getItemAmount(product) !== 0" @click="removeProductFromCart(product)">
+              <IconClickable
+                  :icon="'x-circle-fill'"
+                  :color="'white'"
+                  :param="product"
+                  :title="'Remove'"
+              />
             </button>
 
-            <button
-              type="button"
-              class="btn btn-success"
-              v-if="getItemAmount(product) === 0"
-              @click="addProductToCart(product)"
-            >
-              <i class="bi bi-bag-plus-fill icon-action"></i>
+            <button class="btn btn-success" v-if="getItemAmount(product) === 0" @click="addProductToCart(product)">
+              <IconClickable
+                  :icon="'bag-plus-fill'"
+                  :color="'white'"
+                  :param="product"
+                  :title="'Remove'"
+              />
             </button>
+
           </td>
         </tr>
       </tbody>
@@ -104,9 +106,11 @@
 import TablePagination from "@/components/other/Pagination.vue";
 
 import { mapGetters, mapActions } from "vuex";
+import IconClickable from "@/components/other/IconClickable.vue";
 
 export default {
   components: {
+    IconClickable,
     TablePagination,
   },
 
@@ -149,7 +153,7 @@ export default {
         this.sortBy = sortBy;
         this.sortOrder = "asc";
       }
-      this.getProducts(this.page.number);
+      await this.getProducts(this.page.number);
     },
     async getProducts(pageNumber) {
       this.page.number = pageNumber;
@@ -286,7 +290,7 @@ export default {
         displayKey: "products.table.columns.stock",
       },
     ]),
-      this.getProducts();
+        await this.getProducts();
     this.checkCartFromServer();
   },
 };
@@ -307,26 +311,17 @@ export default {
   opacity: 0;
 }
 
-.icon-action {
-  cursor: pointer;
-  transition: transform 0.2s;
-  display: inline-block;
-}
-
-.icon-action:hover {
-  transform: scale(1.5);
-}
 .sort-asc,
 .sort-desc {
   text-decoration: underline;
 }
 
 .sort-asc::after {
-  content: "↑"; /* veya istediğiniz bir Unicode karakteri */
+  content: "↑";
 }
 
 .sort-desc::after {
-  content: "↓"; /* veya istediğiniz bir Unicode karakteri */
+  content: "↓";
 }
 
 .clickable {

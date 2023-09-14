@@ -46,10 +46,12 @@
           </td>
 
           <td class="text-center">
-            <IconTrashFill
-              :object="customer"
-              :title="'Delete'"
-              @call="
+            <IconClickable
+                :icon="'trash-fill'"
+                :color="'danger'"
+                :param="customer"
+                :title="'Delete'"
+                @call="
                 this.$refs.confirmModal.show({
                   title: this.$t('customers.messages.deleteTitle'),
                   contents: [
@@ -60,11 +62,17 @@
                   onConfirm: this.deleteCustomer,
                 })
               "
-            ></IconTrashFill>
-            <router-link
-              :to="{ name: 'CustomerDetailsView', params: { id: customer.id } }"
-              ><i class="bi bi-info-square-fill icon-action" title="Details"></i
-            ></router-link>
+                class="me-1"
+            />
+            <router-link :to="{ name: 'CustomerDetailsView', params: { id: customer.id } }">
+              <IconClickable
+                  :icon="'info-square-fill'"
+                  :color="'primary'"
+                  :param="customer"
+                  :title="'Details'"
+              />
+            </router-link>
+
           </td>
         </tr>
       </tbody>
@@ -83,14 +91,14 @@
 
 <script>
 import TablePagination from "@/components/other/Pagination.vue";
-import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import CustomerCountPill from "@/components/Customer/CustomerCountPill.vue";
 import {HalfCircleSpinner,} from 'epic-spinners'
+import IconClickable from "@/components/other/IconClickable.vue";
 export default {
   components: {
+    IconClickable,
     TablePagination,
-    IconTrashFill,
     ModalConfirmation,
     CustomerCountPill,
     HalfCircleSpinner

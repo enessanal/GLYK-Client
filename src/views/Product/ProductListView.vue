@@ -53,10 +53,13 @@
           </td>
 
           <td class="text-center">
-            <IconTrashFill
-              :object="product"
-              :title="'Delete'"
-              @call="
+
+            <IconClickable
+                :icon="'trash-fill'"
+                :color="'danger'"
+                :param="product"
+                :title="'Delete'"
+                @call="
                 this.$refs.confirmModal.show({
                   title: this.$t('products.messages.deleteTitle'),
                   contents: [
@@ -67,11 +70,18 @@
                   onConfirm: this.deleteProduct,
                 })
               "
-            ></IconTrashFill>
-            <router-link
-              :to="{ name: 'ProductDetailsView', params: { id: product.id } }"
-              ><i class="bi bi-info-square-fill icon-action" title="Details"></i
-            ></router-link>
+                class="me-1"
+            />
+
+            <router-link :to="{ name: 'ProductDetailsView', params: { id: product.id } }">
+              <IconClickable
+                  :icon="'info-square-fill'"
+                  :color="'primary'"
+                  :param="product"
+                  :title="'Details'"
+              />
+            </router-link>
+
           </td>
         </tr>
       </tbody>
@@ -89,15 +99,15 @@
 
 <script>
 import TablePagination from "@/components/other/Pagination.vue";
-import IconTrashFill from "@/components/other/IconTrashFill.vue";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
 import ProductCountPill from "@/components/Product/ProductCountPill.vue";
 import { toast } from "vue3-toastify";
+import IconClickable from "@/components/other/IconClickable.vue";
 
 export default {
   components: {
+    IconClickable,
     TablePagination,
-    IconTrashFill,
     ModalConfirmation,
     ProductCountPill,
   },
@@ -308,7 +318,7 @@ export default {
         displayKey: "products.table.columns.stock",
       },
     ]),
-      this.getProducts();
+     await this.getProducts();
   },
 };
 </script>

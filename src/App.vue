@@ -56,6 +56,7 @@ export default {
   computed: {
     containerClass() {
       if (this.$route.name === "ProductListView") return "container-fluid px-5";
+      if (this.$route.name === "CartView") return "container-fluid px-5";
       if (this.$route.name === "HomeView") return "container-fluid px-5";
 
       return "container";
