@@ -13,39 +13,37 @@ function uniqueProducts(cartItems) {
   });
 }
 
-
-function calculateAutoSaleTotalPrice(state)
-{
-  state.saleTotalPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.ccPrice},0);
+function calculateAutoSaleTotalPrice(state) {
+  state.saleTotalPrice = state.cartItems.reduce((accumulator, cartItem) => {
+    return accumulator + cartItem.amount * cartItem.product.ccPrice;
+  }, 0);
   localStorage.setItem("saleTotalPrice", JSON.stringify(state.saleTotalPrice));
 
   calculateSalePrices(state);
 }
 
-
-function calculateSalePrices(state)
-{
-
-  const totalCashPrice= state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.cashPrice},0);
+function calculateSalePrices(state) {
+  const totalCashPrice = state.cartItems.reduce((accumulator, cartItem) => {
+    return accumulator + cartItem.amount * cartItem.product.cashPrice;
+  }, 0);
 
   state.cartItems.forEach((cartItem) => {
-
     // console.log(((cartItem.amount*cartItem.product.cashPrice)/ totalCashPrice))
-    console.log((cartItem.amount*cartItem.product.cashPrice)/ totalCashPrice)
+    console.log(
+      (cartItem.amount * cartItem.product.cashPrice) / totalCashPrice
+    );
     console.log(state.saleTotalPrice);
     console.log();
-    console.log("---")
+    console.log("---");
 
-    cartItem.salePrice = ( (cartItem.amount*cartItem.product.cashPrice)/ totalCashPrice) * state.saleTotalPrice;
-
-  })
-
-
+    cartItem.salePrice =
+      ((cartItem.amount * cartItem.product.cashPrice) / totalCashPrice) *
+      state.saleTotalPrice;
+  });
 
   // for(const cartItem in state.cartItems)
   // {
   //   console.log(cartItem)
-
 
   // let salePriceBeforeRound = ( (this.cart.products[product].prices.inAdvance*this.cart.products[product].amount )/totalInAdvence)*this.totalPrice;
   // let roundedPrice = this.customRound(salePriceBeforeRound);
@@ -57,13 +55,6 @@ function calculateSalePrices(state)
 
   localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
 }
-
-
-
-
-
-
-
 
 const state = {
   cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
@@ -118,13 +109,20 @@ const mutations = {
     calculateAutoSaleTotalPrice(state);
   },
 
-  setSaleTotalPrice(state, price)
-  {
-    const totalLastPrice = state.saleTotalPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.lastPrice},0);
-    if(price < 0) state.saleTotalPrice = totalLastPrice;
+  setSaleTotalPrice(state, price) {
+    const totalLastPrice = (state.saleTotalPrice = state.cartItems.reduce(
+      (accumulator, cartItem) => {
+        return accumulator + cartItem.amount * cartItem.product.lastPrice;
+      },
+      0
+    ));
+    if (price < 0) state.saleTotalPrice = totalLastPrice;
     else state.saleTotalPrice = price;
 
-    localStorage.setItem("saleTotalPrice", JSON.stringify(state.saleTotalPrice));
+    localStorage.setItem(
+      "saleTotalPrice",
+      JSON.stringify(state.saleTotalPrice)
+    );
     calculateSalePrices(state);
   },
 
@@ -193,10 +191,6 @@ const actions = {
   setSaleTotalPrice({ commit }, price) {
     commit("setSaleTotalPrice", price);
   },
-
-
-
-
 };
 
 const getters = {
@@ -213,18 +207,26 @@ const getters = {
     return 0;
   },
   getTotals: (state) => () => {
+    const total = {};
 
-    const total = {}
-
-    total.amount = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount},0);
-    total.cashPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.cashPrice},0);
-    total.ccPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.ccPrice},0);
-    total.lastPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.lastPrice},0);
-    total.limitPrice = state.cartItems.reduce((accumulator, cartItem) => {return accumulator + cartItem.amount*cartItem.product.limitPrice},0);
+    total.amount = state.cartItems.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.amount;
+    }, 0);
+    total.cashPrice = state.cartItems.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.amount * cartItem.product.cashPrice;
+    }, 0);
+    total.ccPrice = state.cartItems.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.amount * cartItem.product.ccPrice;
+    }, 0);
+    total.lastPrice = state.cartItems.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.amount * cartItem.product.lastPrice;
+    }, 0);
+    total.limitPrice = state.cartItems.reduce((accumulator, cartItem) => {
+      return accumulator + cartItem.amount * cartItem.product.limitPrice;
+    }, 0);
 
     return total;
-
-  }
+  },
 };
 
 export default {

@@ -76,35 +76,57 @@
         <tr>
           <td colspan="6"></td>
 
-          <td class="fw-bold text-center">{{getTotals().amount}}</td>
-          <td class="fw-bold text-center">{{getTotals().cashPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2, })}}</td>
-          <td class="fw-bold text-center">{{getTotals().ccPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2, })}}</td>
-          <td class="fw-bold text-center">{{getTotals().lastPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2, })}}</td>
-          <td class="fw-bold text-center">{{getTotals().limitPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2, })}}</td>
-
-          <td colspan="2"></td>
-          <td :class="{ editable: salePriceEditable }" @click="enableEditSalePrice" >
-
-            <input v-show="salePriceEditable"
-                   @keyup.enter="saveSalePrice"
-                   @blur="saveSalePrice"
-                   @keyup.esc="saveSalePrice"
-                   v-model.number="editingValue"
-                   class="form-control"
-                   ref="editableInput"
-                   id="enes"
-
-            />
-
-
-            <span v-show="!salePriceEditable">{{getSaleTotalPrice()}}</span>
-
-
-
-
-
+          <td class="fw-bold text-center">{{ getTotals().amount }}</td>
+          <td class="fw-bold text-center">
+            {{
+              getTotals().cashPrice.toLocaleString("tr-TR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            }}
+          </td>
+          <td class="fw-bold text-center">
+            {{
+              getTotals().ccPrice.toLocaleString("tr-TR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            }}
+          </td>
+          <td class="fw-bold text-center">
+            {{
+              getTotals().lastPrice.toLocaleString("tr-TR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            }}
+          </td>
+          <td class="fw-bold text-center">
+            {{
+              getTotals().limitPrice.toLocaleString("tr-TR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })
+            }}
           </td>
 
+          <td colspan="2"></td>
+          <td
+            :class="{ editable: salePriceEditable }"
+            @click="enableEditSalePrice"
+          >
+            <input
+              v-show="salePriceEditable"
+              @keyup.enter="saveSalePrice"
+              @blur="saveSalePrice"
+              @keyup.esc="saveSalePrice"
+              v-model.number="editingValue"
+              class="form-control"
+              ref="editableInput"
+              id="enes"
+            />
+            <span v-show="!salePriceEditable">{{ getSaleTotalPrice() }}</span>
+          </td>
 
           <td class="text-center">
             <button
@@ -120,7 +142,8 @@
                   contents: [$t('cart.messages.emptyCartConfirmTest')],
                   onConfirm: this.emptyItems,
                 })
-              ">
+              "
+            >
               <i class="bi bi-trash3-fill"></i>
             </button>
           </td>
@@ -135,8 +158,8 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import ModalConfirmation from "@/components/other/ModalConfirmation.vue";
-import dayjs from "dayjs";
 import IconClickable from "@/components/other/IconClickable.vue";
+import dayjs from "dayjs";
 
 export default {
   components: {
@@ -275,25 +298,25 @@ export default {
       "decreaseProductFromCart",
       "checkCartFromServer",
       "emptyItems",
-      "setSaleTotalPrice"
+      "setSaleTotalPrice",
     ]),
 
-    enableEditSalePrice()
-    {
-      this.salePriceEditable=true;
+    enableEditSalePrice() {
+      this.salePriceEditable = true;
       this.editingValue = this.saleTotalPrice;
 
       this.$refs.editableInput.focus();
     },
-    saveSalePrice()
-    {
-      this.setSaleTotalPrice(this.editingValue)
-      this.salePriceEditable=false;
+    saveSalePrice() {
+      this.setSaleTotalPrice(this.editingValue);
+      this.salePriceEditable = false;
     },
 
-    getSaleTotalPrice()
-    {
-      return this.saleTotalPrice.toLocaleString("tr-TR", { minimumFractionDigits: 2, maximumFractionDigits: 2, })
+    getSaleTotalPrice() {
+      return this.saleTotalPrice.toLocaleString("tr-TR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
     },
 
     getCellValue(item, column) {
@@ -301,24 +324,18 @@ export default {
       const value = isProductKey ? item.product[name] : item[name];
 
       if (type === "price") {
-
-        if(name==="salePrice")
-        {
-          return (value).toLocaleString("tr-TR", {
+        if (name === "salePrice") {
+          return value.toLocaleString("tr-TR", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           });
         }
-
-
 
         return (value * item.amount).toLocaleString("tr-TR", {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         });
       }
-
-
 
       if (type === "date") {
         return dayjs(value).format("DD.MM.YYYY");
@@ -331,7 +348,6 @@ export default {
     this.checkCartFromServer();
   },
   mounted() {
-
     let tooltipTriggerList = [].slice.call(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
@@ -343,7 +359,6 @@ export default {
 </script>
 
 <style scoped>
-
 #clearBtn {
   transition: transform 0.1s;
 }

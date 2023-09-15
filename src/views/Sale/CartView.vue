@@ -6,77 +6,18 @@
 
   <CartProductTable />
 
-  <!-- <hr> -->
-  <h3>Sale Details</h3>
+  <div class="row mt-5">
+    <div class="col-md-6"><CartSaleDetails /></div>
 
-  <div class="form-group mb-3">
-    <label for="saleNotesTextArea">Sale Notes</label>
-    <textarea
-      class="form-control"
-      id="saleNotesTextArea"
-      rows="1"
-      v-model="invoiceDetails.saleNotes"
-    ></textarea>
-  </div>
-
-  <div class="col-md-6">
-    <div class="d-flex mb-3 align-items-center">
-      <label for="invoiceDate" class="me-2 flex-shrink-0" style="width: 120px"
-        >Invoice Date</label
-      >
-      <input
-        type="date"
-        class="form-control"
-        id="invoiceDate"
-        v-model="invoiceDetails.date"
-      />
-    </div>
-
-    <div class="d-flex mb-3 align-items-center">
-      <label for="deliveryDate" class="me-2 flex-shrink-0" style="width: 120px"
-        >Delivery Date</label
-      >
-      <input
-        type="date"
-        class="form-control"
-        id="deliveryDate"
-        v-model="invoiceDetails.deliveryDate"
-      />
-    </div>
-
-    <div class="d-flex mb-3 align-items-center">
-      <label for="invoiceNumber" class="me-2 flex-shrink-0" style="width: 120px"
-        >Invoice Number</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="invoiceNumber"
-        v-model="invoiceDetails.invoiceNumber"
-      />
-    </div>
-
-    <div class="d-flex mb-3 align-items-center">
-      <label
-        for="staffFullName"
-        class="me-2 flex-shrink-0 fw-bold"
-        style="width: 120px"
-        >Staff Full Name</label
-      >
-      <input
-        type="text"
-        class="form-control"
-        id="staffFullName"
-        v-model="invoiceDetails.staffFullName"
-        disabled
-      />
-    </div>
+    <div class="col-md-6 mt-4 mt-md-0"><CartCustomerDetails /></div>
   </div>
 </template>
 
 <script>
 import CartProductTable from "@/components/Sale/CartProductTable.vue";
 import BackButton from "@/components/other/BackButton.vue";
+import CartCustomerDetails from "@/components/Sale/CartCustomerDetails.vue";
+import CartSaleDetails from "@/components/Sale/CartSaleDetails.vue";
 
 export default {
   data() {
@@ -123,8 +64,10 @@ export default {
     };
   },
   components: {
-    CartProductTable,
     BackButton,
+    CartProductTable,
+    CartCustomerDetails,
+    CartSaleDetails,
   },
 };
 </script>

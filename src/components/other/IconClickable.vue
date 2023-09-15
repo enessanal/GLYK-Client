@@ -1,7 +1,7 @@
 <template>
   <i
-  data-bs-toggle="tooltip"
-  data-bs-placement="bottom"
+    data-bs-toggle="tooltip"
+    data-bs-placement="bottom"
     class="bi"
     :class="['bi-' + icon, 'text-' + color]"
     @click="call(param)"
@@ -13,7 +13,11 @@ export default {
   methods: {
     call(param) {
       this.$emit("call", param);
-      [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]')).map(function (tooltipTriggerEl) {bootstrap.Tooltip.getInstance(tooltipTriggerEl).hide();});
+      [].slice
+        .call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        .map(function (tooltipTriggerEl) {
+          bootstrap.Tooltip.getInstance(tooltipTriggerEl).hide();
+        });
     },
   },
   props: {
@@ -36,7 +40,7 @@ export default {
   },
   mounted() {
     let tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
     tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl);
