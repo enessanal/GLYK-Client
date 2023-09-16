@@ -59,6 +59,8 @@ function calculateSalePrices(state) {
 const state = {
   cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
   saleTotalPrice: JSON.parse(localStorage.getItem("saleTotalPrice")) || 0,
+
+  customerDetails: JSON.parse(localStorage.getItem("customerDetails")) || {},
 };
 
 const mutations = {
@@ -108,7 +110,6 @@ const mutations = {
     localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     calculateAutoSaleTotalPrice(state);
   },
-
   setSaleTotalPrice(state, price) {
     const totalLastPrice = (state.saleTotalPrice = state.cartItems.reduce(
       (accumulator, cartItem) => {
@@ -124,6 +125,15 @@ const mutations = {
       JSON.stringify(state.saleTotalPrice)
     );
     calculateSalePrices(state);
+  },
+
+  storeCustomerDetails(state, payload) {
+    state.customerDetails = payload;
+
+    localStorage.setItem(
+      "customerDetails",
+      JSON.stringify(state.customerDetails)
+    );
   },
 
   async checkCartFromServer(state) {
@@ -191,11 +201,17 @@ const actions = {
   setSaleTotalPrice({ commit }, price) {
     commit("setSaleTotalPrice", price);
   },
+  storeCustomerDetails({ commit }, payload) {
+    commit("storeCustomerDetails", payload);
+  },
 };
 
 const getters = {
   cartItems: (state) => state.cartItems,
   saleTotalPrice: (state) => state.saleTotalPrice,
+
+  customerDetails: (state) => state.customerDetails,
+
   cartItemCount: (state) => state.cartItems.length,
   getItemAmount: (state) => (product) => {
     const itemIndex = state.cartItems.findIndex(

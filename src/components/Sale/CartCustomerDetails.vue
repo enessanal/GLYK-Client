@@ -1,27 +1,37 @@
 <template>
-  <h3 class=""><i class="bi bi-receipt"></i> Customer Details</h3>
+  <h3><i class="bi bi-person-circle"></i> Customer Details</h3>
   <hr />
   <div class="row">
     <div class="col-md-6 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-calendar4-week"></i> Contract Date</label
+        ><i class="bi bi-calendar4-week"></i> Full Name</label
       >
       <input
         type="date"
         class="form-control"
-        v-model="form.contractDate"
+        v-model="form.fullName"
         :disabled="!isEditing"
       />
     </div>
 
-    <div class="col-md-6 mt-3 mt-md-0">
+    <div class="col-md-3 mt-3 mt-md-0">
+      <label class="form-label fw-bold"><i class="bi bi-123"></i> Code</label>
+      <input
+        type="text"
+        class="form-control"
+        v-model="form.code"
+        :disabled="!isEditing"
+      />
+    </div>
+
+    <div class="col-md-3 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-person-video"></i> Employee</label
+        ><i class="bi bi-person-vcard"></i> Identity Number</label
       >
       <input
         type="text"
         class="form-control"
-        v-model="form.employee"
+        v-model="form.tc"
         :disabled="!isEditing"
       />
     </div>
@@ -30,152 +40,125 @@
   <div class="row mt-md-3">
     <div class="col-md-6 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-cash"></i> Cash Payment</label
+        ><i class="bi bi-telephone"></i> Phone Number</label
       >
       <input
-        type="number"
-        class="form-control"
-        v-model="form.cashPayment"
+        type="text"
+        class="form-control fst-italic"
+        v-model="form.phoneNumber"
         :disabled="!isEditing"
       />
     </div>
 
     <div class="col-md-6 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-card-text"></i> Cash Details</label
+        ><i class="bi bi-telephone"></i> Contact Number</label
       >
       <input
         type="text"
         class="form-control fst-italic"
-        v-model="form.cashDetails"
+        v-model="form.contactNumber"
         :disabled="!isEditing"
       />
     </div>
   </div>
 
   <div class="row mt-md-3">
-    <div class="col-md-6 mt-3 mt-md-0">
+    <div class="col-md-12 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-credit-card"></i> Card Payment</label
+        ><i class="bi bi-house"></i> Address</label
       >
-      <input
-        type="number"
+      <textarea
         class="form-control"
-        v-model="form.cardPayment"
+        rows="1"
+        v-model="form.address"
         :disabled="!isEditing"
-      />
-    </div>
-
-    <div class="col-md-6 mt-3 mt-md-0">
-      <label class="form-label fw-bold"
-        ><i class="bi bi-card-text"></i> Card Details</label
-      >
-      <input
-        type="text"
-        class="form-control fst-italic"
-        v-model="form.cardDetails"
-        :disabled="!isEditing"
-      />
+      ></textarea>
     </div>
   </div>
 
   <div class="row mt-md-3">
-    <div class="col-md-6 mt-3 mt-md-0">
+    <div class="col-md-12 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-bank"></i> Credit Payment</label
+        ><i class="bi bi-house"></i> Delivery Address</label
       >
-      <input
-        type="number"
+      <textarea
         class="form-control"
-        v-model="form.creditPayment"
+        rows="1"
+        v-model="form.deliveryAddress"
         :disabled="!isEditing"
-      />
-    </div>
-
-    <div class="col-md-6 mt-3 mt-md-0">
-      <label class="form-label fw-bold"
-        ><i class="bi bi-card-text"></i> Credit Details</label
-      >
-      <input
-        type="text"
-        class="form-control fst-italic"
-        v-model="form.creditDetails"
-        :disabled="!isEditing"
-      />
+      ></textarea>
     </div>
   </div>
 
   <div class="row mt-md-3">
-    <div class="col-md-6 mt-3 mt-md-0">
+    <div class="col-md-12 mt-3 mt-md-0">
       <label class="form-label fw-bold"
-        ><i class="bi bi-arrow-left-right"></i> Transfer Payment</label
+        ><i class="bi bi-card-text"></i> Customer Note</label
       >
-      <input
-        type="number"
+      <textarea
         class="form-control"
-        v-model="form.transferPayment"
+        rows="1"
+        v-model="form.note"
         :disabled="!isEditing"
-      />
-    </div>
-
-    <div class="col-md-6 mt-3 mt-md-0">
-      <label class="form-label fw-bold"
-        ><i class="bi bi-card-text"></i> Transfer Details</label
-      >
-      <input
-        type="text"
-        class="form-control fst-italic"
-        v-model="form.transferDetails"
-        :disabled="!isEditing"
-      />
+      ></textarea>
     </div>
   </div>
+
+  <!--  phoneNumber: "555-123-4567",-->
+  <!--  contactNumber: "555-987-6543",-->
+  <!--  address: "123 Elm St, Block A, 4th Floor, Apt:5 Springfield/USA",-->
+  <!--  deliveryAddres: "123 Elm St, Block A, 4th Floor, Apt:5 Springfield/USA",-->
+  <!--  customerNotes: "Returning client. Previous purchase 2 years ago.",-->
+  <!--  -->
 
   <!-- Buttons -->
-  <div class="d-flex justify-content-end mt-3">
-    <button v-if="!isEditing" @click="edit" class="btn btn-primary me-2">
-      Edit
-    </button>
-    <button v-if="isEditing" @click="save" class="btn btn-success me-2">
-      Save
-    </button>
-    <button v-if="isEditing" @click="cancel" class="btn btn-danger me-2">
-      Cancel
-    </button>
-    <button v-if="isEditing" @click="clearForm" class="btn btn-secondary">
-      Reset
-    </button>
-  </div>
+  <CartEditButtonGroup
+    :hasText="true"
+    :is-editing="isEditing"
+    @edit="edit"
+    @save="save"
+    @clearForm="clearForm"
+    @cancel="cancel"
+  />
 </template>
 
 <script>
+import CartEditButtonGroup from "@/components/Sale/CartEditButtonGroup.vue";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
+  components: {
+    CartEditButtonGroup,
+  },
   data() {
     return {
       isEditing: false,
       form: {
-        contractDate: "",
-        employee: "",
-        cashPayment: "",
-        cashDetails: "",
-        cardPayment: "",
-        cardDetails: "",
-        creditPayment: "",
-        creditDetails: "",
-        transferPayment: "",
-        transferDetails: "",
+        fullName: "",
+        code: "",
+        tc: "",
+        phoneNumber: "",
+        contactNumber: "",
+        address: "",
+        deliveryAddress: "",
+        note: "",
       },
-      backupForm: {}, // Backup of form for the "Cancel" functionality
+      backupForm: {},
     };
   },
+  computed: {
+    ...mapGetters("cart", ["customerDetails"]),
+  },
   methods: {
+    ...mapActions("cart", ["storeCustomerDetails"]),
     edit() {
-      this.backupForm = { ...this.form }; // Shallow copy
+      this.backupForm = { ...this.form };
       this.isEditing = true;
     },
     save() {
       this.isEditing = false;
-      // Here you can send the data to the server or do whatever you need.
+      this.storeCustomerDetails(this.form);
     },
     cancel() {
       this.form = { ...this.backupForm };
@@ -187,35 +170,8 @@ export default {
       });
     },
   },
+  created() {
+    this.form = this.customerDetails;
+  },
 };
 </script>
-
-<!--<template>-->
-
-<!--<h3><i class="bi bi-person-vcard"></i> Customer Details</h3>-->
-<!--  <hr>-->
-<!--<div class="row">-->
-
-<!--  <div class="col-md-6">-->
-<!--    <label for="fullName" class="form-label fw-bold">Customer Full Name</label>-->
-<!--    <input type="text" class="form-control" id="fullName">-->
-<!--  </div>-->
-
-<!--  <div class="col-md-6">-->
-<!--    <label for="contractDate" class="form-label">Sözleşme Tarihi</label>-->
-<!--    <input type="date" class="form-control" id="sozlesmeTarihi" pattern="dd-mm-yyyy">-->
-<!--  </div>-->
-
-<!--  <div class="col-md-12">-->
-<!--    <label for="contractDate" class="form-label">Address</label>-->
-<!--    <input type="text" class="form-control" id="sozlesmeTarihi">-->
-<!--  </div>-->
-
-<!--  <div class="col-md-12">-->
-<!--    <label for="contractDate" class="form-label">Delivery Address</label>-->
-<!--    <input type="text" class="form-control" id="sozlesmeTarihi">-->
-<!--  </div>-->
-
-<!--</div>-->
-
-<!--</template>-->

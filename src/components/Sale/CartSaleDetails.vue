@@ -1,5 +1,5 @@
 <template>
-  <h3 class=""><i class="bi bi-receipt"></i> Sale Details</h3>
+  <h3><i class="bi bi-receipt"></i> Sale Details</h3>
   <hr />
   <div class="row">
     <div class="col-md-6 mt-3 mt-md-0">
@@ -132,28 +132,21 @@
   </div>
 
   <!-- Buttons -->
-  <div class="d-flex justify-content-end mt-3">
-    <button class="btn btn-primary me-2" v-if="!isEditing" @click="edit">
-      <IconClickable title="" color="white" icon="pencil-fill" />
-    </button>
-
-    <button class="btn btn-success me-2" v-if="isEditing" @click="save">
-      <IconClickable title="" color="white" icon="check-lg" />
-    </button>
-    <button class="btn btn-secondary me-2" v-if="isEditing" @click="clearForm">
-      <IconClickable title="" color="white" icon="trash" />
-    </button>
-    <button class="btn btn-danger" v-if="isEditing" @click="cancel">
-      <IconClickable title="" color="white" icon="x-lg" />
-    </button>
-  </div>
+  <CartEditButtonGroup
+    :hasText="true"
+    :is-editing="isEditing"
+    @edit="edit"
+    @save="save"
+    @clearForm="clearForm"
+    @cancel="cancel"
+  />
 </template>
 
 <script>
-import IconClickable from "@/components/other/IconClickable.vue";
+import CartEditButtonGroup from "@/components/Sale/CartEditButtonGroup.vue";
 
 export default {
-  components: { IconClickable },
+  components: { CartEditButtonGroup },
   data() {
     return {
       isEditing: false,
@@ -169,17 +162,16 @@ export default {
         transferPayment: "",
         transferDetails: "",
       },
-      backupForm: {}, // Backup of form for the "Cancel" functionality
+      backupForm: {},
     };
   },
   methods: {
     edit() {
-      this.backupForm = { ...this.form }; // Shallow copy
+      this.backupForm = { ...this.form };
       this.isEditing = true;
     },
     save() {
       this.isEditing = false;
-      // Here you can send the data to the server or do whatever you need.
     },
     cancel() {
       this.form = { ...this.backupForm };
